@@ -3,13 +3,26 @@ import tkinter as tk
 from PIL import Image, ImageTk
 from fer import FER
 import time
+from MI_question_generation import generate_questions
+from MI_speech_recognition import Speech_recognition
 
 class FaceRecognitionApp:
     def __init__(self, window, window_title):
         self.window = window
         self.window.title(window_title)
         
+        # Make the main window full-screen
+        self.window.attributes('-fullscreen', True)
+
         self.video_source = 0  # Primary webcam
+
+         # Create a navigation bar frame with a black shadow effect
+        self.nav_bar = tk.Frame(window, bd=2, relief=tk.RAISED, bg="black")
+        self.nav_bar.pack(side=tk.TOP, fill=tk.X)
+
+        # Create a close button on the right side of the navigation bar
+        self.close_button = tk.Button(self.nav_bar, text="     Close     ", command=self.close_window, bg="red", fg="white")
+        self.close_button.pack(side=tk.RIGHT, padx=10, pady=5)
         
         # Create a frame to display the video feed
         self.frame = tk.Frame(window)
@@ -22,10 +35,57 @@ class FaceRecognitionApp:
         # Create a label for warning message
         self.lbl_warning = tk.Label(window, text="", fg="red")
         self.lbl_warning.pack()
+
+        # Frame to get user input for job role
+        self.job_frame = tk.Frame(window)
+        self.job_frame.pack(side=tk.TOP, pady=10)
+        self.job_label = tk.Label(self.job_frame, text="Enter Job Role:", font=("Arial", 15))
+        self.job_label.pack(side=tk.LEFT)
+        self.job_entry = tk.Entry(self.job_frame, width=30, text="", font=("Arial", 15))
+        self.job_entry.pack(side=tk.LEFT)
+
+        # Frame to display questions
+        self.question_frame = tk.Frame(window)
+        self.question_frame.pack(side=tk.TOP, pady=10)
+        self.question_label = tk.Label(self.question_frame, text="Question:", font=("Arial", 15))
+        self.question_label.pack(side=tk.LEFT)
+        self.question_text = tk.StringVar()
+        self.question_text.set("............................?")
+        self.question_display = tk.Label(self.question_frame, textvariable=self.question_text, font=("Arial", 13))
+
+        # Frame to display answers with border
+        self.answer_frame = tk.Frame(window, bd=2, relief=tk.SOLID, width=400, height=300)
+        self.answer_frame.pack()
+
+        # Label for displaying "Answer:"
+        self.answer_label = tk.Label(self.answer_frame, text="Answer:")
+        self.answer_label.pack(side=tk.LEFT)
+
+        # StringVar to hold the answer text
+        self.answer_text = tk.StringVar()
+
+        # Label to display the answer text
+        self.answer_display = tk.Label(self.answer_frame, textvariable=self.answer_text)
+
+        # Create a frame for the buttons
+        self.button_frame = tk.Frame(window)
+        self.button_frame.pack(side=tk.BOTTOM, pady=50)
+
         
         # Create a button to start/stop recognition
-        self.btn_toggle = tk.Button(window, text="Start Recognition", command=self.toggle_recognition, bg="green", fg="white")
+        self.btn_toggle = tk.Button(self.button_frame, text="Start Recognition", command=self.toggle_recognition, bg="green", fg="white")
         self.btn_toggle.pack(side=tk.LEFT, padx=5, pady=5)
+
+         # Create a button to move to the next question
+        self.btn_next = tk.Button(self.button_frame, text="     Next     ", bg="green", fg="white")
+        self.btn_next.pack(side=tk.LEFT, padx=10)
+        self.btn_next.pack_forget()  # Initially hide the button
+
+        # Create a button for speech recognition
+        self.btn_speech_recognition = tk.Button(self.button_frame, text="  Answer Again  ", bg="blue", fg="white")
+        self.btn_speech_recognition.pack(side=tk.LEFT, padx=10)
+        self.btn_speech_recognition.pack_forget()  # Initially hide the button
+
         
         self.recognizing = False
         self.vid = None
@@ -116,6 +176,17 @@ class FaceRecognitionApp:
 
         print("Emotion Summary:", summary)
         self.emotion_accumulator = []
+    
+
+    def close_window(self):
+        if self.recognizing:
+            # If recognition is active, ask for confirmation before closing
+            response = messagebox.askyesno("Close Application", "You are currently in the interview. Are you sure you want to exit the application?")
+            if response:
+                self.window.destroy()
+        else:
+            # If recognition is not active, close the application directly
+            self.window.destroy()
 
 # Create a window and pass it to the FaceRecognitionApp class
 root = tk.Tk()
