@@ -1,17 +1,30 @@
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify, request, g
+import google.generativeai as genai
 
 app = Flask(__name__)
 
-@app.route('/api/call-function', methods=['POST'])
-def call_function():
-    data = request.get_json()
-    # Here, you can call your Python function
-    result = my_python_function(data)
-    return jsonify(result=result)
+# Initialize the Generative AI model and chat session globally
+gemini_api_key = 'AIzaSyB2DpQylxNaQLbwW0hkxSwTXi1M3OrOJyo'
+genai.configure(api_key=gemini_api_key)
+model = genai.GenerativeModel('gemini-pro')
+chat = model.start_chat(history=[])
 
-def my_python_function(data):
-    # Your function logic here
-    return f"Received data: {data}"
+@app.before_request
+def before_request():
+    g.chat = chat
+
+@app.route('/')
+def index():
+    return 'Generative AI Chat API'
+
+@app.route('/ask', methods=['POST'])
+def ask_question():
+    question = request.json.get('question')
+    if not question:
+        return jsonify({'error': 'No question provided'}), 400
+
+    response = g.chat.ask(question)
+    return jsonify({'response': response})
 
 if __name__ == '__main__':
     app.run(debug=True)
