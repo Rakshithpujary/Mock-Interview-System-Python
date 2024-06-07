@@ -1,3 +1,142 @@
-.context-div{
-    background-image: '/client/public/assets/homePagePic.jpg';
+.Home-div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
 }
+
+.header-div {
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: black; 
+  }
+
+  .header-text{
+    background:linear-gradient(to right, orange,white);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+  }
+.context-div {
+    width: 100%;
+    height: 80vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:20px
+
+}
+
+.context-div img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.context-div h1 {
+    z-index: 1;
+    bottom: 80px;
+    position: relative;
+    width: 900px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.context-div button {
+    width: 300px;
+    height: 70px;
+    border-radius: 5%;
+    border: none;
+    color: rgb(0, 0, 0);
+    background: orange;
+    position: relative;
+    font-size: 20px;
+    top:90px;
+}
+.joblabel{
+    font-size: 24px;
+    font-weight: bold;
+}
+.jobinput {
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    padding: 5px;
+  }
+
+  /* Media Queries for Responsiveness */
+
+/* For tablets and small screens */
+@media (max-width: 768px) {
+    .header-div {
+        height: 20vh;
+    }
+
+    .header-text {
+        font-size: 1.5em;
+    }
+
+    .context-div {
+        height: auto;
+        padding: 10px;
+    }
+
+    .context-div h1 {
+        font-size: 1.5em;
+    }
+
+    .context-div button {
+        width: 90%;
+        font-size: 1em;
+        height: 50px;
+    }
+
+    .jobinput {
+        width: 90%;
+    }
+}
+
+/* For mobile phones */
+@media (max-width: 480px) {
+    .header-div {
+        height: 10vh;
+    }
+
+    .header-text {
+        font-size: 1.2em;
+    }
+
+    .context-div {
+        height: auto;
+        padding: 5px;
+    }
+
+    .context-div h1 {
+        font-size: 1.2em;
+    }
+
+    .context-div button {
+        width: 100%;
+        font-size: 1em;
+        height: 40px;
+    }
+
+    .jobinput {
+        width: 100%;
+    }
+}
+
