@@ -46,7 +46,6 @@ const Testing = () => {
 
   function handleStopListen() {
     SpeechRecognition.stopListening();
-    console.log(transcript.length)
     if(transcript.length === 0) {
       !toastOn&& toast.error("Please can u repeat again!", {...toastErrorStyle(), autoClose: 1500 });
       setToastOn(true);
@@ -61,7 +60,7 @@ const Testing = () => {
       </button>
       <button disabled={!listening} onClick={handleStopListen}>Stop</button>
       { !listening & transcript.length !==0 ? 
-          <button onClick={resetTranscript}>Reset</button>
+          <button onClick={resetTranscript}>Re-record</button>
         : null
       }
       <p>{transcript}</p>

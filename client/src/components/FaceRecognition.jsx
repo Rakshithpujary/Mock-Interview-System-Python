@@ -45,7 +45,6 @@ const WebcamDemo = () => {
       }
     }
   }, [facesDetected, webcamRef, toastDisplayed]);
-  
 
   useEffect(() => {
     // Start capturing frames every 20 seconds
