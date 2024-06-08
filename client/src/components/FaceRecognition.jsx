@@ -4,8 +4,8 @@ import { CameraOptions, useFaceDetection } from 'react-use-face-detection';
 import * as FaceDetection from '@mediapipe/face_detection';
 import { Camera } from '@mediapipe/camera_utils';
 import { toast } from 'react-toastify';
-import { toastErrorStyle } from '../components/utils/toastStyle';
-import { GlobalContext } from '../components/utils/GlobalState';
+import { toastErrorStyle } from './utils/toastStyle';
+import { GlobalContext } from './utils/GlobalState';
 
 const width = 500;
 const height = 500;
@@ -58,7 +58,7 @@ const WebcamDemo = () => {
           }
         }
       }
-    }, 1000);
+    }, 3000);
 
     // Clean up interval on component unmount
     return () => clearInterval(intervalIdRef.current);

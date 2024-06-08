@@ -59,22 +59,12 @@ def get_questions(self, context_text, call_count):
 
         # Remove specific text occurrences
         text_to_remove = [
-                "**Disclaimer:**",
-                "MCQs:",
-                "**MCQs:**",
-                "MCQ",
-                "Note:",
-                "Note",
-                "NOTE:",
-                "NOTE",
-                "**Note:**",
-                "**NOTE:**",
-                "**Disclaimer:**",
-                "Disclaimer:",
-                "Disclaimer",
-                "DISCLAIMER",
-                "DISCLAIMER:",
+                "**Disclaimer:**","MCQs:","**MCQs:**","MCQ",
+                "Note:","Note","NOTE:","NOTE","**Note:**",
+                "**NOTE:**","**Disclaimer:**","Disclaimer:",
+                "Disclaimer","DISCLAIMER","DISCLAIMER:",
         ]
+
         cleaned_lines = [line.replace(text, "") for line in lines for text in text_to_remove]
 
         # Format the questions

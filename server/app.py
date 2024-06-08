@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, g
 import google.generativeai as genai
+from functions.question_generation import generate_questions
 
 app = Flask(__name__)
 
@@ -13,18 +14,15 @@ chat = model.start_chat(history=[])
 def before_request():
     g.chat = chat
 
-@app.route('/')
-def index():
-    return 'Generative AI Chat API'
-
-@app.route('/ask', methods=['POST'])
+@app.route('/get_questions', methods=['POST'])
 def ask_question():
-    question = request.json.get('question')
-    if not question:
-        return jsonify({'error': 'No question provided'}), 400
+    context = request.json.get('context')
+    response = generate_questions(context)
 
-    response = g.chat.ask(question)
-    return jsonify({'response': response})
+    if not isinstance(response, list):
+        return jsonify({'response': response}), 400
+
+    return jsonify({'response': response}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)

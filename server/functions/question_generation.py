@@ -1,0 +1,100 @@
+import google.generativeai as genai
+import time
+from flask import g
+
+def format_text(lines):
+    questions = []
+    question_buffer = ""
+
+    for line in lines:
+        if line.strip():  # Check if line is not empty
+            if line.startswith(tuple(str(i) for i in range(1, 11))) and line.rstrip().endswith("?"):
+                if question_buffer:  # If there's a question in buffer, append it
+                    questions.append(question_buffer.strip())
+                question_buffer = line.strip() + " "  # Start new question buffer with current line
+            else:
+                question_buffer += line.strip() + " "  # Append line to current question buffer
+
+    if question_buffer:  # Append the last question if there's any remaining in buffer
+        questions.append(question_buffer.strip())
+
+    return questions
+
+def get_questions(context_text,call_count):
+  try:
+    print("get_questions Instance started = "+ str(call_count))
+
+    msg = ""
+
+    if call_count <= 1:
+        msg = (f"Job Title: {context_text}\n\n"
+            "Generate 5 interview questions based on the job title provided. "
+            "If the job title is inappropriate, return error code 400. "
+            "Only write the questions, each ending with a question mark.")
+
+    elif 2 >= call_count <= 3:
+        msg = (f"Job Title: {context_text}\n\n"
+            "Generate exactly 5 interview questions based on the job title provided. "
+            "If the job title is inappropriate, return error code 400. "
+            "Only write the questions, each ending with a question mark. "
+            "Do not include any additional text.")
+
+    else:
+        return "Something went wrong. Please try again."
+
+    # call gemini
+    response = g.chat.send_message(msg)
+    raw_text=response.text
+    print("Raw Text = \n",raw_text)
+
+    if "400" in raw_text:
+        return "Inappropriate job title. Please provide a valid job title."
+
+    lines=raw_text.split("\n")
+
+    # Remove specific text occurrences ( Need to change )
+    text_to_remove = ["**Disclaimer:**","MCQs:","**MCQs:**","MCQ","Note:","Note","NOTE:","NOTE","**Note:**","**NOTE:**","**Disclaimer:**","Disclaimer:","Disclaimer",
+                      "DISCLAIMER","DISCLAIMER:","These MCQs are for illustrative purposes only and should not be considered accurate or up-to-date. For the most current information, please refer to reputable news sources.",
+                      "They also allow the interviewer to gauge the candidate's enthusiasm for the position and the company."]
+
+    cleaned_lines = []
+    for line in lines:
+        for text in text_to_remove:
+            line = line.replace(text, "")
+        cleaned_lines.append(line)
+
+    return cleaned_lines
+  except Exception as e:
+    print(f"Error occurred: {e}")
+    return "get_questions error occured"
+
+def generate_questions(context_text):
+
+    no_questions = 0
+    unformatted_qts = []
+    formatted_qts = []
+
+    call_count = 1
+
+    # keep repeating untill u get EXACTLY 5 questions
+    while no_questions != 5:
+
+        # generate questions
+        unformatted_qts=get_questions(context_text,call_count)
+        call_count += 1
+
+        if not isinstance(unformatted_qts, list):
+            return unformatted_qts
+
+        # format the questions properly and store each questions in list
+        formatted_qts = format_text(unformatted_qts)
+        no_questions = len(formatted_qts)
+
+        # print("Length = ",no_questions)
+        if no_questions != 5:
+            time.sleep(5)
+
+    for question in formatted_qts:
+        print("one question = ",question)
+
+    return formatted_qts

@@ -1,0 +1,34 @@
+.interview-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .videoDisplay-div {
+    width: 600px;
+    height: 300px;
+    margin-top: 50px;
+    background-color: blueviolet;
+  }
+  .questionDisplay-div{
+    width: 600px;
+    height: 100px;
+    background-color: blue;
+  }
+  .answerDisplay-div{
+    width: 600px;
+    height: 100px;
+    background-color: rgb(29, 79, 43);
+  }
+  .buttonDisplay-div{
+    width: 600px;
+    height: 100px;
+    background-color: brown;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
