@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import InterviewPage from './pages/InterviewPage'; // Import the InterviewPage component
 import { GlobalProvider } from './components/utils/GlobalState';
-import Testing from './pages/Testing';
+import Testing from './components/Testing';
 
 function App() {
   return (

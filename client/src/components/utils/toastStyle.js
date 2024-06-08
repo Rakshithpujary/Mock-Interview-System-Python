@@ -3,7 +3,7 @@ import { FcApproval, FcCancel } from "react-icons/fc";
 export const toastSuccessStyle = () => {
   return {
     position: 'top-center',
-    autoClose: 2500,
+    autoClose: 1500,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -32,7 +32,7 @@ export const toastSuccessStyle = () => {
 export const toastErrorStyle = () => {
   return {
     position: 'top-center',
-    autoClose: 2500,
+    autoClose: 1500,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,

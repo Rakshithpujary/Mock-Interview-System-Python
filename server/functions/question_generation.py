@@ -20,24 +20,24 @@ def format_text(lines):
 
     return questions
 
-def get_questions(context_text,call_count):
+def get_questions(job_title,call_count):
   try:
-    print("get_questions Instance started = "+ str(call_count))
+    # print("get_questions Instance started = "+ str(call_count))
 
     msg = ""
 
     if call_count <= 1:
-        msg = (f"Job Title: {context_text}\n\n"
+        msg = (f"Job Title: {job_title}\n\n"
             "Generate 5 interview questions based on the job title provided. "
-            "If the job title is inappropriate, return error code 400. "
-            "Only write the questions, each ending with a question mark.")
+            "IMPORTANT If the job title is inappropriate, return error code 400. "
+            "IMPORTANT Only write the questions, IMPORTANT each ending with a question mark.")
 
     elif 2 >= call_count <= 3:
-        msg = (f"Job Title: {context_text}\n\n"
+        msg = (f"Job Title: {job_title}\n\n"
             "Generate exactly 5 interview questions based on the job title provided. "
-            "If the job title is inappropriate, return error code 400. "
-            "Only write the questions, each ending with a question mark. "
-            "Do not include any additional text.")
+            "IMPORTANT If the job title is inappropriate, return error code 400. "
+            "IMPORTANT Only write the questions, each ending with a question mark. "
+            "IMPORTANT Please Do not include any additional text.", "IMPORTANT Please ensure that each question ends with a Question Mark")
 
     else:
         return "Something went wrong. Please try again."
@@ -45,10 +45,10 @@ def get_questions(context_text,call_count):
     # call gemini
     response = g.chat.send_message(msg)
     raw_text=response.text
-    print("Raw Text = \n",raw_text)
+    # print("Raw Text = \n",raw_text)
 
     if "400" in raw_text:
-        return "Inappropriate job title. Please provide a valid job title."
+        return "Please provide a valid job title."
 
     lines=raw_text.split("\n")
 
@@ -68,7 +68,7 @@ def get_questions(context_text,call_count):
     print(f"Error occurred: {e}")
     return "get_questions error occured"
 
-def generate_questions(context_text):
+def generate_questions(job_title):
 
     no_questions = 0
     unformatted_qts = []
@@ -80,7 +80,7 @@ def generate_questions(context_text):
     while no_questions != 5:
 
         # generate questions
-        unformatted_qts=get_questions(context_text,call_count)
+        unformatted_qts=get_questions(job_title,call_count)
         call_count += 1
 
         if not isinstance(unformatted_qts, list):
@@ -94,7 +94,7 @@ def generate_questions(context_text):
         if no_questions != 5:
             time.sleep(5)
 
-    for question in formatted_qts:
-        print("one question = ",question)
+    # for question in formatted_qts:
+    #     print("one question = ",question)
 
     return formatted_qts
