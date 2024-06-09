@@ -54,7 +54,7 @@ const FaceRecognition = () => {
           }
         }
       }
-    }, 3000);
+    }, 5000);
 
     // Clean up interval on component unmount
     return () => clearInterval(intervalIdRef.current);

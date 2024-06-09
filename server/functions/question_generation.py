@@ -30,14 +30,16 @@ def get_questions(job_title,call_count):
         msg = (f"Job Title: {job_title}\n\n"
             "Generate 5 interview questions based on the job title provided. "
             "IMPORTANT If the job title is inappropriate, return error code 400. "
-            "IMPORTANT Only write the questions, IMPORTANT each ending with a question mark.")
+            "IMPORTANT Only write the questions, IMPORTANT each ending with a question mark.",
+            "IMPORTANT DONT WRITE EXCEPT THE QUESTIONS, NOT EVEN THE TITLE")
 
     elif 2 >= call_count <= 3:
         msg = (f"Job Title: {job_title}\n\n"
             "Generate exactly 5 interview questions based on the job title provided. "
             "IMPORTANT If the job title is inappropriate, return error code 400. "
             "IMPORTANT Only write the questions, each ending with a question mark. "
-            "IMPORTANT Please Do not include any additional text.", "IMPORTANT Please ensure that each question ends with a Question Mark")
+            "IMPORTANT Please Do not include any additional text.", "IMPORTANT Please ensure that each question ends with a Question Mark",
+            "IMPORTANT DONT WRITE EXCEPT THE QUESTIONS, NOT EVEN THE TITLE")
 
     else:
         return "Something went wrong. Please try again."
@@ -55,7 +57,8 @@ def get_questions(job_title,call_count):
     # Remove specific text occurrences ( Need to change )
     text_to_remove = ["**Disclaimer:**","MCQs:","**MCQs:**","MCQ","Note:","Note","NOTE:","NOTE","**Note:**","**NOTE:**","**Disclaimer:**","Disclaimer:","Disclaimer",
                       "DISCLAIMER","DISCLAIMER:","These MCQs are for illustrative purposes only and should not be considered accurate or up-to-date. For the most current information, please refer to reputable news sources.",
-                      "They also allow the interviewer to gauge the candidate's enthusiasm for the position and the company."]
+                      "They also allow the interviewer to gauge the candidate's enthusiasm for the position and the company.",
+                      "**Job Title: developer**","Job Title: developer"]
 
     cleaned_lines = []
     for line in lines:
