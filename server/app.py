@@ -43,6 +43,7 @@ def analyze_emotions():
 
         return jsonify({'response': response})
     except Exception as e:
+        print(f"Error occurred while generating emotion analysis data: {e}")
         return jsonify({'response': "Something went wrong"}), 400
 
 @app.route('/get-review', methods=['POST'])

@@ -24,33 +24,40 @@ def get_questions(job_title,call_count):
   try:
     # print("get_questions Instance started = "+ str(call_count))
 
-    msg = ""
+    # Check if passed job title is an valid job title
+    check_valid_msg = (f"Job Title : {job_title}\n\n"
+                    "Please check if this is an valid or appropriate job title for an mock interview or not,"
+                    " if not then return error or no or not valid")
 
+    check_valid_response = g.chat.send_message(check_valid_msg)
+    checkValid = check_valid_response.text.lower()
+    keywords = ["error", "invalid", "no", "not", "not valid"]
+    
+    if any(keyword in checkValid for keyword in keywords):
+        return "Please provide a valid job title."
+
+    msg = ""
     if call_count <= 1:
         msg = (f"Job Title: {job_title}\n\n"
             "Generate 5 interview questions based on the job title provided. "
-            "IMPORTANT If the job title is inappropriate, return error code 400. "
-            "IMPORTANT Only write the questions, IMPORTANT each ending with a question mark.",
+            "\nIMPORTANT PLEASE FOLLOW THE BELOW RULES\n"
+            "IMPORTANT Write only the questions, IMPORTANT ensure that every question ends with a question mark symbol",
             "IMPORTANT DONT WRITE EXCEPT THE QUESTIONS, NOT EVEN THE TITLE")
 
     elif 2 >= call_count <= 3:
         msg = (f"Job Title: {job_title}\n\n"
             "Generate exactly 5 interview questions based on the job title provided. "
-            "IMPORTANT If the job title is inappropriate, return error code 400. "
-            "IMPORTANT Only write the questions, each ending with a question mark. "
-            "IMPORTANT Please Do not include any additional text.", "IMPORTANT Please ensure that each question ends with a Question Mark",
-            "IMPORTANT DONT WRITE EXCEPT THE QUESTIONS, NOT EVEN THE TITLE")
+            "\nIMPORTANT PLEASE FOLLOW THE BELOW RULES\n"
+            "IMPORTANT Write only the questions, ensure that every question ends with a question mark symbol"
+            "IMPORTANT Please Do not include any additional text.", "\nIMPORTANT Please ensure that each question ends with a Question Mark symbol",
+            "IMPORTANT DONT WRITE ANYTHING EXCEPT THE QUESTIONS, NOT EVEN THE TITLE")
 
     else:
         return "Something went wrong. Please try again."
 
-    # call gemini
     response = g.chat.send_message(msg)
     raw_text=response.text
     # print("Raw Text = \n",raw_text)
-
-    if "400" in raw_text:
-        return "Please provide a valid job title."
 
     lines=raw_text.split("\n")
 
