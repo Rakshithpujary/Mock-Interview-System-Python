@@ -28,6 +28,23 @@ def detect_emotions(frame):
     emotions = emotion_detector.detect_emotions(frame)
     return emotions
 
+def calculate_average_emotions(emotion_data):
+    num_frames = len(emotion_data)
+    emotion_sum = {}
+    
+    # Calculate sum of emotions
+    for frame in emotion_data:
+        for key, value in frame.items():
+            emotion_sum[key] = emotion_sum.get(key, 0) + value
+
+    # Calculate average of emotions
+    average_emotions = {key: value / num_frames for key, value in emotion_sum.items()}
+    
+    # Round the values to three decimal points
+    final_emotions = {key: round(value, 3) for key, value in average_emotions.items()}
+    
+    return final_emotions
+
 def analyze_fun(frames):
     emotion_data = []
 
@@ -38,4 +55,5 @@ def analyze_fun(frames):
         if emotions:
             emotion_data.append(emotions[0]['emotions'])
 
-    return emotion_data
+    average_emotions = calculate_average_emotions(emotion_data)
+    return average_emotions

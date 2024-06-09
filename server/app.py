@@ -29,7 +29,7 @@ def ask_questions():
             return jsonify({'response': response}), 400
     except Exception as e:
         return jsonify({'response': "Something went wrong"}), 400
-
+        
     return jsonify({'response': response}), 200
 
 @app.route('/analyze-emotions', methods=['POST'])
@@ -40,7 +40,6 @@ def analyze_emotions():
         # print("\n\n\n Here =========== ,", frames, "\n\n\n")
         response = analyze_fun(frames)
     except Exception as e:
-        print("\n\n\nError here = ", e)
         return jsonify({'response': "Something went wrong"}), 400
     
     return jsonify({'response': response})
