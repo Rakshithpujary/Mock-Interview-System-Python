@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
-const Testing = () => {
+const AnswerQuestion = () => {
   const [toastOn, setToastOn] = useState(false);
   const {
     transcript,
@@ -27,6 +27,10 @@ const Testing = () => {
   }, [toastOn]);
 
   function handleStartListen() {
+    if(transcript.length !== 0){
+      resetTranscript()
+    }
+
     if (!browserSupportsSpeechRecognition) {
       !toastOn&& toast.error("Please use a different browser to enable speech recognition", {...toastErrorStyle(), autoClose: 1500 });
       setToastOn(true);
@@ -52,19 +56,22 @@ const Testing = () => {
     }
   }
 
+  // function handle
+
   return (
     <div>
-      <p>Microphone: {listening ? 'on' : 'off'}</p>
-      <button onClick={handleStartListen} disabled={toastOn}>
-        { listening ? <>Recording <FontAwesomeIcon icon={faSpinner} spin /></>: 'Answer'}
+      {/* <p>Microphone: {listening ? 'on' : 'off'}</p> */}
+      <button onClick={handleStartListen} disabled={toastOn || listening}>
+        { listening ? <>Recording <FontAwesomeIcon icon={faSpinner} spin /></>: transcript.length !==0 ? 'Re-record' : 'Answer'}
       </button>
       <button disabled={!listening} onClick={handleStopListen}>Stop</button>
-      { !listening & transcript.length !==0 ? 
+      {/* { !listening & transcript.length !==0 ? 
           <button onClick={resetTranscript}>Re-record</button>
         : null
-      }
+      } */}
       <p>{transcript}</p>
     </div>
   );
 };
-export default Testing;
+
+export default AnswerQuestion;
