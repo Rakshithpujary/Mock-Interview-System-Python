@@ -1,117 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Webcam from 'react-webcam';
-import { CameraOptions, useFaceDetection } from 'react-use-face-detection';
-import * as FaceDetection from '@mediapipe/face_detection';
-import { Camera } from '@mediapipe/camera_utils';
-import { toast } from 'react-toastify';
-import { toastErrorStyle } from './utils/toastStyle';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import Markdown from 'react-markdown'
 
-const width = 500;
-const height = 500;
+const Testing = () => {
 
-const FaceRecognition = () => {
-  const [capturedFrames, setCapturedFrames] = useState([]);
-  const [emotionData, setEmotionData] = useState([]);
-  const intervalIdRef = useRef(null);
-  const [toastDisplayed, setToastDisplayed] = useState(false);
-
-  const { webcamRef, isLoading, detected, facesDetected } = useFaceDetection({
-    faceDetectionOptions: {
-      model: 'short',
-    },
-    faceDetection: new FaceDetection.FaceDetection({
-      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_detection/${file}`,
-    }),
-    camera: ({ mediaSrc, onFrame }: CameraOptions) =>
-      new Camera(mediaSrc, {
-        onFrame,
-        width,
-        height,
-      }),
-  });
+  const [content, setContent] = useState("");
 
   useEffect(() => {
-    if (!isLoading && !toastDisplayed) {
-      if (Number(facesDetected) === 0) {
-        toast.error("No face detected!", { ...toastErrorStyle(), autoClose: 2500, onClose: () => setToastDisplayed(false) });
-        setToastDisplayed(true);
-      } else if (Number(facesDetected) > 1) {
-        toast.error("Multiple faces have been detected", { ...toastErrorStyle(), autoClose: 2500, onClose: () => setToastDisplayed(false) });
-        setToastDisplayed(true);
-      }
-    }
-  }, [facesDetected, webcamRef, toastDisplayed]);
-
-  useEffect(() => {
-    // Start capturing frames every 3 seconds
-    intervalIdRef.current = setInterval(() => {
-      if (webcamRef.current) {
-        if (Number(facesDetected) === 1) {
-          const screenshot = webcamRef.current.getScreenshot();
-          if (screenshot) {
-            setCapturedFrames(prevFrames => [...prevFrames, screenshot]);
-          }
-        }
-      }
-    }, 5000);
-
-    // Clean up interval on component unmount
-    return () => clearInterval(intervalIdRef.current);
-  }, [webcamRef, facesDetected]);
-
-  const sendFramesToServer = async () => {
-    try {
-      // const decodedFrames = await Promise.all(
-      //   capturedFrames.map(async frame => {
-      //     const response = await fetch(frame);
-      //     const blob = await response.blob();
-      //     return new Promise(resolve => {
-      //       const reader = new FileReader();
-      //       reader.onloadend = () => {
-      //         resolve(reader.result);
-      //       };
-      //       reader.readAsDataURL(blob);
-      //     });
-      //   })
-      // );
-
-      const response = await axios.post('http://localhost:5000/analyze-emotions', {
-        frames: capturedFrames
-      });
-      setEmotionData(response.data.response);
-    } catch (error) {
-      console.error('Error sending frames to server:', error);
-    }
-  };
+    setContent(`> You have a solid understanding of Java programming and its principles. Your experience in core Java concepts, advanced features, and object-oriented programming principles is commendable. Your approach to designing and implementing a Java application is well-structured, and your proficiency in Java frameworks and libraries is impressive. You have successfully overcome technical obstacles and delivered successful solutions in challenging Java development projects.\n> \n> **Emotion Analysis:**\n> \n> Your responses exhibit a balanced emotional state. While you express some frustration and disappointment in certain situations, you quickly recover and maintain a positive outlook. Your ability to regulate your emotions is a valuable asset in a fast-paced and demanding work environment. \n> \n> **Questions & Answers for Improvement:**\n> \n> * **Q:** How do you stay updated with the latest advancements and best practices in Java programming?\n> * **A:** Besides attending conferences and workshops, I subscribe to technical blogs and forums and actively participate in online communities to stay abreast of the latest trends and best practices in Java programming.\n> \n> * **Q:** How do you handle working on multiple projects simultaneously, and how do you prioritize tasks effectively?\n> * **A:** I use project management tools and techniques to organize my work and track my progress. I also collaborate closely with my team to ensure that tasks are prioritized and completed efficiently.\n> \n> * **Q:** How do you implement code reviews and testing in your development process, and how do you ensure code quality?\n> * **A:** I follow a rigorous code review process involving peer reviews and automated testing. I utilize unit testing, integration testing, and performance testing to ensure the quality and reliability of my code.\n> \n> * **Q:** How do you approach debugging and troubleshooting complex Java applications?\n> * **A:** I use a combination of logging, debugging tools, and code analysis to identify and resolve issues in complex Java applications. I also leverage the support of my team and the Java community to seek assistance when needed.\n> \n> * **Q:** How do you stay motivated and engaged in your work, especially during challenging times?\n> * **A:** I maintain a positive attitude and focus on the impact of my work. I actively seek out opportunities for growth and learning, and I am supported by a great team and mentors who provide guidance and encouragement.`);
+  }, []);
 
   return (
     <div>
-      <h1>Face Recognition</h1>
-      <p>{`Loading: ${isLoading}`}</p>
-      <p>{`Face Detected: ${detected}`}</p>
-      <p>{`Number of faces detected: ${facesDetected}`}</p>
-      <Webcam
-        ref={webcamRef}
-        screenshotFormat="image/jpeg"
-        forceScreenshotSourceSize
-        style={{
-          height,
-          width,
-          position: 'absolute'
-        }}
-      />
-      <div>
-        <h2>Captured Frames</h2>
-        {capturedFrames.map((frame, index) => (
-          <img key={index} src={frame} alt={`Captured frame ${index + 1}`} style={{ width: '100px', margin: '10px' }} />
-        ))}
-        <button onClick={sendFramesToServer}>Analyze Emotions</button>
-        <h2>Emotion Data</h2>
-        <pre>{JSON.stringify(emotionData, null, 2)}</pre>
-      </div>
+        <Markdown>{content}</Markdown>
     </div>
   );
 };
 
-export default FaceRecognition;
+export default Testing;
