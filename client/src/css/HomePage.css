@@ -1,38 +1,49 @@
+/* Ensure the body and html elements take up the full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Parent container must have a height set for children to use percentage heights */
 .Home-div {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-self: center;
+    align-items: center;
 }
 
 .header-div {
     width: 100%;
-    height: 20vh;
+    height: 20vh; /* Set height relative to the viewport */
     display: flex;
     justify-content: center;
     align-items: center;
-    background: black; 
-  }
+    background: black;
+}
 
-  .header-text{
-    background:linear-gradient(to right, orange,white);
+.header-text {
+    background: linear-gradient(to right, orange, white);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-fill-color: transparent;
-  }
+    font-size: 30px;
+    text-align: center;
+}
+
 .context-div {
     width: 100%;
-    height: 80vh;
+    height: 80vh; /* Set height relative to the viewport */
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap:20px
-
+    gap: 20px;
+    overflow: hidden; /* Ensure the pseudo-element does not cause overflow */
 }
 
 .context-div img {
@@ -41,102 +52,86 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    z-index: -1;
+    background-size: cover; /* Ensure the image covers the entire area */
+    z-index: -1; /* Place it behind the content */
 }
 
 .context-div h1 {
     z-index: 1;
-    bottom: 80px;
     position: relative;
-    width: 900px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 90%; /* Use percentage for width */
+    max-width: 60%;
+    text-align: center;
     color: white;
+    font-size: 200%;
 }
 
 .context-div button {
-    width: 300px;
-    height: 70px;
+    width: 15%;
+    height: 10%;
     border-radius: 5%;
     border: none;
-    color: rgb(0, 0, 0);
+    color: black;
     background: orange;
+    font-size: 15px;
     position: relative;
-    font-size: 20px;
-    top:90px;
+    margin-top: 10px;
 }
-.joblabel{
-    font-size: 24px;
-    font-weight: bold;
-}
-.jobinput {
-    width: 300px;
-    height: 40px;
-    border-radius: 5px;
-    padding: 5px;
-  }
 
-  /* Media Queries for Responsiveness */
+.joblabel {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.jobinput {
+    width: 20%;
+    height: 5%;
+    border-radius: 5px;
+    padding: 0.5%;
+}
+
+/* Media Queries for Responsiveness */
 
 /* For tablets and small screens */
 @media (max-width: 768px) {
-    .header-div {
-        height: 20vh;
-    }
-
     .header-text {
-        font-size: 1.5em;
-    }
-
-    .context-div {
-        height: auto;
-        padding: 10px;
+        font-size: 30px;
     }
 
     .context-div h1 {
-        font-size: 1.5em;
+        font-size: 24px;
     }
 
     .context-div button {
-        width: 90%;
-        font-size: 1em;
-        height: 50px;
+        width: 30%;
+        font-size: 20px;
+        height: 8%;
     }
 
     .jobinput {
-        width: 90%;
+        width: 40%;
     }
 }
 
 /* For mobile phones */
 @media (max-width: 480px) {
-    .header-div {
-        height: 10vh;
-    }
-
     .header-text {
-        font-size: 1.2em;
-    }
-
-    .context-div {
-        height: auto;
-        padding: 5px;
+        font-size: 24px;
     }
 
     .context-div h1 {
-        font-size: 1.2em;
+        font-size: 18px;
     }
 
     .context-div button {
-        width: 100%;
-        font-size: 1em;
-        height: 40px;
+        width: 50%;
+        font-size: 15px;
+        height: 7%;
     }
 
     .jobinput {
-        width: 100%;
+        width: 90%;
+        
     }
 }
-

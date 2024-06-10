@@ -19,7 +19,7 @@ function HomePage() {
     setJobInput(inputValue);
 
     // Check if input matches the regex pattern
-    setIsValidInput(/^[^\d\W][a-zA-Z\s]*$/.test(inputValue));
+    setIsValidInput(/^[a-zA-Z\s]{1,25}$/.test(inputValue));
   };
 
   const handleStartInterviewClick = () => {
@@ -30,7 +30,7 @@ function HomePage() {
       
     } else {
       // Inform the user that the input is invalid
-      alert("Please enter a valid job role.");
+      alert("Please enter vaild job title or limit is extended");
     }
   };
 
@@ -50,9 +50,8 @@ function HomePage() {
         {isStarted && (
           <>
             <label className='joblabel'>Enter job role</label>
-            <input className='jobinput' type='text' value={jobInput} onChange={handleInputChange} />
+            <input className='jobinput' type='text' value={jobInput} onChange={handleInputChange} maxLength={25}/>
             <button className='StartInterviewButton' onClick={handleStartInterviewClick}>Start your interview</button>
-            {!isValidInput && <p className="error-message">Please enter a valid job role.</p>}
           </>
         )}
       </div>
