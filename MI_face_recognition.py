@@ -6,7 +6,6 @@ from fer import FER
 import time
 from MI_question_generation import generate_questions
 from MI_speech_recognition import Speech_recognition
-
    
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_alt.xml')
 emotion_detector = FER()
@@ -16,18 +15,10 @@ emotion_detector = FER()
         # self.start_time = time.time()
         # self.summary_interval = 60  # Summary interval in seconds
 
-
-
-    
-
-def detect_faces(frame):
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
-    return faces
-
-def detect_emotions(frame):
-    emotions = emotion_detector.detect_emotions(frame)
-    accumulate_emotions(emotions)
+# def detect_faces(frame):
+#     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+#     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+#     return faces
 
 def process_frame(frame):
     frame = cv2.resize(frame, (0, 0), fx=0.7, fy=0.7)
@@ -35,11 +26,17 @@ def process_frame(frame):
     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     return frame
 
-def handle_multiple_faces(face_locations):
-    if len(face_locations) > 1:
-        return "Warning: Only one person should be in the frame!"
-    else:
-        return "Warning: You are not in the frame. Please come closer!"
+def detect_emotions(frame):
+    emotions = emotion_detector.detect_emotions(frame)
+    accumulate_emotions(emotions)
+
+
+
+# def handle_multiple_faces(face_locations):
+#     if len(face_locations) > 1:
+#         return "Warning: Only one person should be in the frame!"
+#     else:
+#         return "Warning: You are not in the frame. Please come closer!"
 
 def accumulate_emotions(self, emotions):
     if emotions:
@@ -62,6 +59,20 @@ def summarize_emotions(self):
     print("Emotion Summary:", summary)
     self.emotion_accumulator = []
     
+def analyze_fun(frames):
+    emotion_data = []
+
+    for frame_data in frames:
+        frame = decode_base64_image(frame_data)
+        processed_frame = process_frame(frame)
+        
+        emotions = detect_emotions(processed_frame)
+        if emotions:
+            emotion_data.append(emotions[0]['emotions'])
+
+    return emotions
+
+
     
 
 

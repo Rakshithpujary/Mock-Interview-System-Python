@@ -12,13 +12,13 @@ chat = model.start_chat(history=[])
 def gen_review(job_role,qns,ans,emotion_analysis):
   try:
     # data = job_role + qns_ans + emotion analysis
-    data = "Question & Answers"
+    data = "Question & Answers:"
 
     for i in range(len(qns)):
         data += "\n Qtn " + str(i + 1) + ": " + qns[i] + "\n Ans: " + ans[i]
 
 
-    data = data + "\nEmotion Analysis\n" + str(emotion_analysis)
+    data = data + "\nEmotion Analysis:\n" + str(emotion_analysis)
 
     print("Data = ",data)
 
