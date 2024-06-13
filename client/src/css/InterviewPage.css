@@ -4,31 +4,60 @@
     align-items: center;
     flex-direction: column;
     gap: 20px;
+    margin-top: 10px;
   }
   
   .videoDisplay-div {
     width: 600px;
-    height: 300px;
-    margin-top: 50px;
-    background-color: blueviolet;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
   .questionDisplay-div{
     width: 600px;
     height: 100px;
-    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .questionNumber-div{
+    width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: grey;
+    font-size: 20px;
   }
   .answerDisplay-div{
     width: 600px;
     height: 100px;
     background-color: rgb(29, 79, 43);
+    padding:20px;
   }
   .buttonDisplay-div{
     width: 600px;
     height: 100px;
-    background-color: brown;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
     justify-content: space-evenly;
   }
+  .numberOne{
+    color: gray;
+  }
+  .numberIcon {
+    color: gray;
+    transition: color 0.5s ease-in-out;
+  }
+  .numberIcon.skipped {
+    color: red; /* Color for skipped question numbers */
+  }
+  .numberIcon.active {
+    color: rgb(33, 117, 36); /* Color for skipped question numbers */
+    transition: color 0.5s ease-in-out;
+  }
+  

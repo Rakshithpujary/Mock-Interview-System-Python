@@ -19,7 +19,7 @@ chat = model.start_chat(history=[])
 def before_request():
     g.chat = chat
 
-@app.route('/get-questions', methods=['POST'])
+@app.route('/api/get-questions', methods=['POST'])
 def ask_questions():
     try:
         job_title = request.json.get('job_title')
@@ -27,14 +27,14 @@ def ask_questions():
 
         # if not list then error
         if not isinstance(response, list):
-            return jsonify({'response': response}), 400
+            return jsonify({'errorMsg': response}), 400
         else: # success
-            return jsonify({'response': response}), 200
+            return jsonify({'jobTitle' : job_title, 'qtns': response}), 200
     except Exception as e:
         print(f"Error occurred while generating question: {e}")
-        return jsonify({'response': "Something went wrong"}), 400
+        return jsonify({'errorMsg': "Something went wrong"}), 400
 
-@app.route('/analyze-emotions', methods=['POST'])
+@app.route('/api/analyze-emotions', methods=['POST'])
 def analyze_emotions():
     try:
         data = request.get_json()
@@ -46,7 +46,7 @@ def analyze_emotions():
         print(f"Error occurred while generating emotion analysis data: {e}")
         return jsonify({'response': "Something went wrong"}), 400
 
-@app.route('/get-review', methods=['POST'])
+@app.route('/api/get-review', methods=['POST'])
 def get_review():
     try:
         data = request.get_json()

@@ -1,0 +1,103 @@
+.border_box {
+  position: absolute;
+  top: 24.7%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  height: 350px;
+  pointer-events: none; /* Ensure it doesn't block interactions */
+  display: none; /* Hide the border by default */
+}
+
+.border_box.show {
+  display: block; /* Show the border when the condition is met */
+}
+
+.line {
+  position: absolute;
+  background-color: #ff0000; /* Red color for the border */
+  opacity: 0; /* Start with opacity 0 */
+  border-radius: 20px;
+  box-shadow: 0 0 10px 2px rgba(255, 0, 0, 0.628); /* Red glow effect */
+  animation: pulse 1.5s infinite alternate; /* Pulsing animation for glow effect */
+}
+
+.line01 {
+  top: 0;
+  left: 0;
+  width: 350px;
+  height: 6px;
+  transform-origin: left;
+  animation: animation_line1 0.7s linear 0.0s forwards;
+}
+
+.line02 {
+  top: 0;
+  right: 0;
+  width: 6px;
+  height: 350px;
+  transform-origin: top;
+  animation: animation_line2 0.7s linear 0.7s forwards;
+}
+
+.line03 {
+  bottom: 0;
+  right: 0;
+  width: 350px;
+  height: 6px;
+  transform-origin: right;
+  animation: animation_line3 0.7s linear 1.4s forwards;
+}
+
+.line04 {
+  bottom: 0;
+  left: 0;
+  width: 6px;
+  height: 350px;
+  transform-origin: bottom;
+  animation: animation_line4 0.7s linear 2.1s forwards;
+}
+
+@keyframes animation_line1 {
+  0% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes animation_line2 {
+  0% {
+    transform: scaleY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes animation_line3 {
+  0% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes animation_line4 {
+  0% {
+    transform: scaleY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
