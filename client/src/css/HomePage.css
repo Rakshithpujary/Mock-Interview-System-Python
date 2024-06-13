@@ -107,13 +107,22 @@ html, body {
 }
 
 .jobinput {
+    font-size: 15px;
     width: 50%;
     height: 10%;
     border: none;
     border-bottom: 5px;
     border-radius: 5px;
     padding: 0.5%;
+    padding-left: 10px !important;
 }
+
+.jobinput:focus {
+    outline: none;
+    /* border: 1px solid #EDC215; */
+    /* box-shadow: 10px 0 0px 15px rgba(237, 193, 21, 0.7); */
+}
+
 .jobTitle-div{
     background-color: rgba(0, 0, 0, 0.699);
     opacity: 3;

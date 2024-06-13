@@ -31,7 +31,6 @@ function HomePage() {
     setIsVisible(false); // Hide the button
   };
   
-  
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
     setJobInput(inputValue.trim());
@@ -88,7 +87,8 @@ function HomePage() {
         <div className={`jobTitle-div ${isVisible && 'hidden'}`}>
             <FaArrowLeftLong className='Left-arrow' onClick={handleBackClick}/>
             <label className='joblabel'>Enter job role</label>
-            <input className='jobinput' type='text' value={jobInput} onChange={handleInputChange} required maxLength={35}/>
+            <input className='jobinput' type='text' value={jobInput} onChange={handleInputChange}
+             required maxLength={35} placeholder='Eg: Java Developer'/>
             <button className='StartInterviewButton' onClick={handleStartInterviewClick}>
               { isLoading? <> Preparing Interview <FontAwesomeIcon icon={faSpinner} spin /> </>
               : 'Start your interview' }

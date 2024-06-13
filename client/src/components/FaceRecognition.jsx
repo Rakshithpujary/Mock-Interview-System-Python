@@ -5,19 +5,25 @@ import * as FaceDetection from '@mediapipe/face_detection';
 import { Camera } from '@mediapipe/camera_utils';
 import { toast } from 'react-toastify';
 import { toastErrorStyle } from './utils/toastStyle';
-import axios from 'axios';
 import '../css/FaceRecognition.css';
-
 
 const width = 350;
 const height = 350;
 
 const FaceRecognition = () => {
   const [capturedFrames, setCapturedFrames] = useState([]);
-  const [emotionData, setEmotionData] = useState([]);
   const intervalIdRef = useRef(null);
   const [toastDisplayed, setToastDisplayed] = useState(false);
-  const [showBorderAnimation, setShowBorderAnimation] = useState(false); 
+  const [showBorderAnimation, setShowBorderAnimation] = useState(false);
+
+  useEffect(() => {
+    // This will run when the component is mounted
+
+    return () => {
+      // This will run when the component is unmounted
+      console.log("Unmounted");
+    };
+  }, []);
 
   const { webcamRef, isLoading, detected, facesDetected } = useFaceDetection({
     faceDetectionOptions: {
@@ -67,37 +73,8 @@ const FaceRecognition = () => {
     return () => clearInterval(intervalIdRef.current);
   }, [webcamRef, facesDetected]);
 
-  const sendFramesToServer = async () => {
-    try {
-      // const decodedFrames = await Promise.all(
-      //   capturedFrames.map(async frame => {
-      //     const response = await fetch(frame);
-      //     const blob = await response.blob();
-      //     return new Promise(resolve => {
-      //       const reader = new FileReader();
-      //       reader.onloadend = () => {
-      //         resolve(reader.result);
-      //       };
-      //       reader.readAsDataURL(blob);
-      //     });
-      //   })
-      // );
-
-      const response = await axios.post('http://localhost:5000/analyze-emotions', {
-        frames: capturedFrames
-      });
-      setEmotionData(response.data.response);
-    } catch (error) {
-      console.error('Error sending frames to server:', error);
-    }
-  };
-
   return (
     <div>
-      {/* <h1>Face Recognition</h1>
-      <p>{`Loading: ${isLoading}`}</p>
-      <p>{`Face Detected: ${detected}`}</p>
-      <p>{`Number of faces detected: ${facesDetected}`}</p> */}
       <Webcam
         ref={webcamRef}
         screenshotFormat="image/jpeg"
@@ -117,15 +94,6 @@ const FaceRecognition = () => {
         <span class="line line04"></span>
     </div>
       
-      {/* <div>
-        <h2>Captured Frames</h2>
-        {capturedFrames.map((frame, index) => (
-          <img key={index} src={frame} alt={`Captured frame ${index + 1}`} style={{ width: '100px', margin: '10px' }} />
-        ))}
-        <button onClick={sendFramesToServer}>Analyze Emotions</button>
-        <h2>Emotion Data</h2>
-        <pre>{JSON.stringify(emotionData, null, 2)}</pre>
-      </div>  */}
     </div>
   );
 };
