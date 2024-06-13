@@ -1,19 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import '../css/HomePage.css';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { toastErrorStyle } from '../components/utils/toastStyle';
 import { FaArrowLeftLong } from "react-icons/fa6";
-
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { GlobalContext } from '../components/utils/GlobalState';
 
 function HomePage() {
-
+  // access global values
+  const { updateGJobAndQnts } = useContext(GlobalContext);
+  
   const [jobInput, setJobInput] = useState('');
   const [isVisible, setIsVisible] = useState(true);
-  const [isValidInput, setIsValidInput] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  // const [isValidInput, setIsValidInput] = useState(false);
   const navigate = useNavigate();
 
-    const isValidJobTitle = (input) => {
+  const isValidJobTitle = (input) => {
     const isNotEmpty = input.trim().length > 0;
     const isWithinLength = input.length <= 25;
     const isValidCharacters = /^[a-zA-Z\s]+$/.test(input);
@@ -28,33 +34,39 @@ function HomePage() {
   
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
-    setJobInput(inputValue);
+    setJobInput(inputValue.trim());
   
     // Check if the input is valid using the utility function
-    setIsValidInput(isValidJobTitle(inputValue));
+    // setIsValidInput(isValidJobTitle(inputValue));
   };
 
   const handleBackClick = () => {
     setIsVisible(true);
   };
 
-    const handleStartInterviewClick = () => {
-      if (isValidJobTitle(jobInput)) {
-        // Proceed to the next page if input is valid
-        navigate('/interview');
-      } else if (jobInput.trim().length === 0) {
-        // Check if the input is empty
-        toast.error("Please enter a job title. It can't be empty.", {...toastErrorStyle(),autoClose: 2000
+  const handleStartInterviewClick = async () => {
+    if (isValidJobTitle(jobInput)) {
+      try {
+        setIsLoading(true);
+        const response = await axios.post('http://localhost:5000/api/get-questions', {
+          job_title: jobInput
         });
-      } else if (jobInput.length > 35) {
-        // Check if the input exceeds 25 characters
-        toast.error("Please enter a job title with no more than 25 characters.", {...toastErrorStyle(),autoClose: 2000});
-      } else {
-        // Inform the user that the input is invalid
-        toast.error("Please enter a valid job title.", {...toastErrorStyle(),autoClose: 2000});
+
+        updateGJobAndQnts(response.data.jobTitle, response.data.qtns);
+        navigate('/interview');
+      } catch(error) {
+        toast.error(error.response? error.response.data.errorMsg : error.message || error,
+           {...toastErrorStyle(),autoClose: 2000
+        });
+        console.log("Something went wrong!", error.response? error.response.data.errorMsg : error.message || error);
+      } finally {
+          setIsLoading(false);
       }
-    };
-    
+    } else {
+      toast.error("Please provide a valid jobf title!", {...toastErrorStyle(),autoClose: 2000
+      });
+    }
+  };
 
   return (
     <div className='Home-div'>
@@ -68,7 +80,6 @@ function HomePage() {
           <button
           className={`getStartedButton ${!isVisible && 'hidden'}`}
           onClick={handleGetStartedClick}>Get Started</button>
-
         </div>
 
         <div className='img-div'>
@@ -77,8 +88,11 @@ function HomePage() {
         <div className={`jobTitle-div ${isVisible && 'hidden'}`}>
             <FaArrowLeftLong className='Left-arrow' onClick={handleBackClick}/>
             <label className='joblabel'>Enter job role</label>
-            <input className='jobinput' type='text' value={jobInput} onChange={handleInputChange} required/>
-            <button className='StartInterviewButton' onClick={handleStartInterviewClick}>Start your interview</button>
+            <input className='jobinput' type='text' value={jobInput} onChange={handleInputChange} required maxLength={35}/>
+            <button className='StartInterviewButton' onClick={handleStartInterviewClick}>
+              { isLoading? <> Preparing Interview <FontAwesomeIcon icon={faSpinner} spin /> </>
+              : 'Start your interview' }
+            </button>
           </div>
       </div>
     </div>

@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import '../css/InterviewPage.css';
 import FaceRecognition from '../components/FaceRecognition';
 import { Bs1CircleFill, Bs2CircleFill,Bs3CircleFill, Bs4CircleFill, Bs5CircleFill } from "react-icons/bs";
 import { toast } from 'react-toastify';
 import { toastErrorStyle } from '../components/utils/toastStyle';
-
+import { GlobalContext } from '../components/utils/GlobalState';
 function InterviewPage() {
 
+    // access global values
+    const { gJobTitle, gQtns } = useContext(GlobalContext);
+    
     const [questionNumber, setQuestionNumber] = useState(1);
 
     // const handleClickSkip = () => {
