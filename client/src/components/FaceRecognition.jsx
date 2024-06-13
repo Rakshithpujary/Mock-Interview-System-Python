@@ -6,15 +6,18 @@ import { Camera } from '@mediapipe/camera_utils';
 import { toast } from 'react-toastify';
 import { toastErrorStyle } from './utils/toastStyle';
 import axios from 'axios';
+import '../css/FaceRecognition.css';
 
-const width = 500;
-const height = 500;
+
+const width = 350;
+const height = 350;
 
 const FaceRecognition = () => {
   const [capturedFrames, setCapturedFrames] = useState([]);
   const [emotionData, setEmotionData] = useState([]);
   const intervalIdRef = useRef(null);
   const [toastDisplayed, setToastDisplayed] = useState(false);
+  const [showBorderAnimation, setShowBorderAnimation] = useState(false); 
 
   const { webcamRef, isLoading, detected, facesDetected } = useFaceDetection({
     faceDetectionOptions: {
@@ -36,12 +39,16 @@ const FaceRecognition = () => {
       if (Number(facesDetected) === 0) {
         toast.error("No face detected!", { ...toastErrorStyle(), autoClose: 2500, onClose: () => setToastDisplayed(false) });
         setToastDisplayed(true);
+        setShowBorderAnimation(true);
       } else if (Number(facesDetected) > 1) {
         toast.error("Multiple faces have been detected", { ...toastErrorStyle(), autoClose: 2500, onClose: () => setToastDisplayed(false) });
         setToastDisplayed(true);
+        setShowBorderAnimation(true);
+      }else{
+        setShowBorderAnimation(false);
       }
     }
-  }, [facesDetected, webcamRef, toastDisplayed]);
+  }, [facesDetected, webcamRef, isLoading, toastDisplayed]);
 
   useEffect(() => {
     // Start capturing frames every 3 seconds
@@ -87,10 +94,10 @@ const FaceRecognition = () => {
 
   return (
     <div>
-      <h1>Face Recognition</h1>
+      {/* <h1>Face Recognition</h1>
       <p>{`Loading: ${isLoading}`}</p>
       <p>{`Face Detected: ${detected}`}</p>
-      <p>{`Number of faces detected: ${facesDetected}`}</p>
+      <p>{`Number of faces detected: ${facesDetected}`}</p> */}
       <Webcam
         ref={webcamRef}
         screenshotFormat="image/jpeg"
@@ -98,10 +105,19 @@ const FaceRecognition = () => {
         style={{
           height,
           width,
-          position: 'absolute'
+          position: 'relative',
+          borderRadius: '5px'
+          
         }}
       />
-      <div>
+      <div className={`border_box ${showBorderAnimation ? 'show' : ''}`}>
+        <span class="line line01"></span>
+        <span class="line line02"></span>
+        <span class="line line03"></span>
+        <span class="line line04"></span>
+    </div>
+      
+      {/* <div>
         <h2>Captured Frames</h2>
         {capturedFrames.map((frame, index) => (
           <img key={index} src={frame} alt={`Captured frame ${index + 1}`} style={{ width: '100px', margin: '10px' }} />
@@ -109,7 +125,7 @@ const FaceRecognition = () => {
         <button onClick={sendFramesToServer}>Analyze Emotions</button>
         <h2>Emotion Data</h2>
         <pre>{JSON.stringify(emotionData, null, 2)}</pre>
-      </div>
+      </div>  */}
     </div>
   );
 };
