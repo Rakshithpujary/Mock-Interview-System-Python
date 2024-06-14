@@ -6,6 +6,7 @@ import { Camera } from '@mediapipe/camera_utils';
 import { toast } from 'react-toastify';
 import { toastErrorStyle } from './utils/toastStyle';
 import '../css/FaceRecognition.css';
+import PageVisibility from './utils/PageVisibility';
 
 const width = 350;
 const height = 350;
@@ -15,15 +16,7 @@ const FaceRecognition = () => {
   const intervalIdRef = useRef(null);
   const [toastDisplayed, setToastDisplayed] = useState(false);
   const [showBorderAnimation, setShowBorderAnimation] = useState(false);
-
-  useEffect(() => {
-    // This will run when the component is mounted
-
-    return () => {
-      // This will run when the component is unmounted
-      console.log("Unmounted");
-    };
-  }, []);
+  const isPageVisible = PageVisibility();
 
   const { webcamRef, isLoading, detected, facesDetected } = useFaceDetection({
     faceDetectionOptions: {
@@ -39,6 +32,20 @@ const FaceRecognition = () => {
         height,
       }),
   });
+
+  // when component unmounts, reload to stop camera process
+  useEffect(()=> {
+    return () => {
+        if(webcamRef.current === null) {
+          window.location.reload();
+        }
+    }
+  },[webcamRef])
+
+  useEffect(() => {
+    if (!isPageVisible) {
+    }
+  }, [isPageVisible]);
 
   useEffect(() => {
     if (!isLoading && !toastDisplayed) {
