@@ -66,7 +66,7 @@ function HomePage() {
       <div className='context-div'>
         
         <div className='text-div'>
-          <h1>Land your dream job by prepping for interviews from the comfort of your couch.</h1>
+          <h1>From Practice to Perfection – Your Interview Journey Starts Here!</h1>
           <button
           className={`getStartedButton ${!isVisible && 'hidden'}`}
           onClick={handleGetStartedClick}>Get Started</button>
