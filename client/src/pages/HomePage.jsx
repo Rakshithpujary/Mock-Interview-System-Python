@@ -19,24 +19,13 @@ function HomePage() {
   // const [isValidInput, setIsValidInput] = useState(false);
   const navigate = useNavigate();
 
-  const isValidJobTitle = (input) => {
-    const isNotEmpty = input.trim().length > 0;
-    const isWithinLength = input.length <= 25;
-    const isValidCharacters = /^[a-zA-Z\s]+$/.test(input);
-  
-    return isNotEmpty && isWithinLength && isValidCharacters;
-  };
-
   const handleGetStartedClick = () => {
     setIsVisible(false); // Hide the button
   };
   
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
-    setJobInput(inputValue.trim());
-  
-    // Check if the input is valid using the utility function
-    // setIsValidInput(isValidJobTitle(inputValue));
+    setJobInput(inputValue);
   };
 
   const handleBackClick = () => {
@@ -44,11 +33,13 @@ function HomePage() {
   };
 
   const handleStartInterviewClick = async () => {
-    if (isValidJobTitle(jobInput)) {
+    
+    const sendingInput=jobInput.trim();
+    if (sendingInput.length > 0) {
       try {
         setIsLoading(true);
         const response = await axios.post('http://localhost:5000/api/get-questions', {
-          job_title: jobInput
+          job_title: sendingInput
         });
 
         updateGJobAndQnts(response.data.jobTitle, response.data.qtns);
@@ -62,7 +53,7 @@ function HomePage() {
           setIsLoading(false);
       }
     } else {
-      toast.error("Please provide a valid jobf title!", {...toastErrorStyle(),autoClose: 2000
+      toast.error("Please provide job title!", {...toastErrorStyle(),autoClose: 2000
       });
     }
   };
@@ -87,8 +78,7 @@ function HomePage() {
         <div className={`jobTitle-div ${isVisible && 'hidden'}`}>
             <FaArrowLeftLong className='Left-arrow' onClick={handleBackClick}/>
             <label className='joblabel'>Enter job role</label>
-            <input className='jobinput' type='text' value={jobInput} onChange={handleInputChange}
-             required maxLength={35} placeholder='Eg: Java Developer'/>
+            <input className='jobinput' type='text' value={jobInput} onChange={handleInputChange} maxLength={35} placeholder='Eg: Java Developer'/>
             <button className='StartInterviewButton' onClick={handleStartInterviewClick}>
               { isLoading? <> Preparing Interview <FontAwesomeIcon icon={faSpinner} spin /> </>
               : 'Start your interview' }

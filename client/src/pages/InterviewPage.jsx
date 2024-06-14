@@ -9,7 +9,7 @@ function InterviewPage() {
 
     // access global values
     const { gJobTitle, gQtns } = useContext(GlobalContext);
-    
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [questionNumber, setQuestionNumber] = useState(1);
 
     // const handleClickSkip = () => {
@@ -23,8 +23,14 @@ function InterviewPage() {
         const [skippedQuestions, setSkippedQuestions] = useState([]);
 
         const handleSkipQuestion = (questionNumber) => {
-            setSkippedQuestions(prevState => [...prevState, questionNumber]);
-            setQuestionNumber(prev => prev + 1);
+            if(currentQuestionIndex < gQtns.length - 1){
+                setSkippedQuestions(prevState => [...prevState, questionNumber]);
+                setQuestionNumber(prev => prev + 1);
+                setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+            }
+            else{
+                toast.error("You've reached the last question.", {...toastErrorStyle(), autoClose: 2000});
+            }
         };
 
   return (
@@ -45,7 +51,8 @@ function InterviewPage() {
         --------------
         <Bs5CircleFill className={`numberIcon ${skippedQuestions.includes(5) ? 'skipped' : ''} ${questionNumber === 5 ? 'active' : ''}`}  />
             </div>
-            Question...........
+            <h3>Question {currentQuestionIndex + 1}</h3>
+            <p>{gQtns[currentQuestionIndex]}</p>
         </div>
         
         <div className='answerDisplay-div'>
