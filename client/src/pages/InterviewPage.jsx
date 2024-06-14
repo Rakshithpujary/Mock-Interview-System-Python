@@ -120,10 +120,15 @@ function InterviewPage() {
                 transcript.length !==0 ? 'Re-record' : 'Answer'}
             </button>
             { listening && <button onClick={handleStopListen}>Stop</button> }
-            { !listening && 
-                <button className='SkipNextButton'onClick={() => handleSkipQuestion(questionNumber)}>
-                    { recordAttempted ? transcript.length>0? 'Next' : 'Skip' : 'Skip' }
-                </button>
+            { !listening? !recordAttempted?
+                <button className='ski-btn'>Skip</button> :
+                <>
+                    <button className='ski-btn'>Skip</button>
+                    <button className='SkipNextButton'onClick={() => handleSkipQuestion(questionNumber)}>
+                        Next
+                    </button>
+                </>
+               : null
             }
             <button className='SubmitButton'>Submit</button>
         </div>
