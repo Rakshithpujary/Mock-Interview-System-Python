@@ -43,6 +43,7 @@
     align-items: center;
     flex-direction: row;
     justify-content: space-evenly;
+    gap: 10px;
   }
   .numberOne{
     color: gray;
@@ -55,7 +56,39 @@
     color: red; /* Color for skipped question numbers */
   }
   .numberIcon.active {
-    color: rgb(33, 117, 36); /* Color for skipped question numbers */
+    color: blue; /* Color for skipped question numbers */
     transition: color 0.5s ease-in-out;
   }
-  
+  .numberIcon.next {
+    color: green; /* Color for skipped question numbers */
+  }
+  .SubmitButton, .skipButton, .nextButton, .Re-recordAnswerButton, .stopButton {
+    width: 25%;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    background-color: #EDC215;
+    color: black;
+    font-size: 15px;
+    position: relative;
+    margin-top: 30px;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .SubmitButton{
+    background-color:brown;
+    display: none;
+  }
+  .Re-recordAnswerButton{
+     background-color: green;
+  }
+  .stopButton{
+    background-color: rgb(231, 3, 3);
+  }
+  .hidden{
+    display: none;
+    transform: translateY(-20px); /* Optional slide-up effect */
+  /* Prevent clicking while hidden */
+  }
+  .display{
+    display: block;
+  }
