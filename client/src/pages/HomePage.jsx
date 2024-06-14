@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import '../css/HomePage.css';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -78,8 +78,9 @@ function HomePage() {
         <div className={`jobTitle-div ${isVisible && 'hidden'}`}>
             <FaArrowLeftLong className='Left-arrow' onClick={handleBackClick}/>
             <label className='joblabel'>Enter job role</label>
-            <input className='jobinput' type='text' value={jobInput} onChange={handleInputChange} maxLength={35} placeholder='Eg: Java Developer'/>
-            <button className='StartInterviewButton' onClick={handleStartInterviewClick}>
+            <input className='jobinput' type='text' value={jobInput} onChange={handleInputChange} 
+            maxLength={35} placeholder='Eg: Java Developer' disabled={isLoading}/>
+            <button className='StartInterviewButton' onClick={handleStartInterviewClick} disabled={isLoading}>
               { isLoading? <> Preparing Interview <FontAwesomeIcon icon={faSpinner} spin /> </>
               : 'Start your interview' }
             </button>

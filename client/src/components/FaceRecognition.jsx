@@ -6,7 +6,7 @@ import { Camera } from '@mediapipe/camera_utils';
 import { toast } from 'react-toastify';
 import { toastErrorStyle } from './utils/toastStyle';
 import '../css/FaceRecognition.css';
-import PageVisibility from './utils/PageVisibility';
+import { useNavigate } from 'react-router-dom';
 
 const width = 350;
 const height = 350;
@@ -16,7 +16,7 @@ const FaceRecognition = () => {
   const intervalIdRef = useRef(null);
   const [toastDisplayed, setToastDisplayed] = useState(false);
   const [showBorderAnimation, setShowBorderAnimation] = useState(false);
-  const isPageVisible = PageVisibility();
+  const navigate = useNavigate();
 
   const { webcamRef, isLoading, detected, facesDetected } = useFaceDetection({
     faceDetectionOptions: {
@@ -37,15 +37,10 @@ const FaceRecognition = () => {
   useEffect(()=> {
     return () => {
         if(webcamRef.current === null) {
-          window.location.reload();
+            window.location.reload();
         }
     }
-  },[webcamRef])
-
-  useEffect(() => {
-    if (!isPageVisible) {
-    }
-  }, [isPageVisible]);
+  },[webcamRef]);
 
   useEffect(() => {
     if (!isLoading && !toastDisplayed) {
@@ -64,8 +59,8 @@ const FaceRecognition = () => {
   }, [facesDetected, webcamRef, isLoading, toastDisplayed]);
 
   useEffect(() => {
-    // Start capturing frames every 3 seconds
-    intervalIdRef.current = setInterval(() => {
+      // Start capturing frames every 3 seconds
+      intervalIdRef.current = setInterval(() => {
       if (webcamRef.current) {
         if (Number(facesDetected) === 1) {
           const screenshot = webcamRef.current.getScreenshot();
@@ -74,11 +69,18 @@ const FaceRecognition = () => {
           }
         }
       }
-    }, 3000);
+      }, 3000);
 
     // Clean up interval on component unmount
     return () => clearInterval(intervalIdRef.current);
   }, [webcamRef, facesDetected]);
+
+  const handleUserMediaError = (error) => {
+    if (error.name === 'NotAllowedError') {
+      navigate('/', { replace : true});
+      toast.error("Please allow camera permission!", { ...toastErrorStyle(), autoClose: 2500 });
+    }
+  };
 
   return (
     <div>
@@ -86,12 +88,12 @@ const FaceRecognition = () => {
         ref={webcamRef}
         screenshotFormat="image/jpeg"
         forceScreenshotSourceSize
+        onUserMediaError={handleUserMediaError}
         style={{
           height,
           width,
           position: 'relative',
           borderRadius: '5px'
-          
         }}
       />
       <div className={`border_box ${showBorderAnimation ? 'show' : ''}`}>

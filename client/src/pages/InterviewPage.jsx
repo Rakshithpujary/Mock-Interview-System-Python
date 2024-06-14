@@ -1,18 +1,17 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import '../css/InterviewPage.css';
 import FaceRecognition from '../components/FaceRecognition';
 import { Bs1CircleFill, Bs2CircleFill,Bs3CircleFill, Bs4CircleFill, Bs5CircleFill } from "react-icons/bs";
 import { toast } from 'react-toastify';
 import { toastErrorStyle } from '../components/utils/toastStyle';
 import { GlobalContext } from '../components/utils/GlobalState';
-import AnswerQuestion from '../components/AnswerQuestion;';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import PageVisibility from "../components/utils/PageVisibility";
+import { useNavigate } from 'react-router-dom';
 
 function InterviewPage() {
-
-    // access global values
     const { gJobTitle, gQtns } = useContext(GlobalContext);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [questionNumber, setQuestionNumber] = useState(1);
@@ -20,6 +19,12 @@ function InterviewPage() {
     const [nextQuestions, setNextQuestions] = useState([]);
     const [toastOn, setToastOn] = useState(false);
     const [ recordAttempted, setRecordAttempted] = useState(false);
+    const isPageVisible = PageVisibility();
+    const firstTimerIdRef = useRef(null);
+    const secondTimerIdRef = useRef(null);
+    const hasBeenAwayForLong = useRef(false);
+    const navigate = useNavigate();
+
     const {
         transcript,
         listening,
@@ -28,6 +33,51 @@ function InterviewPage() {
         browserSupportsSpeechRecognition,
         browserSupportsContinuousListening
     } = useSpeechRecognition();
+
+    // DO NOT DELETE THIS CODE IMPORTANT
+    // useEffect(()=>{
+    //     return () =>{
+    //         if(!isSubmitted) {
+    //             navigate('/', { replace: true });
+    //         }
+    //     }
+    // },[isSubmitted]);
+
+    // if user changed tab or window
+    useEffect(() => {
+        if (!isPageVisible) {
+            // Start a timer for 10 seconds
+            firstTimerIdRef.current = setTimeout(() => {
+                if (!isPageVisible) {
+                    hasBeenAwayForLong.current = true;
+                }
+            }, 10000);
+        } else {
+            // Clear the first timer if the page becomes visible again within 10 seconds
+            clearTimeout(firstTimerIdRef.current);
+            
+            // Check if the user has been away for more than 10 seconds
+            if (hasBeenAwayForLong.current) {
+                // Start the second timer for 2 seconds
+                secondTimerIdRef.current = setTimeout(() => {
+                    toast.error("You have been away for too long!", { ...toastErrorStyle(), autoClose: false });
+                    // Navigate to home page after 2 seconds
+                    setTimeout(() => {
+                        navigate('/', { replace: true });
+                    }, 2000);
+                }, 0);
+                
+                // Reset the flag
+                hasBeenAwayForLong.current = false;
+            }
+        }
+
+        // Cleanup both timers when component unmounts or when isPageVisible changes
+        return () => {
+            clearTimeout(firstTimerIdRef.current);
+            clearTimeout(secondTimerIdRef.current);
+        };
+    }, [isPageVisible, navigate]);
 
     const handleSkipQuestion = () => {
         resetTranscript()
