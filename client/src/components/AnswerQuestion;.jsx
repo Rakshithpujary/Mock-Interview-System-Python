@@ -60,15 +60,10 @@ const AnswerQuestion = () => {
 
   return (
     <div>
-      {/* <p>Microphone: {listening ? 'on' : 'off'}</p> */}
       <button onClick={handleStartListen} disabled={toastOn || listening}>
         { listening ? <>Recording <FontAwesomeIcon icon={faSpinner} spin /></>: transcript.length !==0 ? 'Re-record' : 'Answer'}
       </button>
       <button disabled={!listening} onClick={handleStopListen}>Stop</button>
-      {/* { !listening & transcript.length !==0 ? 
-          <button onClick={resetTranscript}>Re-record</button>
-        : null
-      } */}
       <p>{transcript}</p>
     </div>
   );

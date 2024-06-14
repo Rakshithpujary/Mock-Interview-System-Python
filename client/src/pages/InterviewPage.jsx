@@ -5,12 +5,28 @@ import { Bs1CircleFill, Bs2CircleFill,Bs3CircleFill, Bs4CircleFill, Bs5CircleFil
 import { toast } from 'react-toastify';
 import { toastErrorStyle } from '../components/utils/toastStyle';
 import { GlobalContext } from '../components/utils/GlobalState';
+import AnswerQuestion from '../components/AnswerQuestion;';
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+
 function InterviewPage() {
 
     // access global values
     const { gJobTitle, gQtns } = useContext(GlobalContext);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [questionNumber, setQuestionNumber] = useState(1);
+    const [skippedQuestions, setSkippedQuestions] = useState([]);
+    const [toastOn, setToastOn] = useState(false);
+    const [ recordAttempted, setRecordAttempted] = useState(false);
+    const {
+        transcript,
+        listening,
+        resetTranscript,
+        isMicrophoneAvailable,
+        browserSupportsSpeechRecognition,
+        browserSupportsContinuousListening
+    } = useSpeechRecognition();
 
     // const handleClickSkip = () => {
     //     if (questionNumber < 5) {
@@ -20,18 +36,58 @@ function InterviewPage() {
     //     }
     //   };
 
-        const [skippedQuestions, setSkippedQuestions] = useState([]);
+    const handleSkipQuestion = (questionNumber) => {
+        if(currentQuestionIndex < gQtns.length - 1){
+            setSkippedQuestions(prevState => [...prevState, questionNumber]);
+            setQuestionNumber(prev => prev + 1);
+            setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+        }
+        else{
+            toast.error("You've reached the last question.", {...toastErrorStyle(), autoClose: 2000});
+        }
+    };
 
-        const handleSkipQuestion = (questionNumber) => {
-            if(currentQuestionIndex < gQtns.length - 1){
-                setSkippedQuestions(prevState => [...prevState, questionNumber]);
-                setQuestionNumber(prev => prev + 1);
-                setCurrentQuestionIndex(prevIndex => prevIndex + 1);
-            }
-            else{
-                toast.error("You've reached the last question.", {...toastErrorStyle(), autoClose: 2000});
-            }
-        };
+    // answer stuff ==========================================================
+    useEffect(() => {
+        if (toastOn) {
+        const timer = setTimeout(() => {
+            setToastOn(false);
+        }, 1500);
+
+        return () => clearTimeout(timer);
+        }
+    }, [toastOn]);
+
+    function handleStartListen() {
+        if(transcript.length !== 0){
+            resetTranscript()
+        }
+        if (!browserSupportsSpeechRecognition) {
+            !toastOn&& toast.error("Please use a different browser to enable speech recognition", {...toastErrorStyle(), autoClose: 1500 });
+            setToastOn(true);
+            return;
+        }
+        if (!isMicrophoneAvailable) {
+            !toastOn&& toast.error("Please allow microphone permission", {...toastErrorStyle(), autoClose: 1500 });
+            setToastOn(true);
+            return;
+        }
+        if (browserSupportsContinuousListening) {
+            SpeechRecognition.startListening({ continuous: true });
+            setRecordAttempted(true);
+        } else {
+            SpeechRecognition.startListening();
+        }
+    }
+
+    function handleStopListen() {
+        SpeechRecognition.stopListening();
+        if(transcript.length === 0) {
+        !toastOn&& toast.error("Please can u repeat again!", {...toastErrorStyle(), autoClose: 1500 });
+        setToastOn(true);
+        }
+    }
+    // ======================================================================
 
   return (
     <div className='interview-div'>
@@ -56,15 +112,22 @@ function InterviewPage() {
         </div>
         
         <div className='answerDisplay-div'>
-            Answer............
+            {transcript}
         </div>
         <div className='buttonDisplay-div'>
-            <button className='AnsawerNowButton'>Record now</button>
-            <button className='ReRecordButton'>Re-record</button>
-            <button className='SkipNextButton'onClick={() => handleSkipQuestion(questionNumber)} >Skip / Next</button>
+            <button onClick={handleStartListen} disabled={toastOn || listening}>
+                { listening ? <>Listening <FontAwesomeIcon icon={faSpinner} spin /></> : 
+                transcript.length !==0 ? 'Re-record' : 'Answer'}
+            </button>
+            { listening && <button onClick={handleStopListen}>Stop</button> }
+            { !listening && 
+                <button className='SkipNextButton'onClick={() => handleSkipQuestion(questionNumber)}>
+                    { recordAttempted ? transcript.length>0? 'Next' : 'Skip' : 'Skip' }
+                </button>
+            }
             <button className='SubmitButton'>Submit</button>
         </div>
-    
+        {/* <AnswerQuestion /> */}
     </div>
   );
 }

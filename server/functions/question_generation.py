@@ -24,7 +24,7 @@ def get_questions(job_title,call_count):
   try:
     # print("get_questions Instance started = "+ str(call_count))
 
-    # print(job_title)
+    print("\nJob Title = ", job_title)
     # Check if passed job title is an valid job title
     check_valid_msg = (f"Job Title : {job_title}\n\n"
                     "Please check if this is an valid or appropriate job title given for an interview or not,"
@@ -33,7 +33,7 @@ def get_questions(job_title,call_count):
 
     check_valid_response = g.chat.send_message(check_valid_msg)
     checkValid = check_valid_response.text.lower()
-    # print(checkValid)
+    print("\nCheck valid = ", checkValid)
 
     keywords = ["error", "invalid", "no", "not", "not valid"]
     
