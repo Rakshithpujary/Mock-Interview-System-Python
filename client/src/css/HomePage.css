@@ -32,6 +32,7 @@ html, body {
     text-fill-color: transparent;
     font-size: 40px;
     text-align: center;
+    font-family: URW Chancery L, cursive;
 }
 
 .context-div {
@@ -71,6 +72,7 @@ html, body {
     align-items: center;
     width: 60%;
     z-index: 1;
+    font-family: URW Chancery L, cursive;
 }
 .img-div{
     width: 40%;

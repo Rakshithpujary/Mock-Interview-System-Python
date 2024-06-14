@@ -1,10 +1,10 @@
 .border_box {
   position: absolute;
-  top: 24.7%;
-  left: 50%;
+  top: 22%;
+  left: 49.99%;
   transform: translate(-50%, -50%);
   width: 350px;
-  height: 350px;
+  height: 270px;
   pointer-events: none; /* Ensure it doesn't block interactions */
   display: none; /* Hide the border by default */
 }
@@ -26,7 +26,7 @@
   top: 0;
   left: 0;
   width: 350px;
-  height: 6px;
+  height: 7px;
   transform-origin: left;
   animation: animation_line1 0.7s linear 0.0s forwards;
 }
@@ -34,8 +34,8 @@
 .line02 {
   top: 0;
   right: 0;
-  width: 6px;
-  height: 350px;
+  width: 7px;
+  height: 270px;
   transform-origin: top;
   animation: animation_line2 0.7s linear 0.7s forwards;
 }
@@ -44,7 +44,7 @@
   bottom: 0;
   right: 0;
   width: 350px;
-  height: 6px;
+  height: 7px;
   transform-origin: right;
   animation: animation_line3 0.7s linear 1.4s forwards;
 }
@@ -53,7 +53,7 @@
   bottom: 0;
   left: 0;
   width: 6px;
-  height: 350px;
+  height: 270.5px;
   transform-origin: bottom;
   animation: animation_line4 0.7s linear 2.1s forwards;
 }
