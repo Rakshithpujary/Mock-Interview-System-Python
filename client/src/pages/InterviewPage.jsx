@@ -23,8 +23,12 @@ function InterviewPage() {
         const [skippedQuestions, setSkippedQuestions] = useState([]);
 
         const handleSkipQuestion = (questionNumber) => {
-            setSkippedQuestions(prevState => [...prevState, questionNumber]);
-            setQuestionNumber(prev => prev + 1);
+            if (questionNumber < 5) {
+                setSkippedQuestions(prevState => [...prevState, questionNumber]);
+                setQuestionNumber(prev => prev + 1);
+            } else {
+                toast.error("You've reached the last question.", {...toastErrorStyle(),autoClose: 2000});
+        }
         };
 
   return (

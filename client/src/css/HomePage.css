@@ -143,9 +143,15 @@ html, body {
 .Left-arrow{
     position: absolute;
     padding: 8px 10px 10px 10px;
-    font-size: 20px;
+    font-size: 30px;
     top: 0;
     left: 0;
+}
+.Left-arrow:hover{
+    color: #EDC215;
+}
+.context-div button:hover{
+    box-shadow: 0px 1px 10px #EDC215;
 }
 /* Hidden state */
 .hidden {
@@ -153,49 +159,64 @@ html, body {
     transform: translateY(-20px); /* Optional slide-up effect */
     pointer-events: none; /* Prevent clicking while hidden */
 }
-
-  
-/* Media Queries for Responsiveness */
-
-/* For tablets and small screens */
+/* Responsive styles */
 @media (max-width: 768px) {
+    .context-div {
+        flex-direction: column;
+        overflow-y: scroll;
+        padding-top: 20px;
+        padding-bottom: 20px; /* Stack elements vertically on smaller screens */
+    }
+
+    .text-div, .img-div {
+        width: 90%; /* Full width on smaller screens */
+    }
+
+    .img-div {
+        order: -1; /* Position img-div above text-div */
+        margin-bottom: 20px; /* Add some space between image and text */
+    }
+
     .header-text {
-        font-size: 30px;
+        font-size: 6vw; /* Adjust text size for smaller screens */
+    }
+    .jobTitle-div {
+        width: 70%; /* Ensure full width on small screens */
+        height: 300px;
     }
 
-    .context-div h1 {
-        font-size: 24px;
+    .joblabel {
+        font-size: 4vw; /* Adjust label size for smaller screens */
     }
 
-    .context-div button {
-        width: 30%;
-        font-size: 20px;
-        height: 8%;
-    }
-
-    .jobinput {
-        width: 40%;
+    .getStartedButton, .StartInterviewButton {
+        width: 50%;
+        height: 30px; /* Increase button width on smaller screens */
     }
 }
 
-/* For mobile phones */
 @media (max-width: 480px) {
     .header-text {
-        font-size: 24px;
+        font-size: 8vw; /* Further adjust text size for very small screens */
     }
 
-    .context-div h1 {
-        font-size: 18px;
+    .joblabel {
+        font-size: 5vw; /* Further adjust label size */
     }
 
-    .context-div button {
+    .getStartedButton, .StartInterviewButton {
         width: 50%;
-        font-size: 15px;
-        height: 7%;
+        height: 30px; /* Increase button width on very small screens */
     }
 
     .jobinput {
-        width: 90%;
-        
+        width: 80%; /* Increase input width on very small screens */
+    }
+
+    .jobTitle-div {
+        width: 70%; /* Ensure full width on small screens */
+        height: 270px;
     }
 }
+
+  
