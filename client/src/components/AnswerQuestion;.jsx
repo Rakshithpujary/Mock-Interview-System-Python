@@ -50,10 +50,10 @@ const AnswerQuestion = () => {
 
   function handleStopListen() {
     SpeechRecognition.stopListening();
-    if(transcript.length === 0) {
-      !toastOn&& toast.error("Please can u repeat again!", {...toastErrorStyle(), autoClose: 1500 });
-      setToastOn(true);
-    }
+    // if(transcript.length === 0) {
+    //   !toastOn&& toast.error("Please can u repeat again!", {...toastErrorStyle(), autoClose: 1500 });
+    //   setToastOn(true);
+    // }
   }
 
   // function handle

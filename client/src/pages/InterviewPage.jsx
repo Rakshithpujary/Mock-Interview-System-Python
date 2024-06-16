@@ -12,7 +12,15 @@ import PageVisibility from "../components/utils/PageVisibility";
 import { useNavigate } from 'react-router-dom';
 
 function InterviewPage() {
-    const { gJobTitle, gQtns } = useContext(GlobalContext);
+    // access global values
+    const { gJobTitle, gQtns, gValidInterview, setGValidInterview } = useContext(GlobalContext);
+
+    useEffect(()=>{
+        if(!gValidInterview) {
+            navigate('/', { replace: true }); // Re-direct to home page
+        }
+    },[gValidInterview]);
+
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [questionNumber, setQuestionNumber] = useState(1);
     const [skippedQuestions, setSkippedQuestions] = useState([]);
@@ -61,10 +69,8 @@ function InterviewPage() {
                 // Start the second timer for 2 seconds
                 secondTimerIdRef.current = setTimeout(() => {
                     toast.error("You have been away for too long!", { ...toastErrorStyle(), autoClose: false });
-                    // Navigate to home page after 2 seconds
-                    setTimeout(() => {
-                        navigate('/', { replace: true });
-                    }, 2000);
+                    // Re-direct to home page
+                    navigate('/', { replace: true });
                 }, 0);
                 
                 // Reset the flag
@@ -104,11 +110,11 @@ function InterviewPage() {
     // answer stuff ==========================================================
     useEffect(() => {
         if (toastOn) {
-        const timer = setTimeout(() => {
-            setToastOn(false);
-        }, 1500);
+            const timer = setTimeout(() => {
+                setToastOn(false);
+            }, 1500);
 
-        return () => clearTimeout(timer);
+            return () => clearTimeout(timer);
         }
     }, [toastOn]);
 
@@ -129,6 +135,11 @@ function InterviewPage() {
         if (browserSupportsContinuousListening) {
             SpeechRecognition.startListening({ continuous: true });
             setRecordAttempted(true);
+
+            // Stop listening after 2 minutes
+            setTimeout(() => {
+                SpeechRecognition.stopListening();
+            }, 120000); // 120,000 milliseconds = 2 minutes
         } else {
             SpeechRecognition.startListening();
         }
@@ -136,10 +147,6 @@ function InterviewPage() {
 
     function handleStopListen() {
         SpeechRecognition.stopListening();
-        if(transcript.length === 0) {
-        !toastOn&& toast.error("Please can u repeat again!", {...toastErrorStyle(), autoClose: 1500 });
-        setToastOn(true);
-        }
     }
     // ======================================================================
 

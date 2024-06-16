@@ -11,7 +11,7 @@ import { GlobalContext } from '../components/utils/GlobalState';
 
 function HomePage() {
   // access global values
-  const { updateGJobAndQnts } = useContext(GlobalContext);
+  const { updateGJobAndQnts, setGValidInterview } = useContext(GlobalContext);
   
   const [jobInput, setJobInput] = useState('');
   const [isVisible, setIsVisible] = useState(true);
@@ -43,6 +43,7 @@ function HomePage() {
         });
 
         updateGJobAndQnts(response.data.jobTitle, response.data.qtns);
+        setGValidInterview(true); // set as global valid interview as true
         navigate('/interview');
       } catch(error) {
         toast.error(error.response? error.response.data.errorMsg : error.message || error,

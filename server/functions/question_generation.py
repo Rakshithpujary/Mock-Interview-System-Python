@@ -8,7 +8,7 @@ def format_text(lines):
 
     for line in lines:
         if line.strip():  # Check if line is not empty
-            if line.startswith(tuple(str(i) for i in range(1, 11))) and line.rstrip().endswith("?"):
+            if line.startswith(tuple(str(i) for i in range(1, 11))) and (line.rstrip().endswith("?") or line.rstrip().endswith(".")):
                 if question_buffer:  # If there's a question in buffer, append it
                     questions.append(question_buffer.strip())
                 question_buffer = line.strip() + " "  # Start new question buffer with current line
@@ -29,7 +29,7 @@ def get_questions(job_title,call_count):
     check_valid_msg = (f"Job Title : {job_title}\n\n"
                     "Please check if this is an valid or appropriate job title given for an interview or not,"
                     " if not then return error or no or not valid,"
-                    " please assume proper spelling if spelling mistake is present")
+                    "IMPORTANT = please assume proper spelling if spelling mistake is present in the passed job title")
 
     check_valid_response = g.chat.send_message(check_valid_msg)
     checkValid = check_valid_response.text.lower()
@@ -41,27 +41,27 @@ def get_questions(job_title,call_count):
         return "Please provide a valid job title."
 
     msg = ""
-    if call_count <= 1:
+    if call_count <= 3:
         msg = (f"Job Title: {job_title}\n\n"
-            "Generate 5 interview questions based on the job title provided. "
+            "Generate 5 interview questions with numbers based on the job title provided. "
             "\nIMPORTANT PLEASE FOLLOW THE BELOW RULES\n"
-            "IMPORTANT Write only the questions, IMPORTANT ensure that every question ends with a question mark symbol",
-            "IMPORTANT DONT WRITE EXCEPT THE QUESTIONS, NOT EVEN THE TITLE")
+            "IMPORTANT Write only the questions"
+            "IMPORTANT DONT WRITE ANYTHING EXTRA EXCEPT THE QUESTIONS, NOT EVEN THE TITLE")
 
-    elif 2 >= call_count <= 3:
+    elif 2 >= call_count <= 7:
         msg = (f"Job Title: {job_title}\n\n"
-            "Generate exactly 5 interview questions based on the job title provided. "
+            "Generate exactly 5 interview questions with numbers based on the job title provided. "
             "\nIMPORTANT PLEASE FOLLOW THE BELOW RULES\n"
-            "IMPORTANT Write only the questions, ensure that every question ends with a question mark symbol"
-            "IMPORTANT Please Do not include any additional text.", "\nIMPORTANT Please ensure that each question ends with a Question Mark symbol",
-            "IMPORTANT DONT WRITE ANYTHING EXCEPT THE QUESTIONS, NOT EVEN THE TITLE")
+            "IMPORTANT Write only the questions"
+            "IMPORTANT Please Do not include any additional text."
+            "IMPORTANT DONT WRITE ANYTHING EXTRA EXCEPT THE QUESTIONS, NOT EVEN THE TITLE")
 
     else:
         return "Something went wrong. Please try again."
 
     response = g.chat.send_message(msg)
     raw_text=response.text
-    # print("Raw Text = \n",raw_text)
+    print("Raw Text = \n",raw_text)
 
     lines=raw_text.split("\n")
 
