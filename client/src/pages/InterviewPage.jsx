@@ -15,23 +15,28 @@ function InterviewPage() {
     // access global values
     const { gJobTitle, gQtns, gValidInterview, setGValidInterview } = useContext(GlobalContext);
 
-    useEffect(()=>{
-        if(!gValidInterview) {
-            navigate('/', { replace: true }); // Re-direct to home page
-        }
-    },[gValidInterview]);
-
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [questionNumber, setQuestionNumber] = useState(1);
     const [skippedQuestions, setSkippedQuestions] = useState([]);
     const [nextQuestions, setNextQuestions] = useState([]);
     const [toastOn, setToastOn] = useState(false);
     const [ recordAttempted, setRecordAttempted] = useState(false);
+    const [validUpdated, setValidUpdated] = useState(false);
     const isPageVisible = PageVisibility();
     const firstTimerIdRef = useRef(null);
     const secondTimerIdRef = useRef(null);
     const hasBeenAwayForLong = useRef(false);
     const navigate = useNavigate();
+
+    useEffect(()=>{
+        if(gValidInterview !== null) { // to make sure that it only runs once
+            setValidUpdated(true);
+        }
+        if(!validUpdated && gValidInterview === false) {
+            window.location.replace('/'); // Re-direct to home page
+        }
+        setGValidInterview(false);
+    },[gValidInterview]);
 
     const {
         transcript,
@@ -69,8 +74,7 @@ function InterviewPage() {
                 // Start the second timer for 2 seconds
                 secondTimerIdRef.current = setTimeout(() => {
                     toast.error("You have been away for too long!", { ...toastErrorStyle(), autoClose: false });
-                    // Re-direct to home page
-                    navigate('/', { replace: true });
+                    navigate('/', { replace: true }); // Re-direct to home page
                 }, 0);
                 
                 // Reset the flag

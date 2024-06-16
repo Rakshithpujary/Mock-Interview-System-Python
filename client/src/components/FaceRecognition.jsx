@@ -12,7 +12,6 @@ const Testing = () => {
   const navigate = useNavigate();
   const intervalIdRef = useRef(null);
   
-  let componentMounted = false;
   let webCamToastDisplayedOnce = false;
   let emotionData = null;
   let toastDisplayed = false;
@@ -45,8 +44,7 @@ const Testing = () => {
           console.error('Error accessing webcam:', err);
           webCamToastDisplayedOnce = true;
 
-          // redirect to home page
-          navigate('/', { replace: true });
+          navigate('/', { replace: true }); // redirect to home page
         });
     };
 

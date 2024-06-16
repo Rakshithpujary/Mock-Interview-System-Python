@@ -5,7 +5,7 @@ export const GlobalContext = createContext();
 export const GlobalProvider = ({ children }) => {
   const [gJobTitle, setGJobTitle] = useState('');
   const [gQtns, setGQtns] = useState([]);
-  const [gValidInterview, setGValidInterview] = useState(false);
+  const [gValidInterview, setGValidInterview] = useState(null);
 
   const updateGJobAndQnts = (jobTitle, questions) => {
     setGJobTitle(jobTitle);
