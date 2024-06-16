@@ -81,8 +81,6 @@ const FaceRecognition = () => {
         .withFaceLandmarks(true)
         .withFaceExpressions()
 
-      console.log(detections);
-
       if (!toastDisplayed) {
         if (detections.length === 0) {
           toast.error("No face detected!", { ...toastErrorStyle(), autoClose: 1800, onClose: () => toastDisplayed = false });
