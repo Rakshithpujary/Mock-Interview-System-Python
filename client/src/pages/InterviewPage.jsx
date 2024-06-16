@@ -9,24 +9,21 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import PageVisibility from "../components/utils/PageVisibility";
-import { useNavigate } from 'react-router-dom';
 
 function InterviewPage() {
-    // access global values
-    const { gQtns, gValidInterview, setGValidInterview } = useContext(GlobalContext);
+    // access global values and functions
+    const { gQtns, gValidInterview, setGValidInterview, setSuspiciousCount } = useContext(GlobalContext);
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [questionNumber, setQuestionNumber] = useState(1);
     const [skippedQuestions, setSkippedQuestions] = useState([]);
     const [nextQuestions, setNextQuestions] = useState([]);
     const [toastOn, setToastOn] = useState(false);
-    const [ recordAttempted, setRecordAttempted] = useState(false);
+    const [recordAttempted, setRecordAttempted] = useState(false);
+    const [timer, setTimer] = useState(['2', '00']);
+    const [timerIntervalId, setTimerIntervalId] = useState(null);
     const [validUpdated, setValidUpdated] = useState(false);
     const isPageVisible = PageVisibility();
-    const firstTimerIdRef = useRef(null);
-    const secondTimerIdRef = useRef(null);
-    const hasBeenAwayForLong = useRef(false);
-    const navigate = useNavigate();
 
     // check if valid entry to interview page
     useEffect(()=>{
@@ -51,35 +48,9 @@ function InterviewPage() {
     // if user changed tab or window
     useEffect(() => {
         if (!isPageVisible) {
-            // Start a timer for 10 seconds
-            firstTimerIdRef.current = setTimeout(() => {
-                if (!isPageVisible) {
-                    hasBeenAwayForLong.current = true;
-                }
-            }, 10000);
-        } else {
-            // Clear the first timer if the page becomes visible again within 10 seconds
-            clearTimeout(firstTimerIdRef.current);
-            
-            // Check if the user has been away for more than 10 seconds
-            if (hasBeenAwayForLong.current) {
-                // Start the second timer for 2 seconds
-                secondTimerIdRef.current = setTimeout(() => {
-                    toast.error("You have been away for too long!", { ...toastErrorStyle(), autoClose: false });
-                    navigate('/', { replace: true }); // Re-direct to home page
-                }, 0);
-                
-                // Reset the flag
-                hasBeenAwayForLong.current = false;
-            }
-        }
-
-        // Cleanup both timers when component unmounts or when isPageVisible changes
-        return () => {
-            clearTimeout(firstTimerIdRef.current);
-            clearTimeout(secondTimerIdRef.current);
+            setSuspiciousCount(prev => prev + 1);
         };
-    }, [isPageVisible, navigate]);
+    }, [isPageVisible]);
 
     const handleSkipQuestion = () => {
         resetTranscript()
@@ -114,6 +85,7 @@ function InterviewPage() {
         }
     }, [toastOn]);
 
+    // when component unmounts stop speech
     useEffect(()=>{
         return() =>{
             handleStopListen();
@@ -138,10 +110,27 @@ function InterviewPage() {
             SpeechRecognition.startListening({ continuous: true });
             setRecordAttempted(true);
 
+            const listenFor = 120000; // 120,000 milliseconds = 2 minutes
+
+            // screen timer logic
+            let tempMili = listenFor - 1000; // start from 1 sec less, to handle the delay in useState update
+            const id = setInterval(()=>{
+                updateScreenTimer(tempMili);
+                tempMili -= 1000;
+
+                // Stop the timerInterval when time is up
+                if (tempMili <= 0) {
+                    clearInterval(id);
+                    return;
+                }
+            },1000);   
+            setTimerIntervalId(id);
+
             // Stop listening after 2 minutes
             setTimeout(() => {
-                SpeechRecognition.stopListening();
-            }, 120000); // 120,000 milliseconds = 2 minutes
+                handleStopListen();
+            }, listenFor); 
+
         } else {
             SpeechRecognition.startListening();
         }
@@ -149,7 +138,22 @@ function InterviewPage() {
 
     function handleStopListen() {
         SpeechRecognition.stopListening();
+        setTimer(['2', '00']); // reset screen timer
+        if (timerIntervalId) clearInterval(timerIntervalId);
     }
+
+    function updateScreenTimer(ms) {
+        // Convert milliseconds to seconds and minutes
+        let seconds = Math.floor(ms / 1000); // Total seconds
+        let minutes = Math.floor(seconds / 60); // Total minutes
+        seconds = seconds % 60; // Remaining seconds after converting to minutes
+
+        // Format seconds to add leading zero if it's a single digit
+        if (seconds < 10) {
+            seconds = '0' + seconds;
+        }
+        setTimer([minutes, seconds]);
+      }
     // ======================================================================
 
   return (
@@ -182,6 +186,9 @@ function InterviewPage() {
                 { listening ? <>Listening <FontAwesomeIcon icon={faSpinner} spin /></> : 
                 transcript.length !==0 ? 'Re-record' : 'Answer'}
             </button>
+            { listening && browserSupportsContinuousListening ?
+                <button className='timer-btn'>Time Left {timer[0]} : {timer[1]}</button> : null
+            }
             { listening && <button className='stopButton' onClick={handleStopListen}>Stop</button> }
             { !listening? !recordAttempted?
                 <button className={`skipButton ${questionNumber === 5 ? 'hidden' : ''}`} onClick={handleSkipQuestion}>Skip</button> :

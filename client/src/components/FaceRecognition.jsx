@@ -1,11 +1,15 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useContext } from 'react';
 import * as faceapi from 'face-api.js';
 import { toast } from 'react-toastify';
 import { toastErrorStyle } from './utils/toastStyle';
 import '../css/FaceRecognition.css';
 import { useNavigate } from 'react-router-dom';
+import { GlobalContext } from './utils/GlobalState';
 
-const Testing = () => {
+const FaceRecognition = () => {
+  // access global values and functions
+  const { setSuspiciousCount } = useContext(GlobalContext);
+
   const [ mediaStream, setMediaStream] = useState(null);
   const [ showBorderAnimation, setShowBorderAnimation] = useState(false);
   const videoRef = useRef(null);
@@ -29,7 +33,6 @@ const Testing = () => {
       setTimeout(()=>{
         startVideo(); // start after 1.5 sec delay
       },1500);
-
     };
 
     const startVideo = () => {
@@ -40,7 +43,8 @@ const Testing = () => {
           setMediaStream(stream);
         })
         .catch(err => {
-          !webCamToastDisplayedOnce && toast.error("Error accessing webcam", { ...toastErrorStyle(), autoClose: false });
+          !webCamToastDisplayedOnce && toast.error("Error accessing webcam, Please try giving permission.", 
+            { ...toastErrorStyle(), autoClose: false });
           console.error('Error accessing webcam:', err);
           webCamToastDisplayedOnce = true;
 
@@ -56,11 +60,18 @@ const Testing = () => {
     return() =>{
       if(mediaStream?.getTracks) {
         const tracks = mediaStream.getTracks();
-        tracks.forEach(track => track.stop())
+        tracks.forEach(track => track.stop());
       }
     }
   },[mediaStream]);
- 
+
+  // stop camera interval after component unmounts
+  useEffect(()=>{
+    return ()=>{
+      if (intervalIdRef.current) clearInterval(intervalIdRef.current);
+    }
+  },[intervalIdRef])
+
   const handleVideoPlay = () => {
     const video = videoRef.current;
     const id = setInterval(async () => {
@@ -70,17 +81,21 @@ const Testing = () => {
         .withFaceLandmarks(true)
         .withFaceExpressions()
 
+      console.log(detections);
+
       if (!toastDisplayed) {
         if (detections.length === 0) {
           toast.error("No face detected!", { ...toastErrorStyle(), autoClose: 1800, onClose: () => toastDisplayed = false });
           // setToastDisplayed(true);
           toastDisplayed = true;
           setShowBorderAnimation(true);
+          setSuspiciousCount(prev => prev + 1);
         } else if (detections.length > 1) {
           toast.error("Multiple faces have been detected", { ...toastErrorStyle(), autoClose: 1800, onClose: () => toastDisplayed = false });
           // setToastDisplayed(true);
           toastDisplayed = true;
           setShowBorderAnimation(true);
+          setSuspiciousCount(prev => prev + 1);
         }else{
           setShowBorderAnimation(false);
         }
@@ -118,8 +133,13 @@ const Testing = () => {
       }
     }, 1000);
 
-    intervalIdRef.current = id;
+    // Clear the previous interval if it exists
     if (intervalIdRef.current) clearInterval(intervalIdRef.current);
+
+    // Set the new interval ID
+    intervalIdRef.current = id;
+
+    return () => clearInterval(id); // not working
   };
 
   function calculateAverage(emotionDataValue, currentEValue) {
@@ -167,4 +187,4 @@ const Testing = () => {
   );
 };
 
-export default Testing;
+export default FaceRecognition;

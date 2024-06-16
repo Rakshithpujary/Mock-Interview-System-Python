@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Initialize the Generative AI model and chat session globally
-gemini_api_key = 'AIzaSyB2DpQylxNaQLbwW0hkxSwTXi1M3OrOJyo'
+gemini_api_key = 'AIzaSyDNzleXUCODSzS9X6OnGomEeOtJxn6nMnA'
 genai.configure(api_key=gemini_api_key)
 model = genai.GenerativeModel('gemini-pro')
 chat = model.start_chat(history=[])
