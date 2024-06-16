@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 function InterviewPage() {
     // access global values
-    const { gJobTitle, gQtns, gValidInterview, setGValidInterview } = useContext(GlobalContext);
+    const { gQtns, gValidInterview, setGValidInterview } = useContext(GlobalContext);
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [questionNumber, setQuestionNumber] = useState(1);
@@ -28,6 +28,7 @@ function InterviewPage() {
     const hasBeenAwayForLong = useRef(false);
     const navigate = useNavigate();
 
+    // check if valid entry to interview page
     useEffect(()=>{
         if(gValidInterview !== null) { // to make sure that it only runs once
             setValidUpdated(true);
@@ -35,7 +36,7 @@ function InterviewPage() {
         if(!validUpdated && gValidInterview === false) {
             window.location.replace('/'); // Re-direct to home page
         }
-        setGValidInterview(false);
+        setGValidInterview(false); // once entered ,cannot enter again without generating qtns
     },[gValidInterview]);
 
     const {
@@ -46,15 +47,6 @@ function InterviewPage() {
         browserSupportsSpeechRecognition,
         browserSupportsContinuousListening
     } = useSpeechRecognition();
-
-    // DO NOT DELETE THIS CODE IMPORTANT
-    // useEffect(()=>{
-    //     return () =>{
-    //         if(!isSubmitted) {
-    //             navigate('/', { replace: true });
-    //         }
-    //     }
-    // },[isSubmitted]);
 
     // if user changed tab or window
     useEffect(() => {
@@ -121,6 +113,12 @@ function InterviewPage() {
             return () => clearTimeout(timer);
         }
     }, [toastOn]);
+
+    useEffect(()=>{
+        return() =>{
+            handleStopListen();
+        }
+    },[]);
 
     function handleStartListen() {
         if(transcript.length !== 0){
