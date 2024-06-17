@@ -43,6 +43,7 @@ html, body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    padding-bottom: 20px;
     gap: 20px;
     overflow: hidden; /* Ensure the pseudo-element does not cause overflow */
 }
@@ -58,23 +59,23 @@ html, body {
 }
 
 .context-div h1 {
-    
-    color:black;
+    color: black;
     font-size: 35px;
     width: 70%;
     padding: 20px;
 }
-.text-div{
-    position: relative;
+.text-div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 60%;
     z-index: 1;
+    bottom: 50px;
     font-family: Jazz LET, fantasy;
+    position: relative;
 }
-.img-div{
+.img-div {
     width: 40%;
 }
 .getStartedButton {
@@ -85,9 +86,10 @@ html, body {
     background-color: #EDC215;
     color: black;
     font-size: 15px;
-    position: relative;
-    margin-top: 30px;
+    position: absolute; /* Position it absolutely */
+    bottom: -50px; /* Adjust position as needed */
     transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(0);
 }
 
 .StartInterviewButton {
@@ -99,11 +101,11 @@ html, body {
     color: black;
     font-size: 15px;
     position: relative;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 .joblabel {
-    font-size: 20px;
+    font-size: 30px;
     font-weight: bold;
     text-align: center;
 }
@@ -121,13 +123,11 @@ html, body {
 
 .jobinput:focus {
     outline: none;
-    /* border: 1px solid #EDC215; */
-    /* box-shadow: 10px 0 0px 15px rgba(237, 193, 21, 0.7); */
 }
 
-.jobTitle-div{
+.jobTitle-div {
     background-color: rgba(0, 0, 0, 0.699);
-    opacity: 3;
+    opacity: 1;
     width: 30%;
     height: 50%;
     color: antiquewhite;
@@ -136,32 +136,69 @@ html, body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.699);
     z-index: 9;
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Add transition here */
+    transform: translateY(0); /* Default position */
 }
-.Left-arrow{
+
+.Left-arrow {
     position: absolute;
     padding: 8px 10px 10px 10px;
     font-size: 30px;
     top: 0;
     left: 0;
 }
-.Left-arrow:hover{
+
+.Left-arrow:hover {
     color: #EDC215;
 }
-.context-div button:hover{
+
+.context-div button:hover {
     box-shadow: 0px 1px 10px #EDC215;
 }
+.radio-div{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+}
+
 /* Hidden state */
 .hidden {
     opacity: 0;
-    transform: translateY(-20px); /* Optional slide-up effect */
-    pointer-events: none; /* Prevent clicking while hidden */
+    transform: translateY(-50px); /* Move element up when hidden */
+    pointer-events: none; /* Disable pointer events on hidden element */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Transition properties */
 }
+
+.jobType-select {
+    font-size: 15px;
+    width: 51%;
+    height: 12%;
+    border: none;
+    border-bottom: 5px;
+    border-radius: 5px;
+    padding: 0.5%;
+    padding-left: 10px !important;
+}
+
+.jobType-select:focus {
+    outline: none;
+    border: none; /* Custom focus outline */
+}
+
 /* Responsive styles */
+@media (max-width: 1100px){
+    .jobTitle-div {
+        width: 50%; /* Ensure full width on small screens */
+        height: 280px;
+    }
+}
 @media (max-width: 768px) {
     .context-div {
         flex-direction: column;
@@ -182,16 +219,23 @@ html, body {
     .header-text {
         font-size: 6vw; /* Adjust text size for smaller screens */
     }
+
     .jobTitle-div {
-        width: 70%; /* Ensure full width on small screens */
-        height: 300px;
+        width: 90%; /* Ensure full width on small screens */
+        height: 280px;
     }
 
     .joblabel {
-        font-size: 4vw; /* Adjust label size for smaller screens */
+        font-size: 5vw; /* Adjust label size for smaller screens */
     }
 
-    .getStartedButton, .StartInterviewButton {
+    .getStartedButton {
+        width: 50%;
+        height: 30px;
+        padding: 10px; /* Increase button width on smaller screens */
+    }
+
+    .StartInterviewButton {
         width: 50%;
         height: 30px;
         padding: 10px; /* Increase button width on smaller screens */
@@ -203,9 +247,8 @@ html, body {
         font-size: 8vw; /* Further adjust text size for very small screens */
     }
 
-    
     .joblabel {
-        font-size: 5vw; /* Further adjust label size */
+        font-size: 6vw; /* Further adjust label size */
     }
 
     .getStartedButton, .StartInterviewButton {
@@ -218,10 +261,11 @@ html, body {
         width: 80%; /* Increase input width on very small screens */
     }
 
+    .jobType-select {
+        width: 82%;
+    }
+
     .jobTitle-div {
-        width: 70%; /* Ensure full width on small screens */
-        height: 270px;
+        height: 250px;
     }
 }
-
-  

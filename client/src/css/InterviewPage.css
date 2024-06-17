@@ -32,7 +32,6 @@
   .answerDisplay-div{
     width: 600px;
     height: 100px;
-    background-color: rgb(29, 79, 43);
     padding:20px;
   }
   .buttonDisplay-div{
@@ -56,7 +55,7 @@
     color: red; /* Color for skipped question numbers */
   }
   .numberIcon.active {
-    color: blue; /* Color for skipped question numbers */
+    color: #EDC215; /* Color for skipped question numbers */
     transition: color 0.5s ease-in-out;
   }
   .numberIcon.next {

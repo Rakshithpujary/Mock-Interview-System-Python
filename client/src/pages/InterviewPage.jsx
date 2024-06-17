@@ -56,6 +56,7 @@ function InterviewPage() {
         resetTranscript()
         if (questionNumber < 5) {
             setSkippedQuestions(prevState => [...prevState, questionNumber]);
+            setCurrentQuestionIndex(prevIndex => prevIndex + 1);
             setQuestionNumber(prev => prev + 1);
         } else {
           toast.error("You've reached the last question.", {...toastErrorStyle(),autoClose: 2000});
