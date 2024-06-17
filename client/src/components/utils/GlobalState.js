@@ -6,7 +6,8 @@ export const GlobalProvider = ({ children }) => {
   const [gJobTitle, setGJobTitle] = useState('');
   const [gQtns, setGQtns] = useState([]);
   const [gValidInterview, setGValidInterview] = useState(null);
-  const [suspiciousCount, setSuspiciousCount] = useState(0);
+  const [gSuspiciousCount, setGSuspiciousCount] = useState(0);
+  const [gEmotionData, setGEmotionData] = useState(null);
 
   const updateGJobAndQnts = (jobTitle, questions) => {
     setGJobTitle(jobTitle);
@@ -14,13 +15,14 @@ export const GlobalProvider = ({ children }) => {
   };
 
   // useEffect(()=>{
-  //   console.log(suspiciousCount);
-  // },[suspiciousCount])
+  //   console.log("EMotion global data = ", gEmotionData);
+  // },[gEmotionData])
 
   return (
     <GlobalContext.Provider value={{ gJobTitle, gQtns, gValidInterview,
      updateGJobAndQnts, setGValidInterview,
-     suspiciousCount, setSuspiciousCount }}
+     gSuspiciousCount, setGSuspiciousCount,
+     gEmotionData, setGEmotionData }}
      >
       {children}
     </GlobalContext.Provider>

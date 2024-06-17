@@ -23,6 +23,8 @@ function HomePage() {
 
     const handleBackClick = () => {
         setIsVisible(true); // Show the jobTitle-div
+        setExperienceLevel('');
+        setJobInput('');
     };
 
     const handleStartInterviewClick = async () => {
@@ -81,7 +83,7 @@ function HomePage() {
                     <label className='joblabel'>Enter job role</label>
                     <input className='jobinput' type='text' value={jobInput} onChange={handleInputChange}
                         maxLength={35} placeholder='Eg: Java Developer' disabled={isLoading} />
-                    <label>Select experience level:</label>
+                    {/* <label>Select experience level:</label> */}
                     {/* Radio buttons for experience level */}
                     <div className='radio-div'>
                         <label>

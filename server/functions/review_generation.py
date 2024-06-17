@@ -13,7 +13,6 @@ def gen_review(job_role,qns,ans,emotion_analysis):
     for i in range(len(qns)):
         data += "\n Qtn " + str(i + 1) + ": " + qns[i] + "\n Ans: " + ans[i]
 
-
     data = data + "\nEmotion Analysis:\n" + str(emotion_analysis)
 
     # print("\nData = ",data)
@@ -21,7 +20,7 @@ def gen_review(job_role,qns,ans,emotion_analysis):
     msg = (
         f"Context = {data} \n"
         "The above context represents the data of an interviewee. "
-        "Please write a review for him/her, including an emotion analysis and questions & answers where he/she can improve. "
+        "Please write a review in 250 words for him/her, including an emotion analysis and questions & answers where he/she can improve. "
         "IMPORTANT: write the review as if you are directly TALKING WITH HIM/HER. "
         "IMPORTANT: don't write anything extra, only write the review."
         "IMPORTANT: dont include any main headings such as 'review'"

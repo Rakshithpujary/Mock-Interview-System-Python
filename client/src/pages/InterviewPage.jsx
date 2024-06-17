@@ -9,10 +9,11 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import PageVisibility from "../components/utils/PageVisibility";
+import { Navigate } from 'react-router-dom';
 
 function InterviewPage() {
     // access global values and functions
-    const { gQtns, gValidInterview, setGValidInterview, setSuspiciousCount } = useContext(GlobalContext);
+    const { gQtns, gValidInterview, setGValidInterview, setGSuspiciousCount } = useContext(GlobalContext);
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [questionNumber, setQuestionNumber] = useState(1);
@@ -23,7 +24,20 @@ function InterviewPage() {
     const [timer, setTimer] = useState(['2', '00']);
     const [timerIntervalId, setTimerIntervalId] = useState(null);
     const [validUpdated, setValidUpdated] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [skipInTimer, setSkipInTimer] = useState(7); // 7 secs
+    const [resetSkipInTimer, setResetSkipInTimer] = useState(false);
+    const [skipDisabled, setSkipDisabled] = useState(false);
     const isPageVisible = PageVisibility();
+    const {
+        transcript,
+        listening,
+        resetTranscript,
+        isMicrophoneAvailable,
+        browserSupportsSpeechRecognition,
+        browserSupportsContinuousListening
+    } = useSpeechRecognition();
+    const AnswerArray=useRef(new Array(5).fill(''));
 
     // check if valid entry to interview page
     useEffect(()=>{
@@ -36,39 +50,65 @@ function InterviewPage() {
         setGValidInterview(false); // once entered ,cannot enter again without generating qtns
     },[gValidInterview]);
 
-    const {
-        transcript,
-        listening,
-        resetTranscript,
-        isMicrophoneAvailable,
-        browserSupportsSpeechRecognition,
-        browserSupportsContinuousListening
-    } = useSpeechRecognition();
-
     // if user changed tab or window
     useEffect(() => {
         if (!isPageVisible) {
-            setSuspiciousCount(prev => prev + 1);
+            setGSuspiciousCount(prev => prev + 1);
         };
     }, [isPageVisible]);
 
+    const handleSubmit = () => {
+        setIsSubmitted(true);
+        if(transcript.length>0)
+        {
+            AnswerArray.current[questionNumber-1]=transcript;
+
+        }else{
+            AnswerArray.current[questionNumber-1]='Skipped';
+        }
+        Navigate('/review');
+        // console.log(AnswerArray.current);
+    }
+
+    // handle skip question timer
+    useEffect(()=>{
+        setSkipDisabled(true);
+        setSkipInTimer(7); // 7 secs
+        let temp = 6; // start from 1 sec less, to handle the delay in useState update
+        const intervalId = setInterval(() => {
+            if (temp <= 0) {
+                setSkipDisabled(false);
+                clearInterval(intervalId); // clear the interval once the timer hits 0
+                return;
+            }
+            setSkipInTimer(temp);
+            temp -= 1;
+        }, 1000);
+      
+        return () => clearInterval(intervalId); // clear interval on cleanup
+    },[resetSkipInTimer]);
+
     const handleSkipQuestion = () => {
-        resetTranscript()
+        resetTranscript();
+        setResetSkipInTimer(prev => !prev); // toggle value to call useEffect
         if (questionNumber < 5) {
             setSkippedQuestions(prevState => [...prevState, questionNumber]);
             setCurrentQuestionIndex(prevIndex => prevIndex + 1);
             setQuestionNumber(prev => prev + 1);
+            AnswerArray.current[questionNumber-1]='Skipped';
         } else {
           toast.error("You've reached the last question.", {...toastErrorStyle(),autoClose: 2000});
         }
       };
 
     const handleNextQuestion = (questionNumber) => {
-        resetTranscript()
+        resetTranscript();
+        setResetSkipInTimer(prev => !prev); // toggle value to call useEffect
         if(questionNumber < 5){
             setNextQuestions(prevState => [...prevState, questionNumber]);
             setQuestionNumber(prev => prev + 1);
             setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+            AnswerArray.current[questionNumber-1]=transcript;
         }
         else{
             toast.error("You've reached the last question.", {...toastErrorStyle(), autoClose: 2000});
@@ -160,7 +200,7 @@ function InterviewPage() {
   return (
     <div className='interview-div'>
         <div className='videoDisplay-div'>
-            <FaceRecognition/>
+            <FaceRecognition isSubmitted={isSubmitted}/>
         </div>
         <div className='questionDisplay-div'>
             <div className='questionNumber-div'>
@@ -192,22 +232,33 @@ function InterviewPage() {
             }
             { listening && <button className='stopButton' onClick={handleStopListen}>Stop</button> }
             { !listening? !recordAttempted?
-                <button className={`skipButton ${questionNumber === 5 ? 'hidden' : ''}`} onClick={handleSkipQuestion}>Skip</button> :
+                <button className={`skipButton ${questionNumber === 5 ? 'hidden' : ''}`}
+                 onClick={handleSkipQuestion} disabled={skipDisabled}>
+                    {skipDisabled? `Skip in ${skipInTimer}s` : 'Skip'}
+                </button> :
                 <>
                     {transcript.length > 0?
                         <>
-                            <button className={`skipButton ${questionNumber === 5 ? 'hidden' : ''}`} onClick={handleSkipQuestion}>Skip</button>
+                            <button className={`skipButton ${questionNumber === 5 ? 'hidden' : ''}`}
+                            onClick={handleSkipQuestion} disabled={skipDisabled}>
+                                {skipDisabled? `Skip in ${skipInTimer}s` : 'Skip'}
+                            </button>
                             <button className={`nextButton ${questionNumber === 5 ? 'hidden' : ''}`} onClick={() => handleNextQuestion(questionNumber)}>
                                 Next
                             </button>
                         </>
-                        : <button className={`skipButton ${questionNumber === 5 ? 'hidden' : ''}`} onClick={handleSkipQuestion}>Skip</button>
+                        :
+                        <button className={`skipButton ${questionNumber === 5 ? 'hidden' : ''}`}
+                            onClick={handleSkipQuestion} disabled={skipDisabled}>
+                            {skipDisabled? `Skip in ${skipInTimer}s` : 'Skip'}
+                        </button>
                     }
                 </>
                : null
             }
             { !listening &&
-                <button className={`SubmitButton ${questionNumber === 5 ? 'display' : ''}`}>Submit</button> 
+                <button className={`SubmitButton ${questionNumber === 5 ? 'display' : ''}`}
+                onClick={handleSubmit} disabled={skipDisabled}>{skipDisabled? `Submit in ${skipInTimer}s` : 'Submit'}</button> 
             }
         </div>
         {/* <AnswerQuestion /> */}

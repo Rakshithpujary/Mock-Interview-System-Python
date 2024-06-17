@@ -175,21 +175,10 @@ html, body {
     pointer-events: none; /* Disable pointer events on hidden element */
     transition: opacity 0.5s ease, transform 0.5s ease; /* Transition properties */
 }
-
-.jobType-select {
-    font-size: 15px;
-    width: 51%;
-    height: 12%;
-    border: none;
-    border-bottom: 5px;
-    border-radius: 5px;
-    padding: 0.5%;
-    padding-left: 10px !important;
-}
-
-.jobType-select:focus {
-    outline: none;
-    border: none; /* Custom focus outline */
+.radio-div{
+    margin-right: 10px; /* Space between radio and label text */
+    accent-color: #EDC215; /* Change radio button color */
+    cursor: pointer; /* Add pointer cursor */
 }
 
 /* Responsive styles */
