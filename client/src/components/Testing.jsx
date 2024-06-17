@@ -6,19 +6,29 @@ import '../css/FaceRecognition.css';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from './utils/GlobalState';
 
-const FaceRecognition = () => {
+const FaceRecognition = ({ isSubmitted }) => {
   // access global values and functions
-  const { setSuspiciousCount } = useContext(GlobalContext);
+  const { setGSuspiciousCount, setGEmotionData } = useContext(GlobalContext);
 
-  const [ mediaStream, setMediaStream] = useState(null);
-  const [ showBorderAnimation, setShowBorderAnimation] = useState(false);
+  const [mediaStream, setMediaStream] = useState(null);
+  const [showBorderAnimation, setShowBorderAnimation] = useState(false);
+  const [lEmotionData, setLEmotionData] = useState(null); // local emotion data
+  const [emotionDataCount, setEmotionDataCount] = useState(1);
   const videoRef = useRef(null);
   const navigate = useNavigate();
   const intervalIdRef = useRef(null);
   
   let webCamToastDisplayedOnce = false;
-  let emotionData = null;
+  let tempEmotionData = null;
   let toastDisplayed = false;
+
+  // set global emotion data for later access
+  useEffect(()=>{
+    if(isSubmitted && emotionDataCount>15) 
+      setGEmotionData(lEmotionData);
+    else
+      setGEmotionData(null);
+  },[isSubmitted, lEmotionData])
 
   useEffect(() => {
     const loadModels = async () => {
@@ -87,13 +97,13 @@ const FaceRecognition = () => {
           // setToastDisplayed(true);
           toastDisplayed = true;
           setShowBorderAnimation(true);
-          setSuspiciousCount(prev => prev + 1);
+          setGSuspiciousCount(prev => prev + 1);
         } else if (detections.length > 1) {
           toast.error("Multiple faces have been detected", { ...toastErrorStyle(), autoClose: 1800, onClose: () => toastDisplayed = false });
           // setToastDisplayed(true);
           toastDisplayed = true;
           setShowBorderAnimation(true);
-          setSuspiciousCount(prev => prev + 1);
+          setGSuspiciousCount(prev => prev + 1);
         }else{
           setShowBorderAnimation(false);
         }
@@ -101,7 +111,7 @@ const FaceRecognition = () => {
 
       if(detections.length === 1) {
         const currentE = detections[0]?.expressions;
-        if(emotionData === null) {
+        if(tempEmotionData === null) {
           const initialData = {
             angry: currentE.angry * 10,
             disgusted: currentE.disgusted * 10,
@@ -112,21 +122,23 @@ const FaceRecognition = () => {
             surprised: currentE.surprised * 10,
           };
 
-          emotionData = initialData;
+          tempEmotionData = initialData;
         }
         else {
           // Calculate average emotions from previous data and new data
           const avgE = {
-            angry: calculateAverage(emotionData.angry, currentE.angry),
-            disgusted: calculateAverage(emotionData.disgusted, currentE.disgusted),
-            fearful: calculateAverage(emotionData.fearful, currentE.fearful),
-            happy: calculateAverage(emotionData.happy, currentE.happy),
-            neutral: calculateAverage(emotionData.neutral, currentE.neutral),
-            sad: calculateAverage(emotionData.sad, currentE.sad),
-            surprised: calculateAverage(emotionData.surprised, currentE.surprised),
+            angry: calculateAverage(tempEmotionData.angry, currentE.angry),
+            disgusted: calculateAverage(tempEmotionData.disgusted, currentE.disgusted),
+            fearful: calculateAverage(tempEmotionData.fearful, currentE.fearful),
+            happy: calculateAverage(tempEmotionData.happy, currentE.happy),
+            neutral: calculateAverage(tempEmotionData.neutral, currentE.neutral),
+            sad: calculateAverage(tempEmotionData.sad, currentE.sad),
+            surprised: calculateAverage(tempEmotionData.surprised, currentE.surprised),
           };
 
-          emotionData = avgE;
+          tempEmotionData = avgE;
+          setLEmotionData(tempEmotionData); // not necassary in above if-condition
+          setEmotionDataCount(prev => prev + 1); // not necassary in above if-condition
         }
       }
     }, 1000);
@@ -136,7 +148,6 @@ const FaceRecognition = () => {
 
     // Set the new interval ID
     intervalIdRef.current = id;
-
     return () => clearInterval(id); // not working
   };
 

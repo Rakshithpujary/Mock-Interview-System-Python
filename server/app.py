@@ -46,8 +46,8 @@ def analyze_emotions():
         print(f"Error occurred while generating emotion analysis data: {e}")
         return jsonify({'response': "Something went wrong"}), 400
 
-@app.route('/api/get-review', methods=['POST'])
-def get_review():
+@app.route('/api/get-review-old', methods=['POST'])
+def get_review_old():
     try:
         data = request.get_json()
         job_role = data['job_role']
@@ -57,6 +57,25 @@ def get_review():
 
         # get emotion analysis
         emotion = analyze_fun(frames)
+
+        # get review
+        review = gen_review(job_role,qns,ans,emotion)
+
+        return jsonify({'response': review})
+    except Exception as e:
+        print(f"Error occurred while generating review: {e}")
+        return jsonify({'response': "Something went wrong"}), 400
+
+@app.route('/api/get-review', methods=['POST'])
+def get_review():
+    try:
+        data = request.get_json()
+        job_role = data['job_role']
+        qns = data['qns']
+        ans = data['ans']
+        emotion = data['emotion']
+
+        # get review
         review = gen_review(job_role,qns,ans,emotion)
 
         return jsonify({'response': review})

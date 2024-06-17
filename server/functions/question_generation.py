@@ -80,7 +80,7 @@ def get_questions(job_title,call_count):
     return cleaned_lines
   except Exception as e:
     print(f"Error occurred: {e}")
-    return "get_questions error occured"
+    return "Something went wrong, Please try again."
 
 def generate_questions(job_title):
 
