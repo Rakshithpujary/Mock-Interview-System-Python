@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import '../css/HomePage.css';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -11,12 +11,16 @@ import { GlobalContext } from '../components/utils/GlobalState';
 
 
 function HomePage() {
-    const { updateGQtnGenerationData, setGValidInterview } = useContext(GlobalContext);
+    const { updateGQtnGenerationData, setGValidInterview, setGValidReview } = useContext(GlobalContext);
     const [jobInput, setJobInput] = useState('');
     const [isVisible, setIsVisible] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [experienceLevel, setExperienceLevel] = useState('fresher');
     const navigate = useNavigate();
+
+    useEffect(()=>{
+        setGValidReview(false); // once entered homepage then cannot go to review page unless interview is done
+    },[])
 
     const handleGetStartedClick = () => {
         setIsVisible(false); // Hide the jobTitle-div
