@@ -69,7 +69,9 @@ function HomePage() {
             </div>
             <div className='context-div'>
                 <div className='text-div'>
-                    <h1 className='typing-effect'>From Practice to Perfection – Your Interview Journey Starts Here!</h1>
+                    <h1 className='typing-effect'>From Practice to Perfection –</h1>
+                    <h1 className='typing-effect2'>Your Interview Journey Starts </h1>
+                    <h1 className='typing-effect3'>Here!</h1>
                     <button
                         className={`getStartedButton ${!isVisible ? 'hidden' : ''}`}
                         onClick={handleGetStartedClick}>Get Started</button>

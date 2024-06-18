@@ -75,6 +75,12 @@ html, body {
     position: relative; 
     font-family: 'Courier New', Courier, monospace;
 }
+.typing-efect{
+    overflow:hidden;
+    white-space:nowrap;
+    width:8em;
+    -webkit-animation: type 2s steps(15);
+}
 .img-div {
     width: 40%;
 }
