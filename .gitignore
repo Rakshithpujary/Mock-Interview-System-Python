@@ -1,0 +1,70 @@
+# Node.js (client)
+client/node_modules/
+client/build/
+
+# React specific
+client/.env
+client/.next/
+client/out/
+
+# Logs
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*
+
+# Dependencies
+client/node_modules/
+
+# Production build
+client/build/
+
+# Misc
+client/.sass-cache/
+client/connect.lock
+client/coverage/
+client/libpeerconnection.log
+client/npm-debug.log
+client/testem.log
+client/typings/
+client/.env
+client/.next/
+client/out/
+
+# Static analysis
+client/.eslintcache
+
+# IDEs and editors
+client/.idea/
+client/.vscode/
+client/.vscode/*
+client/*.suo
+client/*.ntvs*
+client/*.njsproj
+client/*.sln
+client/.DS_Store
+client/*.pyc
+
+# Python (server)
+server/venv/
+server/__pycache__/
+server/functions/__pycache__/
+
+server/*.pyc
+
+# Flask specific
+server/instance/
+server/.env
+server/.flaskenv
+
+# Misc
+server/.DS_Store
+
+# IDEs and editors
+server/.idea/
+server/.vscode/
+server/.vscode/*
+server/*.suo
+server/*.ntvs*
+server/*.njsproj
+server/*.sln
+server/.DS_Store

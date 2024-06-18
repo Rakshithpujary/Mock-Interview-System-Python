@@ -3,7 +3,6 @@ import google.generativeai as genai
 from functions.question_generation import generate_questions
 from functions.emotion_analysis import analyze_fun
 from functions.review_generation import gen_review
-
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
@@ -12,18 +11,27 @@ CORS(app)
 # Initialize the Generative AI model and chat session globally
 gemini_api_key = 'AIzaSyDNzleXUCODSzS9X6OnGomEeOtJxn6nMnA'
 genai.configure(api_key=gemini_api_key)
-model = genai.GenerativeModel('gemini-pro')
-chat = model.start_chat(history=[])
 
+# old code
+# model = genai.GenerativeModel('gemini-pro')
+# chat = model.start_chat(history=[])
+# @app.before_request
+# def before_request():
+#     g.chat = chat
+
+# new code
+model = genai.GenerativeModel(model_name="gemini-1.5-flash")
 @app.before_request
 def before_request():
-    g.chat = chat
+    g.model = model
 
 @app.route('/api/get-questions', methods=['POST'])
 def ask_questions():
     try:
-        job_title = request.json.get('job_title')
-        response = generate_questions(job_title)
+        data = request.get_json()
+        job_title = data['job_title']
+        experience_lvl = data['experience_lvl']
+        response = generate_questions(job_title, experience_lvl)
 
         # if not list then error
         if not isinstance(response, list):
@@ -51,6 +59,7 @@ def get_review_old():
     try:
         data = request.get_json()
         job_role = data['job_role']
+        # experience_lvl = data['experience_lvl']
         qns = data['qns']
         ans = data['ans']
         frames = data['frames']
@@ -71,6 +80,7 @@ def get_review():
     try:
         data = request.get_json()
         job_role = data['job_role']
+        # experience_lvl = data['experience_lvl']
         qns = data['qns']
         ans = data['ans']
         emotion = data['emotion']
