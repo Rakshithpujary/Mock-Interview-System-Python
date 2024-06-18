@@ -133,8 +133,6 @@ const FaceRecognition = () => {
           // set global emotion data for later access
           if(emotionDataCount>15)
             setGEmotionData(tempEmotionData);
-          else
-            setGEmotionData("User did not turn on camera, hence no emotion analysis data is available");
         }
       }
     }, 1000);

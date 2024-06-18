@@ -9,7 +9,7 @@ import { GlobalContext } from '../components/utils/GlobalState';
 
 function App() {
   // access global values and functions
-  const { gJobRole, gQtns, gAns, gEmotionData, gValidReview } = useContext(GlobalContext);
+  const { gJobRole, gQtns, gAns, gEmotionData, gValidReview, gSuspiciousCount } = useContext(GlobalContext);
 
   const [validUpdated, setValidUpdated] = useState(false);
   const [ review, setReview] = useState('');
@@ -18,22 +18,18 @@ function App() {
 
   // check if valid entry to review page
   useEffect(()=>{
-    if(gValidReview !== null) { // to make sure that it only runs once
-        setValidUpdated(true);
-    }
-    if(gValidReview === false) {
+    if(!gValidReview) {
         window.location.replace('/'); // Re-direct to home page
     }
-  },[gValidReview]);
-
+  },[]);
 
   // call getReview
   useEffect(()=>{
     getReview();
-  },[gEmotionData]); // call when emotion data is loaded, then rest variables are assumed loaded
+  },[gAns]); // call when ans data is loaded, then rest variables are assumed loaded
 
   const getReview = async () => {
-    if(gEmotionData === null) return; // extra validation
+    if(gAns.length === 0) return; // extra validation
     if(review !== '') return; // extra validation
 
     try {
@@ -42,6 +38,7 @@ function App() {
           qns: gQtns,
           ans: gAns,
           emotion: gEmotionData,
+          suspiciousCount: gSuspiciousCount 
       });
 
       setReview(response.data.review);
@@ -58,7 +55,12 @@ function App() {
         
   return (
         <div className='main-div'>
-           <Markdown>{review}</Markdown>
+          {
+            review.length <= 0? <>Loading...</> : 
+            <>
+              <Markdown>{review}</Markdown>
+            </>
+          }
         </div>
     );
 }

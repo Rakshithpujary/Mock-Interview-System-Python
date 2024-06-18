@@ -84,9 +84,10 @@ def get_review():
         qns = data['qns']
         ans = data['ans']
         emotion = data['emotion']
+        suspiciousCount = data['suspiciousCount']
 
         # get review
-        review = gen_review(job_role,qns,ans,emotion)
+        review = gen_review(job_role, qns, ans, emotion, suspiciousCount)
 
         return jsonify({'review': review})
     except Exception as e:
