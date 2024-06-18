@@ -9,6 +9,7 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import PageVisibility from "../components/utils/PageVisibility";
+import { Navigate } from 'react-router-dom';
 
 function InterviewPage() {
     // access global values and functions
@@ -36,6 +37,7 @@ function InterviewPage() {
         browserSupportsSpeechRecognition,
         browserSupportsContinuousListening
     } = useSpeechRecognition();
+    const AnswerArray=useRef(new Array(5).fill(''));
 
     // check if valid entry to interview page
     useEffect(()=>{
@@ -57,7 +59,15 @@ function InterviewPage() {
 
     const handleSubmit = () => {
         setIsSubmitted(true);
+        if(transcript.length>0)
+        {
+            AnswerArray.current[questionNumber-1]=transcript;
 
+        }else{
+            AnswerArray.current[questionNumber-1]='Skipped';
+        }
+        Navigate('/review');
+        // console.log(AnswerArray.current);
     }
 
     // handle skip question timer
@@ -83,8 +93,9 @@ function InterviewPage() {
         setResetSkipInTimer(prev => !prev); // toggle value to call useEffect
         if (questionNumber < 5) {
             setSkippedQuestions(prevState => [...prevState, questionNumber]);
-            setQuestionNumber(prev => prev + 1);
             setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+            setQuestionNumber(prev => prev + 1);
+            AnswerArray.current[questionNumber-1]='Skipped';
         } else {
           toast.error("You've reached the last question.", {...toastErrorStyle(),autoClose: 2000});
         }
@@ -97,6 +108,7 @@ function InterviewPage() {
             setNextQuestions(prevState => [...prevState, questionNumber]);
             setQuestionNumber(prev => prev + 1);
             setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+            AnswerArray.current[questionNumber-1]=transcript;
         }
         else{
             toast.error("You've reached the last question.", {...toastErrorStyle(), autoClose: 2000});

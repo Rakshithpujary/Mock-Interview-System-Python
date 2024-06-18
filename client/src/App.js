@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import InterviewPage from './pages/InterviewPage'; // Import the InterviewPage component
 import { GlobalProvider } from './components/utils/GlobalState';
 import Testing from './components/Testing';
+import ReviewPage from './pages/ReviewPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/interview" element={<InterviewPage />} />
           <Route path="/testing" element={<Testing />} />
+          <Route path="/review" element={<ReviewPage />} />
         </Routes>
       </GlobalProvider>
     </Router>
