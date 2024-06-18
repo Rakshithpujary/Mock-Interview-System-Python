@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { GlobalContext } from '../components/utils/GlobalState';
 
+
 function HomePage() {
     const { updateGJobAndQnts, setGValidInterview } = useContext(GlobalContext);
     const [jobInput, setJobInput] = useState('');
@@ -68,7 +69,7 @@ function HomePage() {
             </div>
             <div className='context-div'>
                 <div className='text-div'>
-                    <h1>From Practice to Perfection – Your Interview Journey Starts Here!</h1>
+                    <h1 className='typing-effect'>From Practice to Perfection – Your Interview Journey Starts Here!</h1>
                     <button
                         className={`getStartedButton ${!isVisible ? 'hidden' : ''}`}
                         onClick={handleGetStartedClick}>Get Started</button>
@@ -83,7 +84,6 @@ function HomePage() {
                     <label className='joblabel'>Enter job role</label>
                     <input className='jobinput' type='text' value={jobInput} onChange={handleInputChange}
                         maxLength={35} placeholder='Eg: Java Developer' disabled={isLoading} />
-                    <label>Select experience level:</label>
                     {/* Radio buttons for experience level */}
                     <div className='radio-div'>
                         <label>

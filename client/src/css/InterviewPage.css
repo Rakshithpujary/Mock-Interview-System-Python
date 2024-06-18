@@ -1,93 +1,233 @@
+/* Base styles for all screens */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 .interview-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* gap: 20px; */
+}
+
+.videoDisplay-div,
+.questionDisplay-div,
+.answerDisplay-div{
+  width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+}
+.questionDisplay-div{
+  gap: 10px;
+}
+.answerDisplay-div{
+  border: 2px solid green;
+  width: 600px;
+}
+.answerDisplay-div p{
+  color: grey;
+}
+.buttonDisplay-div {
+  width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.questionNumber-div {
+  width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: grey;
+  font-size: 20px;
+}
+.question-div{
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.buttonDisplay-div {
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 10px;
+}
+
+.numberIcon {
+  color: gray;
+  transition: color 0.5s ease-in-out;
+}
+
+.numberIcon.skipped {
+  color: red;
+}
+
+.numberIcon.active {
+  color: blue;
+}
+
+.numberIcon.next {
+  color: green;
+}
+
+.SubmitButton,
+.skipButton,
+.nextButton,
+.Re-recordAnswerButton,
+.stopButton {
+  width: 25%;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  color: black;
+  font-size: 15px;
+  position: relative;
+  margin-top: 30px;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.skipButton{
+  background-color: #edc215;
+}
+.SubmitButton {
+  background-color: brown;
+  display: none;
+}
+.Re-recordAnswerButton {
+  background-color: green;
+}
+.nextButton{
+  background-color: rgb(59, 59, 239);
+}
+
+.stopButton {
+  background-color: rgb(231, 3, 3);
+}
+.iconContainer-div {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+}
+
+.icon {
+  font-size: 100px;
+  color: #e70909;
+  position: relative;
+}
+
+.number {
+  position: absolute;
+  top: 31%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 5px;
+  color: #000;
+  border-radius: 10px;
+}
+
+.hidden {
+  display: none;
+  transform: translateY(-20px); /* Optional slide-up effect */
+  /* Prevent clicking while hidden */
+}
+
+.display {
+  display: block;
+}
+
+/* Media query for tablets and small desktops */
+@media (max-width: 768px) {
+  .interview-div {
+      flex-direction: column;
+      gap: 10px;
   }
-  
-  .videoDisplay-div {
-    width: 600px;
-    height: 330px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+
+  .videoDisplay-div,
+  .questionDisplay-div,
+  .answerDisplay-div,
+  .buttonDisplay-div {
+      width: 95%;
+      height: auto;
   }
-  .questionDisplay-div{
-    width: 600px;
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+
+  .questionNumber-div {
+      width: 95%;
+      font-size: 18px;
+  }
+
+  .buttonDisplay-div {
+      flex-direction: row;
+      gap: 20px;
+  }
+}
+
+/* Media query for mobile devices */
+@media (max-width: 480px) {
+  .videoDisplay-div,
+  .questionDisplay-div,
+  .answerDisplay-div,
+  .buttonDisplay-div {
+      width: 95%;
+      height: auto;
+  }
+
+  .questionNumber-div {
+      width: 95%;
+      font-size: 16px;
+  }
+
+  .buttonDisplay-div {
+      flex-direction: row;
+      gap: 7px;
+  }
+
+  .SubmitButton,
+  .skipButton,
+  .nextButton,
+  .Re-recordAnswerButton,
+  .stopButton {
+      width: 100%;
+      margin-top: 10px;
   }
   .questionNumber-div{
-    width: 600px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: grey;
     font-size: 20px;
   }
-  .answerDisplay-div{
-    width: 600px;
-    height: 100px;
-    padding:20px;
+}
+
+/* Media query for large desktops */
+@media (min-width: 1200px) {
+  .videoDisplay-div,
+  .questionDisplay-div,
+  .answerDisplay-div,
+  .buttonDisplay-div {
+      width: 70%;
   }
-  .buttonDisplay-div{
-    width: 600px;
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-evenly;
-    gap: 10px;
+
+  .questionNumber-div {
+      width: 70%;
+      font-size: 24px;
   }
-  .numberOne{
-    color: gray;
+
+  .SubmitButton,
+  .skipButton,
+  .nextButton,
+  .Re-recordAnswerButton,
+  .stopButton {
+      width: 20%;
   }
-  .numberIcon {
-    color: gray;
-    transition: color 0.5s ease-in-out;
-  }
-  .numberIcon.skipped {
-    color: red; /* Color for skipped question numbers */
-  }
-  .numberIcon.active {
-    color: #EDC215; /* Color for skipped question numbers */
-    transition: color 0.5s ease-in-out;
-  }
-  .numberIcon.next {
-    color: green; /* Color for skipped question numbers */
-  }
-  .SubmitButton, .skipButton, .nextButton, .Re-recordAnswerButton, .stopButton {
-    width: 25%;
-    height: 40px;
-    border-radius: 10px;
-    border: none;
-    background-color: #EDC215;
-    color: black;
-    font-size: 15px;
-    position: relative;
-    margin-top: 30px;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  .SubmitButton{
-    background-color:brown;
-    display: none;
-  }
-  .Re-recordAnswerButton{
-     background-color: green;
-  }
-  .stopButton{
-    background-color: rgb(231, 3, 3);
-  }
-  .hidden{
-    display: none;
-    transform: translateY(-20px); /* Optional slide-up effect */
-  /* Prevent clicking while hidden */
-  }
-  .display{
-    display: block;
-  }
+}

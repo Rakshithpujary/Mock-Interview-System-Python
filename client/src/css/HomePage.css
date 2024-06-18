@@ -72,8 +72,8 @@ html, body {
     width: 60%;
     z-index: 1;
     bottom: 50px;
-    font-family: Jazz LET, fantasy;
-    position: relative;
+    position: relative; 
+    font-family: 'Courier New', Courier, monospace;
 }
 .img-div {
     width: 40%;
@@ -112,7 +112,7 @@ html, body {
 
 .jobinput {
     font-size: 15px;
-    width: 50%;
+    width: 60%;
     height: 10%;
     border: none;
     border-bottom: 5px;
@@ -177,9 +177,19 @@ html, body {
 }
 .radio-div{
     margin-right: 10px; /* Space between radio and label text */
-    accent-color: #EDC215; /* Change radio button color */
     cursor: pointer; /* Add pointer cursor */
 }
+.radio-div input[type="radio"][value="fresher"]:checked {
+    accent-color: green; /* Green color for 'fresher' */
+  }
+  
+  .radio-div input[type="radio"][value="intermediate"]:checked  {
+    accent-color: orange; /* Orange color for 'intermediate' */
+  }
+  
+  .radio-div input[type="radio"][value="experienced"]:checked {
+    accent-color: red; /* Red color for 'experienced' */
+  }
 
 /* Responsive styles */
 @media (max-width: 1100px){

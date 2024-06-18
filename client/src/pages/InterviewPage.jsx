@@ -10,6 +10,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import PageVisibility from "../components/utils/PageVisibility";
 import { Navigate } from 'react-router-dom';
+import { IoIosTimer } from 'react-icons/io'; // Import from Ionicons
+import { BiTimeFive } from 'react-icons/bi'; // Import from BoxIcons
+import { MdTimer } from 'react-icons/md';
+import { BiStopwatch } from 'react-icons/bi';
+
+
 
 function InterviewPage() {
     // access global values and functions
@@ -173,6 +179,7 @@ function InterviewPage() {
             }, listenFor); 
 
         } else {
+            setRecordAttempted(true);
             SpeechRecognition.startListening();
         }
     }
@@ -197,6 +204,7 @@ function InterviewPage() {
       }
     // ======================================================================
 
+
   return (
     <div className='interview-div'>
         <div className='videoDisplay-div'>
@@ -206,17 +214,19 @@ function InterviewPage() {
             <div className='questionNumber-div'>
             {/* <Bs1CircleFill className={`numberIcon ${questionNumber === 1 ? 'active' : ''}`} /> */}
             <Bs1CircleFill className={`numberIcon ${skippedQuestions.includes(1) ? 'skipped' : ''} ${questionNumber === 1 ? 'active' : ''} ${nextQuestions.includes(1) ? 'next' : ''}`} />
-        --------------
+        -----------
         <Bs2CircleFill className={`numberIcon ${skippedQuestions.includes(2) ? 'skipped' : ''} ${questionNumber === 2 ? 'active' : ''} ${nextQuestions.includes(2) ? 'next' : ''}`} />
-        --------------
+        -----------
         <Bs3CircleFill className={`numberIcon ${skippedQuestions.includes(3) ? 'skipped' : ''} ${questionNumber === 3 ? 'active' : ''} ${nextQuestions.includes(3) ? 'next' : ''}`}  />
-        --------------
+        -----------
         <Bs4CircleFill className={`numberIcon ${skippedQuestions.includes(4) ? 'skipped' : ''} ${questionNumber === 4 ? 'active' : ''} ${nextQuestions.includes(4) ? 'next' : ''}`} />
-        --------------
+        -----------
         <Bs5CircleFill className={`numberIcon ${skippedQuestions.includes(5) ? 'skipped' : ''} ${questionNumber === 5 ? 'active' : ''} ${nextQuestions.includes(5) ? 'next' : ''}`}  />
             </div>
-            <h3>Question {currentQuestionIndex + 1}</h3>
-            <p>{gQtns[currentQuestionIndex]}</p>
+            <div className='question-div'>
+                <h3>Question {currentQuestionIndex + 1}</h3>
+                <p>{gQtns[currentQuestionIndex]}</p>
+            </div>
         </div>
         
         <div className='answerDisplay-div'>
@@ -228,7 +238,11 @@ function InterviewPage() {
                 transcript.length !==0 ? 'Re-record' : 'Answer'}
             </button>
             { listening && browserSupportsContinuousListening ?
-                <button className='timer-btn'>Time Left {timer[0]} : {timer[1]}</button> : null
+                
+                <div className='iconContainer-div'>
+                    <BiStopwatch className='icon'/>
+                    <p className='number'>{timer[0]} : {timer[1]}</p>
+                </div> : null
             }
             { listening && <button className='stopButton' onClick={handleStopListen}>Stop</button> }
             { !listening? !recordAttempted?
@@ -246,6 +260,7 @@ function InterviewPage() {
                             <button className={`nextButton ${questionNumber === 5 ? 'hidden' : ''}`} onClick={() => handleNextQuestion(questionNumber)}>
                                 Next
                             </button>
+                        
                         </>
                         :
                         <button className={`skipButton ${questionNumber === 5 ? 'hidden' : ''}`}

@@ -4,7 +4,7 @@ import HomePage from './pages/HomePage';
 import InterviewPage from './pages/InterviewPage'; // Import the InterviewPage component
 import { GlobalProvider } from './components/utils/GlobalState';
 import Testing from './components/Testing';
-import ReviewPage from './pages/ReviewPage';
+import ReviewPage from './pages/ReviewPage'
 
 function App() {
   return (
