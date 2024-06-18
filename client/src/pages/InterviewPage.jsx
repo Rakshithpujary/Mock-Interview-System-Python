@@ -215,13 +215,13 @@ function InterviewPage() {
             <div className='questionNumber-div'>
                 {/* <Bs1CircleFill className={`numberIcon ${questionNumber === 1 ? 'active' : ''}`} /> */}
                 <Bs1CircleFill className={`numberIcon ${skippedQuestions.includes(1) ? 'skipped' : ''} ${questionNumber === 1 ? 'active' : ''} ${nextQuestions.includes(1) ? 'next' : ''}`} />
-                -----------
+                ------
                 <Bs2CircleFill className={`numberIcon ${skippedQuestions.includes(2) ? 'skipped' : ''} ${questionNumber === 2 ? 'active' : ''} ${nextQuestions.includes(2) ? 'next' : ''}`} />
-                -----------
+                ------
                 <Bs3CircleFill className={`numberIcon ${skippedQuestions.includes(3) ? 'skipped' : ''} ${questionNumber === 3 ? 'active' : ''} ${nextQuestions.includes(3) ? 'next' : ''}`}  />
-                -----------
+                ------
                 <Bs4CircleFill className={`numberIcon ${skippedQuestions.includes(4) ? 'skipped' : ''} ${questionNumber === 4 ? 'active' : ''} ${nextQuestions.includes(4) ? 'next' : ''}`} />
-                -----------
+                ------
                 <Bs5CircleFill className={`numberIcon ${skippedQuestions.includes(5) ? 'skipped' : ''} ${questionNumber === 5 ? 'active' : ''} ${nextQuestions.includes(5) ? 'next' : ''}`}  />
             </div>
             <div className='question-div'>
@@ -231,7 +231,7 @@ function InterviewPage() {
         </div>
         
         <div className='answerDisplay-div'>
-            {transcript}
+            {transcript.length >0 ? <p className='answer-transcript'>{transcript}</p> :<p className='placeholder'>answerr...</p>}
         </div>
         <div className='buttonDisplay-div'>
             <button className='Re-recordAnswerButton'  onClick={handleStartListen} disabled={toastOn || listening}>

@@ -14,12 +14,18 @@ html, body {
 }
 
 .videoDisplay-div,
-.questionDisplay-div,
-.answerDisplay-div{
+.questionDisplay-div{
   width: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  padding: 10px;
+}
+.answerDisplay-div{
+  width: 600px;
+  display: flex;
+  justify-content: center;
   flex-direction: column;
   padding: 10px;
 }
@@ -28,10 +34,16 @@ html, body {
 }
 .answerDisplay-div{
   border: 2px solid green;
-  width: 600px;
+  width: 400px;
+  border-radius: 5px;
 }
-.answerDisplay-div p{
+.placeholder{
   color: grey;
+  text-align: center; 
+}
+.answer-transcript{
+  text-align: left;
+  color: #000;
 }
 .buttonDisplay-div {
   width: 600px;
@@ -205,17 +217,19 @@ html, body {
       margin-top: 10px;
   }
   .questionNumber-div{
-    font-size: 20px;
+    font-size: 22px;
   }
 }
 
 /* Media query for large desktops */
 @media (min-width: 1200px) {
   .videoDisplay-div,
-  .questionDisplay-div,
-  .answerDisplay-div,
   .buttonDisplay-div {
       width: 70%;
+  }
+  .answerDisplay-div,
+  .questionDisplay-div{
+    width: 600px;
   }
 
   .questionNumber-div {

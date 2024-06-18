@@ -10,6 +10,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "annyang": "^2.6.1",
+    "aos": "^2.3.4",
     "assert": "^2.1.0",
     "axios": "^1.7.2",
     "deepspeech": "^0.9.3",

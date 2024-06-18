@@ -72,15 +72,11 @@ html, body {
     width: 60%;
     z-index: 1;
     bottom: 50px;
+    word-wrap: break-word;
     position: relative; 
     font-family: 'Courier New', Courier, monospace;
 }
-.typing-efect{
-    overflow:hidden;
-    white-space:nowrap;
-    width:8em;
-    -webkit-animation: type 2s steps(15);
-}
+
 .img-div {
     width: 40%;
 }

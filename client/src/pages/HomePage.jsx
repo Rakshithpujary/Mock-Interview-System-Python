@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import '../css/HomePage.css';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -8,15 +8,36 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { GlobalContext } from '../components/utils/GlobalState';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // This is required to include the AOS styles
+
 
 
 function HomePage() {
-    const { updateGQtnGenerationData, setGValidInterview } = useContext(GlobalContext);
+    const { updateGQtnGenerationData, setGValidInterview, setGValidReview } = useContext(GlobalContext);
     const [jobInput, setJobInput] = useState('');
     const [isVisible, setIsVisible] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [experienceLevel, setExperienceLevel] = useState('fresher');
     const navigate = useNavigate();
+    const [charIndex, setCharIndex] = useState(0);
+    const [isTypingDone, setIsTypingDone] = useState(false);
+    const [displayText, setDisplayText] = useState('');
+    
+    useEffect(()=>{
+        const text = "From Practice to Perfection – Your Interview Journey Starts Here!";
+        let count = 0; // Speed in milliseconds per character
+        setInterval(() => {
+            if(count >= text.length) return;
+            setDisplayText(prev => prev + text[count]);
+            count++;
+        }, 100);
+    },[]);
+    //   -----------------------------------------------------------------------
+
+    useEffect(()=>{
+        setGValidReview(false); // once entered homepage then cannot go to review page unless interview is done
+    },[])
 
     const handleGetStartedClick = () => {
         setIsVisible(false); // Hide the jobTitle-div
@@ -70,9 +91,10 @@ function HomePage() {
             </div>
             <div className='context-div'>
                 <div className='text-div'>
-                    <h1 className='typing-effect'>From Practice to Perfection –</h1>
-                    <h1 className='typing-effect2'>Your Interview Journey Starts </h1>
-                    <h1 className='typing-effect3'>Here!</h1>
+                   <div className='Typing-effect'>
+                        <h1>{displayText}</h1>
+                   </div> 
+                    
                     <button
                         className={`getStartedButton ${!isVisible ? 'hidden' : ''}`}
                         onClick={handleGetStartedClick}>Get Started</button>

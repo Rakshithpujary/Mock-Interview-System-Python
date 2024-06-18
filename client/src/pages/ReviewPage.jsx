@@ -9,7 +9,7 @@ import { GlobalContext } from '../components/utils/GlobalState';
 
 function App() {
   // access global values and functions
-  const { gJobRole, gQtns, gAns, gEmotionData, gValidReview, setGValidReview } = useContext(GlobalContext);
+  const { gJobRole, gQtns, gAns, gEmotionData, gValidReview } = useContext(GlobalContext);
 
   const [validUpdated, setValidUpdated] = useState(false);
   const [ review, setReview] = useState('');
@@ -21,10 +21,9 @@ function App() {
     if(gValidReview !== null) { // to make sure that it only runs once
         setValidUpdated(true);
     }
-    if(!validUpdated && gValidReview === false) {
+    if(gValidReview === false) {
         window.location.replace('/'); // Re-direct to home page
     }
-    setGValidReview(false); // once entered ,cannot enter again without generating qtns
   },[gValidReview]);
 
 
