@@ -11,7 +11,7 @@ import { GlobalContext } from '../components/utils/GlobalState';
 
 
 function HomePage() {
-    const { updateGJobAndQnts, setGValidInterview } = useContext(GlobalContext);
+    const { updateGQtnGenerationData, setGValidInterview } = useContext(GlobalContext);
     const [jobInput, setJobInput] = useState('');
     const [isVisible, setIsVisible] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
@@ -34,10 +34,11 @@ function HomePage() {
             try {
                 setIsLoading(true);
                 const response = await axios.post('http://localhost:5000/api/get-questions', {
-                    job_title: sendingInput
+                    job_role: sendingInput,
+                    experience_lvl: experienceLevel
                 });
 
-                updateGJobAndQnts(response.data.jobTitle, response.data.qtns);
+                updateGQtnGenerationData(response.data.job_role, response.data.exp_lvl, response.data.qtns);
                 setGValidInterview(true); // set as global valid interview as true
                 navigate('/interview');
             } catch (error) {

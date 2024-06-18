@@ -24,6 +24,7 @@ def get_questions(job_title, experience_lvl, call_count):
     # print("get_questions Instance started = "+ str(call_count))
 
     print("\nJob Title = ", job_title)
+    print("\nJob experience_lvl = ", experience_lvl)
     # Check if passed job title is an valid job title
     check_valid_msg = (f"Job Title : {job_title}\n\n"
                     "Please check if this is an valid or appropriate job title given for an interview or not,"

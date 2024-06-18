@@ -9,17 +9,16 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import PageVisibility from "../components/utils/PageVisibility";
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { IoIosTimer } from 'react-icons/io'; // Import from Ionicons
 import { BiTimeFive } from 'react-icons/bi'; // Import from BoxIcons
 import { MdTimer } from 'react-icons/md';
 import { BiStopwatch } from 'react-icons/bi';
 
-
-
 function InterviewPage() {
     // access global values and functions
-    const { gQtns, gValidInterview, setGValidInterview, setGSuspiciousCount } = useContext(GlobalContext);
+    const { gQtns, setGAns, gValidInterview,
+            setGValidInterview, setGSuspiciousCount, setGValidReview } = useContext(GlobalContext);
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [questionNumber, setQuestionNumber] = useState(1);
@@ -30,11 +29,12 @@ function InterviewPage() {
     const [timer, setTimer] = useState(['2', '00']);
     const [timerIntervalId, setTimerIntervalId] = useState(null);
     const [validUpdated, setValidUpdated] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(false);
     const [skipInTimer, setSkipInTimer] = useState(7); // 7 secs
     const [resetSkipInTimer, setResetSkipInTimer] = useState(false);
     const [skipDisabled, setSkipDisabled] = useState(false);
+    const AnswerArray=useRef(new Array(5).fill(''));
     const isPageVisible = PageVisibility();
+    const navigate = useNavigate();
     const {
         transcript,
         listening,
@@ -43,7 +43,6 @@ function InterviewPage() {
         browserSupportsSpeechRecognition,
         browserSupportsContinuousListening
     } = useSpeechRecognition();
-    const AnswerArray=useRef(new Array(5).fill(''));
 
     // check if valid entry to interview page
     useEffect(()=>{
@@ -63,8 +62,7 @@ function InterviewPage() {
         };
     }, [isPageVisible]);
 
-    const handleSubmit = () => {
-        setIsSubmitted(true);
+    const handleSubmit = async () => {
         if(transcript.length>0)
         {
             AnswerArray.current[questionNumber-1]=transcript;
@@ -72,7 +70,11 @@ function InterviewPage() {
         }else{
             AnswerArray.current[questionNumber-1]='Skipped';
         }
-        Navigate('/review');
+
+        setGValidReview(true);
+        setGAns(AnswerArray.current);
+
+        navigate('/review', {replace : true});
         // console.log(AnswerArray.current);
     }
 
@@ -204,24 +206,23 @@ function InterviewPage() {
       }
     // ======================================================================
 
-
   return (
     <div className='interview-div'>
         <div className='videoDisplay-div'>
-            <FaceRecognition isSubmitted={isSubmitted}/>
+            <FaceRecognition />
         </div>
         <div className='questionDisplay-div'>
             <div className='questionNumber-div'>
-            {/* <Bs1CircleFill className={`numberIcon ${questionNumber === 1 ? 'active' : ''}`} /> */}
-            <Bs1CircleFill className={`numberIcon ${skippedQuestions.includes(1) ? 'skipped' : ''} ${questionNumber === 1 ? 'active' : ''} ${nextQuestions.includes(1) ? 'next' : ''}`} />
-        -----------
-        <Bs2CircleFill className={`numberIcon ${skippedQuestions.includes(2) ? 'skipped' : ''} ${questionNumber === 2 ? 'active' : ''} ${nextQuestions.includes(2) ? 'next' : ''}`} />
-        -----------
-        <Bs3CircleFill className={`numberIcon ${skippedQuestions.includes(3) ? 'skipped' : ''} ${questionNumber === 3 ? 'active' : ''} ${nextQuestions.includes(3) ? 'next' : ''}`}  />
-        -----------
-        <Bs4CircleFill className={`numberIcon ${skippedQuestions.includes(4) ? 'skipped' : ''} ${questionNumber === 4 ? 'active' : ''} ${nextQuestions.includes(4) ? 'next' : ''}`} />
-        -----------
-        <Bs5CircleFill className={`numberIcon ${skippedQuestions.includes(5) ? 'skipped' : ''} ${questionNumber === 5 ? 'active' : ''} ${nextQuestions.includes(5) ? 'next' : ''}`}  />
+                {/* <Bs1CircleFill className={`numberIcon ${questionNumber === 1 ? 'active' : ''}`} /> */}
+                <Bs1CircleFill className={`numberIcon ${skippedQuestions.includes(1) ? 'skipped' : ''} ${questionNumber === 1 ? 'active' : ''} ${nextQuestions.includes(1) ? 'next' : ''}`} />
+                -----------
+                <Bs2CircleFill className={`numberIcon ${skippedQuestions.includes(2) ? 'skipped' : ''} ${questionNumber === 2 ? 'active' : ''} ${nextQuestions.includes(2) ? 'next' : ''}`} />
+                -----------
+                <Bs3CircleFill className={`numberIcon ${skippedQuestions.includes(3) ? 'skipped' : ''} ${questionNumber === 3 ? 'active' : ''} ${nextQuestions.includes(3) ? 'next' : ''}`}  />
+                -----------
+                <Bs4CircleFill className={`numberIcon ${skippedQuestions.includes(4) ? 'skipped' : ''} ${questionNumber === 4 ? 'active' : ''} ${nextQuestions.includes(4) ? 'next' : ''}`} />
+                -----------
+                <Bs5CircleFill className={`numberIcon ${skippedQuestions.includes(5) ? 'skipped' : ''} ${questionNumber === 5 ? 'active' : ''} ${nextQuestions.includes(5) ? 'next' : ''}`}  />
             </div>
             <div className='question-div'>
                 <h3>Question {currentQuestionIndex + 1}</h3>

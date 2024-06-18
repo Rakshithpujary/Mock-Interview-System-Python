@@ -29,15 +29,15 @@ def before_request():
 def ask_questions():
     try:
         data = request.get_json()
-        job_title = data['job_title']
+        job_role = data['job_role']
         experience_lvl = data['experience_lvl']
-        response = generate_questions(job_title, experience_lvl)
+        response = generate_questions(job_role, experience_lvl)
 
         # if not list then error
         if not isinstance(response, list):
             return jsonify({'errorMsg': response}), 400
         else: # success
-            return jsonify({'jobTitle' : job_title, 'qtns': response}), 200
+            return jsonify({'job_role' : job_role, 'exp_level' : experience_lvl, 'qtns': response}), 200
     except Exception as e:
         print(f"Error occurred while generating question: {e}")
         return jsonify({'errorMsg': "Something went wrong"}), 400
@@ -52,7 +52,7 @@ def analyze_emotions():
         return jsonify({'response': response})
     except Exception as e:
         print(f"Error occurred while generating emotion analysis data: {e}")
-        return jsonify({'response': "Something went wrong"}), 400
+        return jsonify({'errorMsg': "Something went wrong"}), 400
 
 @app.route('/api/get-review-old', methods=['POST'])
 def get_review_old():
@@ -73,7 +73,7 @@ def get_review_old():
         return jsonify({'response': review})
     except Exception as e:
         print(f"Error occurred while generating review: {e}")
-        return jsonify({'response': "Something went wrong"}), 400
+        return jsonify({'errorMsg': "Something went wrong"}), 400
 
 @app.route('/api/get-review', methods=['POST'])
 def get_review():
@@ -88,10 +88,10 @@ def get_review():
         # get review
         review = gen_review(job_role,qns,ans,emotion)
 
-        return jsonify({'response': review})
+        return jsonify({'review': review})
     except Exception as e:
         print(f"Error occurred while generating review: {e}")
-        return jsonify({'response': "Something went wrong"}), 400
+        return jsonify({'errorMsg': "Something went wrong"}), 400
 
 if __name__ == '__main__':
     app.run(debug=True)
