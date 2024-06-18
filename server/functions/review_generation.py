@@ -24,9 +24,15 @@ def gen_review(job_role,qns,ans,emotion_analysis):
         "The above context represents the data of an interviewee. "
         "Please write a review in 250 words for him/her, including an emotion analysis and questions & answers where he/she can improve."
         "\nIMPORTANT : PLEASE FOLLOW THE BELOW RULES\n"
-        "RULE 1: write the review as if you are directly TALKING WITH HIM/HER."
-        "RULE 2: don't write anything extra, only write the review."
-        "RULE 3: dont include any main headings such as 'review' etc"
+        "RULE 1: Write the review as if you are directly TALKING WITH HIM/HER."
+        "RULE 2: Be Polite even if his/her performance is not good, tell him/her where to improve."
+        "RULE 3: Even if the performance is good, tell him/her where to improve."
+        "RULE 4: Don't write anything extra, only write the review."
+        "RULE 5: Dont include any main headings such as 'review' etc"
+        "RULE 6: If emotion analysis data is present then use that for review also."
+        "RULE 7: This review is for an interview given in an website where anyone take mock interviews,"
+        "so write review based on that, but dont tell hi,thank u and all."
+        "RULE 8: Dont use/assume or write fake data which is not in context for review."
     )
 
     # response = g.chat.send_message(msg)

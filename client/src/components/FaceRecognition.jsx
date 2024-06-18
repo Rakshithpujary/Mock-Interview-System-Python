@@ -6,29 +6,20 @@ import '../css/FaceRecognition.css';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from './utils/GlobalState';
 
-const FaceRecognition = ({ isSubmitted }) => {
+const FaceRecognition = () => {
   // access global values and functions
   const { setGSuspiciousCount, setGEmotionData } = useContext(GlobalContext);
 
   const [mediaStream, setMediaStream] = useState(null);
   const [showBorderAnimation, setShowBorderAnimation] = useState(false);
-  const [lEmotionData, setLEmotionData] = useState(null); // local emotion data
-  const [emotionDataCount, setEmotionDataCount] = useState(1);
   const videoRef = useRef(null);
   const navigate = useNavigate();
   const intervalIdRef = useRef(null);
   
   let webCamToastDisplayedOnce = false;
   let tempEmotionData = null;
+  let emotionDataCount = 1;
   let toastDisplayed = false;
-
-  // set global emotion data for later access
-  useEffect(()=>{
-    if(isSubmitted && emotionDataCount>15) 
-      setGEmotionData(lEmotionData);
-    else
-      setGEmotionData(null);
-  },[isSubmitted, lEmotionData])
 
   useEffect(() => {
     const loadModels = async () => {
@@ -137,8 +128,13 @@ const FaceRecognition = ({ isSubmitted }) => {
           };
 
           tempEmotionData = avgE;
-          setLEmotionData(tempEmotionData); // not necassary in above if-condition
-          setEmotionDataCount(prev => prev + 1); // not necassary in above if-condition
+          emotionDataCount += 1; // not necassary in above if-condition
+
+          // set global emotion data for later access
+          if(emotionDataCount>15)
+            setGEmotionData(tempEmotionData);
+          else
+            setGEmotionData("User did not turn on camera, hence no emotion analysis data is available");
         }
       }
     }, 1000);

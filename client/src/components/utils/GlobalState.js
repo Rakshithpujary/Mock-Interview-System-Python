@@ -3,14 +3,18 @@ import React, { createContext, useEffect, useState } from 'react';
 export const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
-  const [gJobTitle, setGJobTitle] = useState('');
+  const [gJobRole, setGJobRole] = useState('');
+  const [gJobExp, setGJobExp] = useState('');
   const [gQtns, setGQtns] = useState([]);
+  const [gAns, setGAns] = useState([]);
   const [gValidInterview, setGValidInterview] = useState(null);
+  const [gValidReview, setGValidReview] = useState(null);
   const [gSuspiciousCount, setGSuspiciousCount] = useState(0);
   const [gEmotionData, setGEmotionData] = useState(null);
 
-  const updateGJobAndQnts = (jobTitle, questions) => {
-    setGJobTitle(jobTitle);
+  const updateGQtnGenerationData = (jobRole, jobExp, questions) => {
+    setGJobRole(jobRole);
+    setGJobExp(jobExp);
     setGQtns(questions);
   };
 
@@ -19,11 +23,13 @@ export const GlobalProvider = ({ children }) => {
   // },[gEmotionData])
 
   return (
-    <GlobalContext.Provider value={{ gJobTitle, gQtns, gValidInterview,
-     updateGJobAndQnts, setGValidInterview,
+    <GlobalContext.Provider value={{ gJobRole, gJobExp, gQtns, gValidInterview,
+     updateGQtnGenerationData, setGValidInterview,
      gSuspiciousCount, setGSuspiciousCount,
-     gEmotionData, setGEmotionData }}
-     >
+     gAns, setGAns,
+     gEmotionData, setGEmotionData,
+     gValidReview, setGValidReview }}
+    >
       {children}
     </GlobalContext.Provider>
   );
