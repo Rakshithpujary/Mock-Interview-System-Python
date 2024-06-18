@@ -161,6 +161,7 @@ function InterviewPage() {
             }, listenFor); 
 
         } else {
+            setRecordAttempted(true);
             SpeechRecognition.startListening();
         }
     }

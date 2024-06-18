@@ -1,4 +1,3 @@
-import google.generativeai as genai
 import time
 from flask import g
 
@@ -20,7 +19,7 @@ def format_text(lines):
 
     return questions
 
-def get_questions(job_title,call_count):
+def get_questions(job_title, experience_lvl, call_count):
   try:
     # print("get_questions Instance started = "+ str(call_count))
 
@@ -28,38 +27,46 @@ def get_questions(job_title,call_count):
     # Check if passed job title is an valid job title
     check_valid_msg = (f"Job Title : {job_title}\n\n"
                     "Please check if this is an valid or appropriate job title given for an interview or not,"
-                    " if not then return error or no or not valid,"
-                    "IMPORTANT = please assume proper spelling if spelling mistake is present in the passed job title")
+                    "\nIMPORTANT : PLEASE FOLLOW THE BELOW RULES\n"
+                    "RULE : If not valid then only return 'invalid', DONT WRITE ANYTHING ELSE\n"
+                    "RULE : If valid then only return 'valid', DONT WRITE ANYTHING ELSE\n"
+                    "RULE : Please assume proper or appropriate spelling if any spelling mistake is present in the passed job title")
 
-    check_valid_response = g.chat.send_message(check_valid_msg)
+    # check_valid_response = g.chat.send_message(check_valid_msg)
+
+    check_valid_response = g.model.generate_content([check_valid_msg])
     checkValid = check_valid_response.text.lower()
     print("\nCheck valid = ", checkValid)
 
-    keywords = ["error", "invalid", "no", "not", "not valid"]
+    keywords = ["invalid", "no", "not", "not valid", "inappropriate"]
     
     if any(keyword in checkValid for keyword in keywords):
         return "Please provide a valid job title."
 
     msg = ""
     if call_count <= 3:
-        msg = (f"Job Title: {job_title}\n\n"
-            "Generate 5 interview questions with numbers based on the job title provided. "
-            "\nIMPORTANT PLEASE FOLLOW THE BELOW RULES\n"
-            "IMPORTANT Write only the questions"
-            "IMPORTANT DONT WRITE ANYTHING EXTRA EXCEPT THE QUESTIONS, NOT EVEN THE TITLE")
+        msg = (f"Job Title: {job_title}\nExperience level: {experience_lvl}\n\n"
+            "Generate 5 questions that would be asked in an interview based on the job title and experience level provided."
+            "\nIMPORTANT : PLEASE FOLLOW THE BELOW RULES\n"
+            "RULE : Write only the questions, DONT WRITE ANYTHING ELSE\n"
+            "RULE : include question numbers in the begining of each question\n"
+            "RULE : DONT WRITE ANYTHING EXTRA EXCEPT THE QUESTIONS, NOT EVEN THE TITLE")
 
     elif 2 >= call_count <= 7:
-        msg = (f"Job Title: {job_title}\n\n"
-            "Generate exactly 5 interview questions with numbers based on the job title provided. "
-            "\nIMPORTANT PLEASE FOLLOW THE BELOW RULES\n"
-            "IMPORTANT Write only the questions"
-            "IMPORTANT Please Do not include any additional text."
-            "IMPORTANT DONT WRITE ANYTHING EXTRA EXCEPT THE QUESTIONS, NOT EVEN THE TITLE")
+        msg = (f"Job Title: {job_title}\nExperience level: {experience_lvl}\n\n"
+            "Generate exactly 5 questions that would be asked in an interview based on the job title and experience level provided."
+            "\nIMPORTANT : PLEASE FOLLOW THE BELOW RULES\n"
+            "RULE : Write only the questions, DONT WRITE ANYTHING ELSE\n"
+            "RULE : include question numbers in the begining of each question\n"
+            "RULE : Please Do not include any additional text other than the questions.\n"
+            "RULE : DONT WRITE ANYTHING EXTRA EXCEPT THE QUESTIONS, NOT EVEN THE TITLE")
 
     else:
         return "Something went wrong. Please try again."
 
-    response = g.chat.send_message(msg)
+    # response = g.chat.send_message(msg)
+
+    response = g.model.generate_content([msg])
     raw_text=response.text
     print("Raw Text = \n",raw_text)
 
@@ -82,7 +89,7 @@ def get_questions(job_title,call_count):
     print(f"Error occurred: {e}")
     return "Something went wrong, Please try again."
 
-def generate_questions(job_title):
+def generate_questions(job_title, experience_lvl):
 
     no_questions = 0
     unformatted_qts = []
@@ -94,7 +101,7 @@ def generate_questions(job_title):
     while no_questions != 5:
 
         # generate questions
-        unformatted_qts=get_questions(job_title,call_count)
+        unformatted_qts=get_questions(job_title, experience_lvl, call_count)
         call_count += 1
 
         if not isinstance(unformatted_qts, list):
