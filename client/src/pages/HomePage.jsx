@@ -15,7 +15,7 @@ function HomePage() {
     const [jobInput, setJobInput] = useState('');
     const [isVisible, setIsVisible] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
-    const [experienceLevel, setExperienceLevel] = useState('');
+    const [experienceLevel, setExperienceLevel] = useState('fresher');
     const navigate = useNavigate();
 
     const handleGetStartedClick = () => {
