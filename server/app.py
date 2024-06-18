@@ -3,7 +3,6 @@ import google.generativeai as genai
 from functions.question_generation import generate_questions
 from functions.emotion_analysis import analyze_fun
 from functions.review_generation import gen_review
-
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
