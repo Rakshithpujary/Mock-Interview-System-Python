@@ -167,7 +167,7 @@ const FaceRecognition = () => {
   }
 
   return (
-    <div className={`video-container ${showBorderAnimation ? 'sequential-border-animation' : ''}`}>
+    <div>
       <video
         ref={videoRef}
         autoPlay
@@ -180,6 +180,12 @@ const FaceRecognition = () => {
         }}
         onPlay={handleVideoPlay}
       />
+      <div className={`border_box ${showBorderAnimation ? 'show' : ''}`}>
+          <span className="line line01"></span>
+          <span className="line line02"></span>
+          <span className="line line03"></span>
+          <span className="line line04"></span>
+      </div>
     </div>
   );
 };
