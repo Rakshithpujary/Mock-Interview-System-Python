@@ -8,8 +8,6 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { GlobalContext } from '../components/utils/GlobalState';
-import AOS from 'aos';
-import 'aos/dist/aos.css'; // This is required to include the AOS styles
 
 function HomePage() {
     const { updateGQtnGenerationData, setGValidInterview, setGValidReview } = useContext(GlobalContext);
