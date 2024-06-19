@@ -41,7 +41,7 @@ html, body {
   justify-content: center;
   align-items: flex-start; /* Align to the start */
   flex-direction: column;
-  height: 19vh;
+  height: 15vh;
   border: 2px solid green;
   border-radius: 10px;
   padding: 10px;
