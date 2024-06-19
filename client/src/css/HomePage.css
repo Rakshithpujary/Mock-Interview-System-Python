@@ -89,9 +89,31 @@ html, body {
     color: black;
     font-size: 15px;
     position: absolute; /* Position it absolutely */
-    bottom: -50px; /* Adjust position as needed */
+    bottom: -60px; /* Adjust position as needed */
+    z-index: 2; /* Ensure this is above relevant elements */
+}
+
+.jobTitle-div {
+    background-color: rgba(0, 0, 0, 0.893);
+    width: 30%;
+    height: 50%;
+    color: antiquewhite;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.699);
+    z-index: 9; /* Ensure this is higher than other absolute elements */
+}
+/* Transition-related styles */
+
+.getStartedButton, .jobTitle-div {
+    opacity: 1; /* Ensure visible state starts with full opacity */
+    transform: translateY(0); /* Ensure visible state starts with no offset */
     transition: opacity 0.5s ease, transform 0.5s ease;
-    transform: translateY(0);
 }
 
 .StartInterviewButton {
@@ -127,25 +149,6 @@ html, body {
     outline: none;
 }
 
-.jobTitle-div {
-    background-color: rgba(0, 0, 0, 0.699);
-    opacity: 1;
-    width: 30%;
-    height: 50%;
-    color: antiquewhite;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.699);
-    z-index: 9;
-    transition: opacity 0.5s ease, transform 0.5s ease; /* Add transition here */
-    transform: translateY(0); /* Default position */
-}
-
 .Left-arrow {
     position: absolute;
     padding: 8px 10px 10px 10px;
@@ -154,12 +157,18 @@ html, body {
     left: 0;
 }
 
+.getStartedButton,
+.context-div button:hover,
 .Left-arrow:hover {
-    color: #EDC215;
+    transition: 0.5s ease-in-out;
 }
 
 .context-div button:hover {
     box-shadow: 0px 1px 10px #EDC215;
+}
+
+.Left-arrow:hover {
+    color: #EDC215;
 }
 .radio-div{
     position: relative;
@@ -168,18 +177,8 @@ html, body {
     justify-content: center;
     align-items: center;
     gap:10px;
-}
-
-/* Hidden state */
-.hidden {
-    opacity: 0;
-    transform: translateY(-50px); /* Move element up when hidden */
-    pointer-events: none; /* Disable pointer events on hidden element */
-    transition: opacity 0.5s ease, transform 0.5s ease; /* Transition properties */
-}
-.radio-div{
     margin-right: 10px; /* Space between radio and label text */
-    cursor: pointer; /* Add pointer cursor */
+    cursor: pointer;
 }
 .radio-div input[type="radio"][value="fresher"]:checked {
     accent-color: green; /* Green color for 'fresher' */
@@ -187,85 +186,80 @@ html, body {
   
   .radio-div input[type="radio"][value="intermediate"]:checked  {
     accent-color: orange; /* Orange color for 'intermediate' */
+    
+    
   }
   
   .radio-div input[type="radio"][value="experienced"]:checked {
     accent-color: red; /* Red color for 'experienced' */
+
   }
+ /* Add hidden class transition */
+.hidden {
+    opacity: 0;
+    transform: translateY(20px); /* Moves the element down by 20px */
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    pointer-events: none; /* Prevent interactions when hidden */
+}
 
 /* Responsive styles */
-@media (max-width: 1100px){
+@media (max-width: 1100px) {
     .jobTitle-div {
-        width: 50%; /* Ensure full width on small screens */
+        width: 50%;
         height: 280px;
     }
 }
+
 @media (max-width: 768px) {
     .context-div {
         flex-direction: column;
         overflow-y: scroll;
         padding-top: 20px;
-        padding-bottom: 20px; /* Stack elements vertically on smaller screens */
+        padding-bottom: 20px;
     }
-
     .text-div, .img-div {
-        width: 90%; /* Full width on smaller screens */
+        width: 90%;
     }
-
     .img-div {
-        order: -1; /* Position img-div above text-div */
-        margin-bottom: 20px; /* Add some space between image and text */
+        order: -1;
+        margin-bottom: 20px;
     }
-
     .header-text {
-        font-size: 6vw; /* Adjust text size for smaller screens */
+        font-size: 6vw;
     }
-
     .jobTitle-div {
-        width: 90%; /* Ensure full width on small screens */
+        width: 90%;
         height: 280px;
     }
-
     .joblabel {
-        font-size: 5vw; /* Adjust label size for smaller screens */
+        font-size: 5vw;
     }
-
-    .getStartedButton {
-        width: 50%;
-        height: 30px;
-        padding: 10px; /* Increase button width on smaller screens */
-    }
-
+    .getStartedButton,
     .StartInterviewButton {
         width: 50%;
         height: 30px;
-        padding: 10px; /* Increase button width on smaller screens */
+        padding: 10px;
     }
 }
 
 @media (max-width: 480px) {
     .header-text {
-        font-size: 8vw; /* Further adjust text size for very small screens */
+        font-size: 8vw;
     }
-
     .joblabel {
-        font-size: 6vw; /* Further adjust label size */
+        font-size: 6vw;
     }
-
     .getStartedButton, .StartInterviewButton {
         width: 70%;
-        height: 30px; /* Increase button width on very small screens */
+        height: 30px;
         padding: 10px;
     }
-
     .jobinput {
-        width: 80%; /* Increase input width on very small screens */
+        width: 80%;
     }
-
     .jobType-select {
         width: 82%;
     }
-
     .jobTitle-div {
         height: 250px;
     }

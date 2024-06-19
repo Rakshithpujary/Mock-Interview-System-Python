@@ -18,7 +18,8 @@ import { BiStopwatch } from 'react-icons/bi';
 function InterviewPage() {
     // access global values and functions
     const { gQtns, setGAns, gValidInterview,
-            setGValidInterview, setGSuspiciousCount, setGValidReview } = useContext(GlobalContext);
+            setGValidInterview, setGSuspiciousCount, setGValidReview
+          } = useContext(GlobalContext);
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [questionNumber, setQuestionNumber] = useState(1);
@@ -52,7 +53,7 @@ function InterviewPage() {
         if(!validUpdated && gValidInterview === false) {
             window.location.replace('/'); // Re-direct to home page
         }
-        setGValidInterview(false); // once entered ,cannot enter again without generating qtns
+        setGValidInterview(false); // once entered, cannot enter again without generating qtns
     },[gValidInterview]);
 
     // if user changed tab or window
@@ -231,7 +232,7 @@ function InterviewPage() {
         </div>
         
         <div className='answerDisplay-div'>
-            {transcript.length >0 ? <p className='answer-transcript'>{transcript}</p> :<p className='placeholder'>answerr...</p>}
+            {transcript.length >0 ? <div className='answer-transcript'>{transcript}</div> :<div className='placeholder-div'>answerr...</div>}
         </div>
         <div className='buttonDisplay-div'>
             <button className='Re-recordAnswerButton'  onClick={handleStartListen} disabled={toastOn || listening}>
@@ -242,29 +243,29 @@ function InterviewPage() {
                 
                 <div className='iconContainer-div'>
                     <BiStopwatch className='icon'/>
-                    <p className='number'>{timer[0]} : {timer[1]}</p>
+                    <p className='number'>{timer[0]}:{timer[1]}</p>
                 </div> : null
             }
             { listening && <button className='stopButton' onClick={handleStopListen}>Stop</button> }
             { !listening? !recordAttempted?
-                <button className={`skipButton ${questionNumber === 5 ? 'hidden' : ''}`}
+                <button className={`skipButton ${questionNumber === 5 ? 'hidden1' : ''}`}
                  onClick={handleSkipQuestion} disabled={skipDisabled}>
                     {skipDisabled? `Skip in ${skipInTimer}s` : 'Skip'}
                 </button> :
                 <>
                     {transcript.length > 0?
                         <>
-                            <button className={`skipButton ${questionNumber === 5 ? 'hidden' : ''}`}
+                            <button className={`skipButton ${questionNumber === 5 ? 'hidden1' : ''}`}
                             onClick={handleSkipQuestion} disabled={skipDisabled}>
                                 {skipDisabled? `Skip in ${skipInTimer}s` : 'Skip'}
                             </button>
-                            <button className={`nextButton ${questionNumber === 5 ? 'hidden' : ''}`} onClick={() => handleNextQuestion(questionNumber)}>
+                            <button className={`nextButton ${questionNumber === 5 ? 'hidden1' : ''}`} onClick={() => handleNextQuestion(questionNumber)}>
                                 Next
                             </button>
                         
                         </>
                         :
-                        <button className={`skipButton ${questionNumber === 5 ? 'hidden' : ''}`}
+                        <button className={`skipButton ${questionNumber === 5 ? 'hidden1' : ''}`}
                             onClick={handleSkipQuestion} disabled={skipDisabled}>
                             {skipDisabled? `Skip in ${skipInTimer}s` : 'Skip'}
                         </button>

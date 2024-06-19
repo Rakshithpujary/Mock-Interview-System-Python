@@ -133,8 +133,6 @@ const FaceRecognition = () => {
           // set global emotion data for later access
           if(emotionDataCount>15)
             setGEmotionData(tempEmotionData);
-          else
-            setGEmotionData("User did not turn on camera, hence no emotion analysis data is available");
         }
       }
     }, 1000);
@@ -169,7 +167,7 @@ const FaceRecognition = () => {
   }
 
   return (
-    <div>
+    <div className={`video-container ${showBorderAnimation ? 'sequential-border-animation' : ''}`}>
       <video
         ref={videoRef}
         autoPlay
@@ -182,12 +180,6 @@ const FaceRecognition = () => {
         }}
         onPlay={handleVideoPlay}
       />
-      <div className={`border_box ${showBorderAnimation ? 'show' : ''}`}>
-          <span className="line line01"></span>
-          <span className="line line02"></span>
-          <span className="line line03"></span>
-          <span className="line line04"></span>
-      </div>
     </div>
   );
 };

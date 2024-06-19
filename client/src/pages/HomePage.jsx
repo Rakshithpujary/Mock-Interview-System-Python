@@ -11,8 +11,6 @@ import { GlobalContext } from '../components/utils/GlobalState';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // This is required to include the AOS styles
 
-
-
 function HomePage() {
     const { updateGQtnGenerationData, setGValidInterview, setGValidReview } = useContext(GlobalContext);
     const [jobInput, setJobInput] = useState('');
@@ -23,15 +21,21 @@ function HomePage() {
     const [charIndex, setCharIndex] = useState(0);
     const [isTypingDone, setIsTypingDone] = useState(false);
     const [displayText, setDisplayText] = useState('');
-    
+
     useEffect(()=>{
-        const text = "From Practice to Perfection – Your Interview Journey Starts Here!";
-        let count = 0; // Speed in milliseconds per character
-        setInterval(() => {
-            if(count >= text.length) return;
-            setDisplayText(prev => prev + text[count]);
+        const text = "From Practice to Perfection - Your Interview Journey Starts Here!";
+        let count = 0;
+        let temp = "";
+        const intervalId = setInterval(() => {
+            if(count >= text.length) {
+                clearInterval(intervalId);
+                return;
+            }
+            temp += text[count];
+            setDisplayText(temp);
             count++;
         }, 100);
+        return () => clearInterval(intervalId);
     },[]);
     //   -----------------------------------------------------------------------
 
@@ -41,11 +45,15 @@ function HomePage() {
 
     const handleGetStartedClick = () => {
         setIsVisible(false); // Hide the jobTitle-div
+        
     };
 
+
+
     const handleBackClick = () => {
+       
         setIsVisible(true); // Show the jobTitle-div
-        setExperienceLevel('');
+        setExperienceLevel('fresher');
         setJobInput('');
     };
 
@@ -96,7 +104,7 @@ function HomePage() {
                    </div> 
                     
                     <button
-                        className={`getStartedButton ${!isVisible ? 'hidden' : ''}`}
+                        className={`getStartedButton ${isVisible ? '' : 'hidden'}`}
                         onClick={handleGetStartedClick}>Get Started</button>
                 </div>
 

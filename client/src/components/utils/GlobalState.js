@@ -7,10 +7,10 @@ export const GlobalProvider = ({ children }) => {
   const [gJobExp, setGJobExp] = useState('');
   const [gQtns, setGQtns] = useState([]);
   const [gAns, setGAns] = useState([]);
-  const [gValidInterview, setGValidInterview] = useState(null);
-  const [gValidReview, setGValidReview] = useState(null);
+  const [gValidInterview, setGValidInterview] = useState(null); // should be null
+  const [gValidReview, setGValidReview] = useState(false);
   const [gSuspiciousCount, setGSuspiciousCount] = useState(0);
-  const [gEmotionData, setGEmotionData] = useState(null);
+  const [gEmotionData, setGEmotionData] = useState("User did not turn on camera, hence no emotion analysis data is available");
 
   const updateGQtnGenerationData = (jobRole, jobExp, questions) => {
     setGJobRole(jobRole);
