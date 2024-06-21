@@ -3,6 +3,8 @@ from fer import FER
 import base64
 import numpy as np
 
+# THIS FILE IS NOT USED ANYMORE, SINCE EMOTION ANALYSIS IS DONE IN THE FRONT-END ITSELF
+
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_alt.xml')
 emotion_detector = FER()
 
