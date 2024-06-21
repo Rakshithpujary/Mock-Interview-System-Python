@@ -3,7 +3,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 /* Parent container must have a height set for children to use percentage heights */
@@ -212,6 +212,9 @@ html, body {
 }
 
 @media (max-width: 768px) {
+    html, body {
+        overflow:visible;
+    }
     .context-div {
         flex-direction: column;
         overflow-y: scroll;
@@ -263,5 +266,8 @@ html, body {
     }
     .jobTitle-div {
         height: 250px;
+    }
+    .radio-div label{
+        font-size: 4vw;
     }
 }
