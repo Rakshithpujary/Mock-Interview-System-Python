@@ -28,9 +28,8 @@ function App() {
         }
         temp += review[count];
         setDisplayText(temp);
-        console.log("checking:",displayText)
         count++;
-    }, 50);
+    }, 40);
     return () => clearInterval(intervalId);
 },[review]);
 
@@ -73,29 +72,39 @@ function App() {
         
   return (
         <div className='main-div'>
-          {
-            review.length <= 0? <>Loading...</> :
-            <div>
+            <div className='MainReview-div'>
               <div className='review-div'>
+              {
+            review.length <= 0? <>
+            <div className='loading-div'>
+                  <img className='robotloading' src={'/assets/robot3.png'} alt="robot Image"/>
+                  <h1>Review Generating.....</h1>
+                </div>
+            </> :<>
                 <div className='robotImage-div'>
                   <img className='robotImage' src={'/assets/robot3.png'} alt="robot Image"/>
                   <h1>FeedBack</h1>
                 </div>
                 <Markdown>{displayText}</Markdown>
+                </>
+              }
               </div>
-              <div className='reviewPageContent-div'>
-                <div className='innerContent1-div'>
+              {/* this is the main div to display thank you message and icon animation */}
+              <div className='thankYouContent-div'>
+                <div className='iconAndThankYou-div'>
+                  {/* this div is will display Thank You header */}
                   <div className='Content1-div'></div>
+                  {/* this div is will display the model animation */}
                   <div className='Content2-div'></div>
                 </div>
-                <div className='innerContent2-div'>
-
+                <div className='ReInterviewAndThankYouMessage-div'>
+                  <div className='thankYouMessage-div'>
+                    <p>Thank you for participating in our mock interview program! Your commitment to growth and learning is truly inspiring. We appreciate your dedication and hope the feedback you received will be invaluable on your journey to success. Remember, every mock interview is a step closer to achieving your dreams. Embrace each opportunity to learn and grow. Stay motivated, believe in yourself, and keep pushing forward. You've got this!</p>                 
+                  </div>
+                  <button className='Re-InterviewButton'>Re-Interview</button>
                 </div>
-
               </div>
             </div>
-            
-          }
         </div>
     );
 }

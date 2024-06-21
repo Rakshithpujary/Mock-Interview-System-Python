@@ -3,18 +3,30 @@
     height: 100%;
     display: flex;
     flex-direction: row;
+}
+.MainReview-div{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
     padding: 10px;
 }
 .review-div{
     display: flex;
     flex-direction: column;
-    width: 40%;
-    height: 100vh;
+    min-width: 40%;
+    max-width: 40%;
+    height: 94vh;
     border-radius: 10px;
     border: 3px solid #EDC215;
     padding: 10px;
     word-wrap: break-word;
     overflow-y: scroll;
+}
+.loading-div{
+    position: relative;
+    left: 70px;
+    top: 100px;
 }
 .robotImage-div{
     display: flex;
@@ -28,15 +40,9 @@
     width: 100px;
     height: 100px;
 }
-.reviewPageContent-div{
-    display: flex;
-    flex-direction: column;
-    width: 60%;
-    height: 100vh;
-    border-radius: 10px;
-    border: 3px solid #EDC215;
-    padding: 10px;
-    word-wrap: break-word;
+.robotloading{
+    width: 300px;
+    height: 300px;
 }
 .innerContent1-div{
     display: flex;
@@ -44,30 +50,55 @@
     width: 100%;
     height: 50vh;
 }
-.Content1-div{
+.thankYouContent-div{
     display: flex;
-    flex-direction: row;
-    width: 50%;
-    height: 50vh;
-    gap: 5px;
+    flex-direction: column;
+    width: 60%;
+    height: 96.5vh;
+    border: 3px solid green;
+    word-wrap: break-word;
 }
-.Content1-div{
+.iconAndThankYou-div{
     display: flex;
     flex-direction: row;
-    width: 50%;
-    height: 50vh;
+    width: 100%;
+    height: 70vh;
     border: 3px solid green;
 }
-.Content2-div{
-    display: flex;
-    flex-direction: row;
-    width: 50%;
-    height: 50vh;
-    border: 3px solid rgb(128, 0, 0);
-}
-.innerContent2-div{
+.ReInterviewAndThankYouMessage-div{
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 50vh;
+    height: 26.5vh;
+    border: 3px solid rgb(249, 0, 112);
+}
+.thankYouMessage-div{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 16vh;
+    padding: 10px;
+    word-wrap: break-word;
+    
+}
+.Re-InterviewButton{
+    background-color: #EDC215;
+    color: black;
+    width: 20%;
+    height: 35px;
+    border: none;
+    border-radius: 10px;
+    position: relative;
+    left: 75%;
+}
+.Re-InterviewButton:hover{
+    transition: 0.5s ease-in-out;
+    box-shadow: 0px 1px 10px #EDC215;
+}
+.Content2-div,.Content1-div{
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    height: 70vh;
+    border: 3px solid rgb(128, 0, 0);
 }
