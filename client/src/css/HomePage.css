@@ -3,6 +3,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    /* overflow: hidden; */
 }
 
 /* Parent container must have a height set for children to use percentage heights */
