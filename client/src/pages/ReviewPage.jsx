@@ -13,8 +13,26 @@ function App() {
 
   const [validUpdated, setValidUpdated] = useState(false);
   const [ review, setReview] = useState('');
+  const [displayText, setDisplayText] = useState('');
 
   const navigate = useNavigate();
+
+  // typing effect--------------
+  useEffect(()=>{
+    let count = 0;
+    let temp = "";
+    const intervalId = setInterval(() => {
+        if(count >= review.length) {
+            clearInterval(intervalId);
+            return;
+        }
+        temp += review[count];
+        setDisplayText(temp);
+        console.log("checking:",displayText)
+        count++;
+    }, 50);
+    return () => clearInterval(intervalId);
+},[review]);
 
   // check if valid entry to review page
   useEffect(()=>{
@@ -56,10 +74,27 @@ function App() {
   return (
         <div className='main-div'>
           {
-            review.length <= 0? <>Loading...</> : 
-            <>
-              <Markdown>{review}</Markdown>
-            </>
+            review.length <= 0? <>Loading...</> :
+            <div>
+              <div className='review-div'>
+                <div className='robotImage-div'>
+                  <img className='robotImage' src={'/assets/robot3.png'} alt="robot Image"/>
+                  <h1>FeedBack</h1>
+                </div>
+                <Markdown>{displayText}</Markdown>
+              </div>
+              <div className='reviewPageContent-div'>
+                <div className='innerContent1-div'>
+                  <div className='Content1-div'></div>
+                  <div className='Content2-div'></div>
+                </div>
+                <div className='innerContent2-div'>
+
+                </div>
+
+              </div>
+            </div>
+            
           }
         </div>
     );
