@@ -1,6 +1,6 @@
 .border_box {
   position: absolute;
-  top: 19.5%;
+  top: 20%;
   left: 49.99%;
   transform: translate(-50%, -50%);
   width: 350px;
@@ -102,6 +102,11 @@
   }
 }
 /* Responsive adjustments */
+@media (max-width: 1115px) {
+  .border_box {
+    top: 19.5%; 
+  }
+}
 @media (max-width: 768px) {
   .border_box {
     top: 19.5%; 

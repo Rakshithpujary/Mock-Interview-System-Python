@@ -16,8 +16,6 @@ function HomePage() {
     const [isLoading, setIsLoading] = useState(false);
     const [experienceLevel, setExperienceLevel] = useState('fresher');
     const navigate = useNavigate();
-    const [charIndex, setCharIndex] = useState(0);
-    const [isTypingDone, setIsTypingDone] = useState(false);
     const [displayText, setDisplayText] = useState('');
 
     useEffect(()=>{
