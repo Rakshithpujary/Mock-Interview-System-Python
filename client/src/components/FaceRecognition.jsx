@@ -176,7 +176,6 @@ const FaceRecognition = () => {
         height="350"
         style={{
           position: 'relative',
-          borderRadius: '5px'
         }}
         onPlay={handleVideoPlay}
       />

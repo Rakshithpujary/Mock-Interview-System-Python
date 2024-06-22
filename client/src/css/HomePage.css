@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Roboto+Slab:wght@100..900&display=swap');
 /* Ensure the body and html elements take up the full height */
 html, body {
     height: 100%;
@@ -23,6 +24,8 @@ html, body {
     justify-content: center;
     align-items: center;
     background: black;
+    border-bottom: 3px solid #EDC215;
+    box-shadow: 0 2px 70px -10px #EDC215;
 }
 
 .header-text {
@@ -31,9 +34,9 @@ html, body {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-fill-color: transparent;
-    font-size: 40px;
+    font-size: 53px;
     text-align: center;
-    font-family: URW Chancery L, cursive;
+    font-family: "Roboto Slab", serif;
 }
 
 .context-div {
@@ -47,6 +50,7 @@ html, body {
     padding-bottom: 20px;
     gap: 20px;
     overflow: hidden; /* Ensure the pseudo-element does not cause overflow */
+    padding: 10px;
 }
 
 .image {
@@ -73,9 +77,15 @@ html, body {
     width: 60%;
     z-index: 1;
     bottom: 50px;
-    word-wrap: break-word;
     position: relative; 
-    font-family: 'Courier New', Courier, monospace;
+}
+.Typing-effect{
+    width: 95%;
+    min-height: 30vh;
+    max-height: auto;
+    word-wrap: break-word;
+    font-family: "Roboto Slab", serif;
+
 }
 
 .img-div {
@@ -89,8 +99,9 @@ html, body {
     background-color: #EDC215;
     color: black;
     font-size: 15px;
-    position: absolute; /* Position it absolutely */
-    bottom: -60px; /* Adjust position as needed */
+    font-family: "Roboto Slab", serif;
+    position: relative; /* Position it absolutely */
+    bottom: -40px; /* Adjust position as needed */
     z-index: 2; /* Ensure this is above relevant elements */
 }
 
@@ -104,6 +115,7 @@ html, body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family: "Roboto Slab", serif;
     gap: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.699);
@@ -127,12 +139,14 @@ html, body {
     font-size: 15px;
     position: relative;
     margin-top: 10px;
+    font-family: "Roboto Slab", serif;
 }
 
 .joblabel {
     font-size: 30px;
     font-weight: bold;
     text-align: center;
+    font-family: "Roboto Slab", serif;
 }
 
 .jobinput {
@@ -144,6 +158,7 @@ html, body {
     border-radius: 5px;
     padding: 0.5%;
     padding-left: 10px !important;
+    font-family: "Roboto Slab", serif;
 }
 
 .jobinput:focus {
@@ -177,6 +192,7 @@ html, body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    font-family: "Roboto Slab", serif;
     gap:10px;
     margin-right: 10px; /* Space between radio and label text */
     cursor: pointer;
