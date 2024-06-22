@@ -2,20 +2,17 @@ import React, { useEffect, useState, useContext } from 'react';
 import '../css/ReviewPage.css';
 import Markdown from 'react-markdown'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { toastErrorStyle } from '../components/utils/toastStyle';
 import { GlobalContext } from '../components/utils/GlobalState';
+import Canvas3D from '../components/utils/Canvas3D';
 
 function App() {
   // access global values and functions
   const { gJobRole, gQtns, gAns, gEmotionData, gValidReview, gSuspiciousCount } = useContext(GlobalContext);
 
-  const [validUpdated, setValidUpdated] = useState(false);
   const [ review, setReview] = useState('');
   const [displayText, setDisplayText] = useState('');
-
-  const navigate = useNavigate();
 
   // typing effect--------------
   useEffect(()=>{
@@ -31,14 +28,14 @@ function App() {
         count++;
     }, 40);
     return () => clearInterval(intervalId);
-},[review]);
+  },[review]);
 
   // check if valid entry to review page
-  useEffect(()=>{
-    if(!gValidReview) {
-        window.location.replace('/'); // Re-direct to home page
-    }
-  },[]);
+  // useEffect(()=>{
+  //   if(!gValidReview) {
+  //       window.location.replace('/'); // Re-direct to home page
+  //   }
+  // },[]);
 
   // call getReview
   useEffect(()=>{
@@ -76,13 +73,15 @@ function App() {
               <div className='review-div'>
               {
             review.length <= 0? <>
-            <div className='loading-div'>
-                  <img className='robotloading' src={'/assets/robot3.png'} alt="robot Image"/>
-                  <h1>Review Generating.....</h1>
-                </div>
+              <div className='loading-div'>
+                <Canvas3D pos={[0,-3,0]} scale={[6.5,6.5,6.5]} modelPath={'/robot1.glb'} classname={'robotloading'} />
+                  {/* <img className='robotloading' src={'/assets/robot3.png'} alt="robot Image"/> */}
+                  <h1>Generating Review...</h1>
+              </div>
             </> :<>
                 <div className='robotImage-div'>
-                  <img className='robotImage' src={'/assets/robot3.png'} alt="robot Image"/>
+                  <Canvas3D pos={[0,-3,0]} scale={[6.5,6.5,6.5]} modelPath={'/robot1.glb'} classname={'robotImage'} />
+                  {/* <img className='robotImage' src={'/assets/robot3.png'} alt="robot Image"/> */}
                   <h1>FeedBack</h1>
                 </div>
                 <Markdown>{displayText}</Markdown>
