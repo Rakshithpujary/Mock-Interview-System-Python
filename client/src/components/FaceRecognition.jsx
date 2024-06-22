@@ -5,12 +5,15 @@ import { toastErrorStyle } from './utils/toastStyle';
 import '../css/FaceRecognition.css';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from './utils/GlobalState';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 const FaceRecognition = () => {
   // access global values and functions
   const { setGSuspiciousCount, setGEmotionData } = useContext(GlobalContext);
 
   const [mediaStream, setMediaStream] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [showBorderAnimation, setShowBorderAnimation] = useState(false);
   const videoRef = useRef(null);
   const navigate = useNavigate();
@@ -23,6 +26,7 @@ const FaceRecognition = () => {
 
   useEffect(() => {
     const loadModels = async () => {
+      setIsLoading(true);
       const MODEL_URL = '/face_models';
       // await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL); // lighter detector model
       await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL); // heavier model
@@ -31,9 +35,8 @@ const FaceRecognition = () => {
       await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
       await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
 
-      setTimeout(()=>{
-        startVideo(); // start after 1.5 sec delay
-      },1500);
+      startVideo();
+      setIsLoading(false);
     };
 
     const startVideo = () => {
@@ -168,17 +171,21 @@ const FaceRecognition = () => {
 
   return (
     <div>
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        width="350"
-        height="350"
-        style={{
-          position: 'relative',
-        }}
-        onPlay={handleVideoPlay}
-      />
+      { isLoading ?
+          <FontAwesomeIcon icon={faSpinner} spin size="5x" />
+        :
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            width="350"
+            height="350"
+            style={{
+              position: 'relative',
+            }}
+            onPlay={handleVideoPlay}
+          />
+      }
       <div className={`border_box ${showBorderAnimation ? 'show' : ''}`}>
           <span className="line line01"></span>
           <span className="line line02"></span>
