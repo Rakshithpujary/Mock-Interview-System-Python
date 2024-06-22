@@ -48,7 +48,6 @@ html, body {
     justify-content: center;
     align-items: center;
     padding-bottom: 20px;
-    gap: 20px;
     overflow: hidden; /* Ensure the pseudo-element does not cause overflow */
     padding: 10px;
 }
@@ -63,12 +62,6 @@ html, body {
     z-index: -1; /* Place it behind the content */
 }
 
-.context-div h1 {
-    color: black;
-    font-size: 35px;
-    width: 70%;
-    padding: 20px;
-}
 .text-div {
     display: flex;
     flex-direction: column;
@@ -76,16 +69,23 @@ html, body {
     align-items: center;
     width: 60%;
     z-index: 1;
-    bottom: 50px;
     position: relative; 
 }
 .Typing-effect{
-    width: 95%;
-    min-height: 30vh;
+
+    width: 80%;
+    min-height: 20vh;
     max-height: auto;
     word-wrap: break-word;
     font-family: "Roboto Slab", serif;
+    color: black;
+    font-size: 35px;
+    padding: 10px;
+    font-weight: bold;
 
+}
+.Typing-effect p{
+    width: 75%;
 }
 
 .img-div {
@@ -231,6 +231,18 @@ html, body {
     html, body {
         overflow:visible;
     }
+    .Typing-effect{
+        width: 100%;
+        font-size: 20px;
+    }
+    .Typing-effect p{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
     .context-div {
         flex-direction: column;
         overflow-y: scroll;
@@ -257,8 +269,12 @@ html, body {
     .getStartedButton,
     .StartInterviewButton {
         width: 50%;
-        height: 30px;
+        height: 40px;
         padding: 10px;
+    
+    }
+    .getStartedButton{
+        bottom: 15px;
     }
 }
 
@@ -266,13 +282,27 @@ html, body {
     .header-text {
         font-size: 8vw;
     }
+    .Typing-effect{
+        width: 100%;
+        font-size: 20px;
+    }
+    .Typing-effect p{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
     .joblabel {
         font-size: 6vw;
     }
     .getStartedButton, .StartInterviewButton {
         width: 70%;
-        height: 30px;
+        height: 40px;
         padding: 10px;
+    }
+    .getStartedButton{
+        bottom: 15px;
     }
     .jobinput {
         width: 80%;

@@ -96,7 +96,7 @@ function HomePage() {
             <div className='context-div'>
                 <div className='text-div'>
                    <div className='Typing-effect'>
-                        <h1>{displayText}</h1>
+                        <p>{displayText}</p>
                    </div> 
                     
                     <button

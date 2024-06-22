@@ -89,7 +89,6 @@
     height: 26.5vh;
     word-wrap: break-word;
     font-family: "Roboto Slab", serif;
-    padding: 10px;
 }
 .Re-InterviewButton{
     background-color: #EDC215;
@@ -117,6 +116,12 @@
 @media (max-width: 768px) {
     .MainReview-div{
         flex-direction: column;
+    }
+    .review-div{
+        max-width: 100%;
+    }
+    .thankYouContent-div{
+        width: 100%;
     }
 }
 
