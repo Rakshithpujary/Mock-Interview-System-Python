@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState, useContext } from 'react';
-import * as faceapi from 'face-api.js';
+// import * as faceapi from 'face-api.js';
+import { detectAllFaces, SsdMobilenetv1Options, nets } from 'face-api.js';
 import { toast } from 'react-toastify';
 import { toastErrorStyle } from './utils/toastStyle';
 import '../css/FaceRecognition.css';
@@ -28,12 +29,12 @@ const FaceRecognition = () => {
     const loadModels = async () => {
       setIsLoading(true);
       const MODEL_URL = '/face_models';
-      // await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL); // lighter detector model
-      await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL); // heavier model
-      // await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL); // heavier landmark model
-      await faceapi.nets.faceLandmark68TinyNet.loadFromUri(MODEL_URL); // Load the lighter landmark model
-      await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
-      await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
+      // await nets.tinyFaceDetector.loadFromUri(MODEL_URL); // lighter detector model
+      await nets.ssdMobilenetv1.loadFromUri(MODEL_URL); // heavier model
+      // await nets.faceLandmark68Net.loadFromUri(MODEL_URL); // heavier landmark model
+      await nets.faceLandmark68TinyNet.loadFromUri(MODEL_URL); // Load the lighter landmark model
+      await nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+      await nets.faceExpressionNet.loadFromUri(MODEL_URL);
 
       startVideo();
       setIsLoading(false);
@@ -79,9 +80,9 @@ const FaceRecognition = () => {
   const handleVideoPlay = () => {
     const video = videoRef.current;
     const id = setInterval(async () => {
-      const detections = await faceapi
-        // .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()) // lighter model
-        .detectAllFaces(video, new faceapi.SsdMobilenetv1Options()) // heavier model
+      const detections = await 
+        // detectAllFaces(video, new TinyFaceDetectorOptions()) // lighter model
+        detectAllFaces(video, new SsdMobilenetv1Options()) // heavier model
         .withFaceLandmarks(true)
         .withFaceExpressions()
 

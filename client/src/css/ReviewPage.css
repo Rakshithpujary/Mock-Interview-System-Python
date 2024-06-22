@@ -55,12 +55,14 @@
     align-items: center;
 }
 .robotImage{
-    width: 100px;
-    height: 100px;
+    width: 100px !important;
+    height: 100px !important;
+    /* background-color: #EDC215; */
 }
 .robotloading{
-    width: 300px;
-    height: 300px;
+    width: 300px !important;
+    height: 500px !important;
+    /* background-color: #EDC215; */
 }
 .innerContent1-div{
     display: flex;
