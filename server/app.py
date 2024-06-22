@@ -12,14 +12,6 @@ CORS(app)
 gemini_api_key = 'AIzaSyDNzleXUCODSzS9X6OnGomEeOtJxn6nMnA'
 genai.configure(api_key=gemini_api_key)
 
-# old code
-# model = genai.GenerativeModel('gemini-pro')
-# chat = model.start_chat(history=[])
-# @app.before_request
-# def before_request():
-#     g.chat = chat
-
-# new code
 model = genai.GenerativeModel(model_name="gemini-1.5-flash")
 @app.before_request
 def before_request():
@@ -42,38 +34,6 @@ def ask_questions():
         print(f"Error occurred while generating question: {e}")
         return jsonify({'errorMsg': "Something went wrong"}), 400
 
-@app.route('/api/analyze-emotions', methods=['POST'])
-def analyze_emotions():
-    try:
-        data = request.get_json()
-        frames = data['frames']
-        response = analyze_fun(frames)
-
-        return jsonify({'response': response})
-    except Exception as e:
-        print(f"Error occurred while generating emotion analysis data: {e}")
-        return jsonify({'errorMsg': "Something went wrong"}), 400
-
-@app.route('/api/get-review-old', methods=['POST'])
-def get_review_old():
-    try:
-        data = request.get_json()
-        job_role = data['job_role']
-        # experience_lvl = data['experience_lvl']
-        qns = data['qns']
-        ans = data['ans']
-        frames = data['frames']
-
-        # get emotion analysis
-        emotion = analyze_fun(frames)
-
-        # get review
-        review = gen_review(job_role,qns,ans,emotion)
-
-        return jsonify({'response': review})
-    except Exception as e:
-        print(f"Error occurred while generating review: {e}")
-        return jsonify({'errorMsg': "Something went wrong"}), 400
 
 @app.route('/api/get-review', methods=['POST'])
 def get_review():
@@ -93,6 +53,44 @@ def get_review():
     except Exception as e:
         print(f"Error occurred while generating review: {e}")
         return jsonify({'errorMsg': "Something went wrong"}), 400
+
+
+# Emotion analysis using backend, not used anymore
+# @app.route('/api/analyze-emotions', methods=['POST'])
+# def analyze_emotions():
+#     try:
+#         data = request.get_json()
+#         frames = data['frames']
+#         response = analyze_fun(frames)
+
+#         return jsonify({'response': response})
+#     except Exception as e:
+#         print(f"Error occurred while generating emotion analysis data: {e}")
+#         return jsonify({'errorMsg': "Something went wrong"}), 400
+
+
+# Not used anymore since emotion analysis done in front end itself
+# @app.route('/api/get-review-old', methods=['POST'])
+# def get_review_old():
+#     try:
+#         data = request.get_json()
+#         job_role = data['job_role']
+#         # experience_lvl = data['experience_lvl']
+#         qns = data['qns']
+#         ans = data['ans']
+#         frames = data['frames']
+
+#         # get emotion analysis
+#         emotion = analyze_fun(frames)
+
+#         # get review
+#         review = gen_review(job_role,qns,ans,emotion)
+
+#         return jsonify({'response': review})
+#     except Exception as e:
+#         print(f"Error occurred while generating review: {e}")
+#         return jsonify({'errorMsg': "Something went wrong"}), 400
+
 
 if __name__ == '__main__':
     app.run(debug=True)

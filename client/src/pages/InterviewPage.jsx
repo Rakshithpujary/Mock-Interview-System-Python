@@ -139,6 +139,7 @@ function InterviewPage() {
     useEffect(()=>{
         return() =>{
             handleStopListen();
+            resetTranscript(); // clear transcript
         }
     },[]);
 
