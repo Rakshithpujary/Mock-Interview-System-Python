@@ -98,9 +98,7 @@ function App() {
                   <div className='Content2-div'></div>
                 </div>
                 <div className='ReInterviewAndThankYouMessage-div'>
-                  <div className='thankYouMessage-div'>
-                    <p>Thank you for participating in our mock interview program! Your commitment to growth and learning is truly inspiring. We appreciate your dedication and hope the feedback you received will be invaluable on your journey to success. Remember, every mock interview is a step closer to achieving your dreams. Embrace each opportunity to learn and grow. Stay motivated, believe in yourself, and keep pushing forward. You've got this!</p>                 
-                  </div>
+                    <p>Thank you for participating in our mock interview program! Your commitment to growth and learning is truly inspiring. We appreciate your dedication and hope the feedback you received will be invaluable on your journey to success. Remember, every mock interview is a step closer to achieving your dreams. Embrace each opportunity to learn and grow. Stay motivated, believe in yourself, and keep pushing forward. You've got this!</p>               
                   <button className='Re-InterviewButton'>Re-Interview</button>
                 </div>
               </div>
