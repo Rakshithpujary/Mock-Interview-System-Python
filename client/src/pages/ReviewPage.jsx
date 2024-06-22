@@ -11,7 +11,7 @@ function App() {
   // access global values and functions
   const { gJobRole, gQtns, gAns, gEmotionData, gValidReview, gSuspiciousCount } = useContext(GlobalContext);
 
-  const [ review, setReview] = useState('');
+  const [ review, setReview] = useState('fgf');
   const [displayText, setDisplayText] = useState('');
 
   // typing effect--------------
@@ -80,7 +80,7 @@ function App() {
               </div>
             </> :<>
                 <div className='robotImage-div'>
-                  <Canvas3D pos={[0,-3,0]} scale={[6.5,6.5,6.5]} modelPath={'/robot1.glb'} classname={'robotImage'} />
+                  <Canvas3D pos={[0,-3,0]} scale={[6.7,6.7,6.7]} modelPath={'/robot1.glb'} classname={'robotImage'} />
                   {/* <img className='robotImage' src={'/assets/robot3.png'} alt="robot Image"/> */}
                   <h1>FeedBack</h1>
                 </div>
