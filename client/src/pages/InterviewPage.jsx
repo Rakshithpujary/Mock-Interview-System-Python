@@ -209,7 +209,9 @@ function InterviewPage() {
     // ======================================================================
 
   return (
+    <div className='Main-interview-div'>
     <div className='interview-div'>
+    
         <div className='videoDisplay-div'>
             <FaceRecognition />
         </div>
@@ -279,7 +281,7 @@ function InterviewPage() {
                 onClick={handleSubmit} disabled={skipDisabled}>{skipDisabled? `Submit in ${skipInTimer}s` : 'Submit'}</button> 
             }
         </div>
-        {/* <AnswerQuestion /> */}
+    </div>
     </div>
   );
 }

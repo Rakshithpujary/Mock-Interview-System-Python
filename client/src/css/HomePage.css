@@ -25,7 +25,7 @@ html, body {
     align-items: center;
     background: black;
     border-bottom: 3px solid #EDC215;
-    box-shadow: 0 2px 70px -10px #EDC215;
+    /* box-shadow: 0 2px 100px -17px #EDC215; */
 }
 
 .header-text {

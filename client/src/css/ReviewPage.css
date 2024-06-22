@@ -24,36 +24,35 @@
     overflow-y: scroll;
     font-family: "Roboto Slab", serif;
     overflow-x: hidden;
-    scrollbar-color: #EDC215 #f1f1f1; /* thumb color, track color */
+    scrollbar-color: #EDC215 white; /* thumb color, track color */
     scrollbar-width: thin; /* "auto" or "thin" */
 
 }
 .review-div::-webkit-scrollbar-thumb {
-    background: #EDC215; /* Color of the thumb */
+    background: none; /* Color of the thumb */
     border-radius: 6px; /* Rounded corners for the thumb */
 }
 
-.review-div::-webkit-scrollbar-thumb:hover {
-    background: #d4a613; /* Darker shade for hover effect */
-}
+
 
 .review-div::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Color of the track */
+    background: white; /* Color of the track */
     border-radius: 6px; /* Rounded corners for the track */
 }
 
 .loading-div{
     position: relative;
-    left: 70px;
-    top: 100px;
+    align-items: center;
 }
 .robotImage-div{
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 .robotImage-div h1{
     position: relative;
     top: 10px;
+    align-items: center;
 }
 .robotImage{
     width: 100px;
