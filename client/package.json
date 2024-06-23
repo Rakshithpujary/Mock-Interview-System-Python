@@ -16,6 +16,7 @@
     "aos": "^2.3.4",
     "assert": "^2.1.0",
     "axios": "^1.7.2",
+    "bootstrap": "^5.3.3",
     "deepspeech": "^0.9.3",
     "face-api.js": "^0.22.2",
     "https-browserify": "^1.0.0",

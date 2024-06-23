@@ -2,8 +2,9 @@
 /* Ensure the body and html elements take up the full height */
 html, body {
     height: 100%;
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
     overflow: hidden;
 }
 
@@ -13,6 +14,12 @@ body {
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
+}
+  
+*::selection
+{
+  background-color: #EDC215;
+  color: #ffffff;
 }
 
 /* Parent container must have a height set for children to use percentage heights */

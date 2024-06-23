@@ -6,28 +6,29 @@ import { toast } from 'react-toastify';
 import { toastErrorStyle } from '../components/utils/toastStyle';
 import { GlobalContext } from '../components/utils/GlobalState';
 import Canvas3D from '../components/utils/Canvas3D';
-import { OrbitControls, useGLTF } from '@react-three/drei';
 
-function App() {
+function ReviewPage() {
   // access global values and functions
   const { gJobRole, gQtns, gAns, gEmotionData, gValidReview, gSuspiciousCount } = useContext(GlobalContext);
 
-  const [ review, setReview] = useState('fgf');
-  const [displayText, setDisplayText] = useState('');
+  const [ review, setReview] = useState('');
+  const [ displayText, setDisplayText] = useState('');
 
   // typing effect--------------
   useEffect(()=>{
     let count = 0;
     let temp = "";
+    let speed = review.length > 1000 ? 20 : 40;
     const intervalId = setInterval(() => {
         if(count >= review.length) {
             clearInterval(intervalId);
             return;
         }
+
         temp += review[count];
         setDisplayText(temp);
         count++;
-    }, 40);
+    }, speed);
     return () => clearInterval(intervalId);
   },[review]);
 
@@ -69,44 +70,59 @@ function App() {
   }
         
   return (
-        <div className='main-div'>
+        <div className='review-main-div'>
             <div className='MainReview-div'>
               <div className='review-div'>
-              {
-            review.length <= 0? <>
-              <div className='loading-div'>
-                <Canvas3D pos={[0,-3,0]} scale={[6.5,6.5,6.5]} modelPath={'/robot1.glb'} classname={'robotloading'} />
-                  {/* <img className='robotloading' src={'/assets/robot3.png'} alt="robot Image"/> */}
-                  <h1>Generating Review...</h1>
-              </div>
-            </> :<>
-                <div className='robotImage-div'>
-                  <Canvas3D pos={[0,-3,0]} scale={[6.7,6.7,6.7]} modelPath={'/robot1.glb'} classname={'robotImage'} />
-                  {/* <img className='robotImage' src={'/assets/robot3.png'} alt="robot Image"/> */}
-                  <h1>FeedBack</h1>
-                </div>
-                <Markdown>{displayText}</Markdown>
-                </>
-              }
+                { 
+                  review.length <= 0 ? 
+                    <div className='loading-div'>
+                      <Canvas3D pos={[0,-3,0]} scale={[6.5,6.5,6.5]} modelPath={'/robot1.glb'} classname={'robotloading'} />
+                      <center><h1>Generating Review...</h1></center>
+                    </div>
+                  :
+                  <div className='review-text-mainDiv'>
+                    <div className='robotImage-div'>
+                      <Canvas3D pos={[0,-3,0]} scale={[6.7,6.7,6.7]} modelPath={'/robot1.glb'} classname={'robotImage'} />
+                      <h1>FeedBack</h1>
+                    </div>
+                    <div className='review-text-wrapper'>
+                      <Markdown className='review-text'>{displayText}</Markdown>
+                    </div>
+                  </div>
+                }
               </div>
               {/* this is the main div to display thank you message and icon animation */}
               <div className='thankYouContent-div'>
                 <div className='iconAndThankYou-div'>
                   <div className='MainModel-div'>
-                    {/* this div is will display Thank You header */}
-                    <div className='Content1-div'></div>
-                    {/* this div is will display the model animation */}
-                    <div className='Content2-div'>
-                    <Canvas3D camera={{ position: [0, 100, 10] }} pos={[0,0,0]} scale={[1.5,1.5,1.5]} modelPath={'/free__rubiks_cube_3d.glb'} classname={'ComputerImage'} />
+                    <div className='MainModel-subDiv'>
+                      {/* this div is will display Thank You header */}
+                      <div className='Content1-div'>
+                        <p className='content1-text'>
+                          Thank You <br/>for choosing our<br/> Mock Interview System
+                        </p>
+                      </div>
+                      {/* this div is will display the model animation */}
+                      <div className='Content2-div'>
+                        <Canvas3D pos={[0,0,0]} scale={[0.015,0.015,0.015]} 
+                          modelPath={'/rubix_cube2.glb'} classname={'threeD_model1'} 
+                          preset={'apartment'} camControls={true}/>
+                      </div>
+                    </div>
+
+                    <div className='message-div'>
+                      Hey there! Thanks for picking our Mock Interview System to help you get interview-ready. 
+                      We're here to give you a real feel of what it's like to sit through interviews, minus the stress. 
+                      Whether you're gearing up for your first job, switching careers, or just want to ace that next big opportunity, we've got you covered. 
+                      Practice with us, get feedback, and walk into your interviews with confidence. Let's make sure you're ready to impress!
                     </div>
                   </div>
-                  <div className='message-div'>
-
-                  </div>
                 </div>
-                <div className='ReInterviewAndThankYouMessage-div'>
-                    <p>Thank you for participating in our mock interview program! Your commitment to growth and learning is truly inspiring. We appreciate your dedication and hope the feedback you received will be invaluable on your journey to success. Remember, every mock interview is a step closer to achieving your dreams. Embrace each opportunity to learn and grow. Stay motivated, believe in yourself, and keep pushing forward. You've got this!</p>               
-                  <button className='Re-InterviewButton'>Re-Interview</button>
+                <div className='ReInterview-div'>
+                  <p className='ReInterview-text'>
+                    Want to Test your skills again?
+                  </p>
+                  <button className='Re-InterviewButton'>Take Interview</button>
                 </div>
               </div>
             </div>
@@ -114,4 +130,4 @@ function App() {
     );
 }
 
-export default App;
+export default ReviewPage;
