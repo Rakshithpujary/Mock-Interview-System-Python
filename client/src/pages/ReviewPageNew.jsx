@@ -7,7 +7,6 @@ import { toastErrorStyle } from '../components/utils/toastStyle';
 import { GlobalContext } from '../components/utils/GlobalState';
 import Canvas3D from '../components/utils/Canvas3D';
 
-
 function ReviewPage() {
   // access global values and functions
   const { gJobRole, gQtns, gAns, gEmotionData, gValidReview, gSuspiciousCount } = useContext(GlobalContext);
