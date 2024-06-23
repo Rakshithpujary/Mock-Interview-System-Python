@@ -34,7 +34,6 @@
 }
 
 
-
 .review-div::-webkit-scrollbar-track {
     background: white; /* Color of the track */
     border-radius: 6px; /* Rounded corners for the track */
@@ -43,10 +42,10 @@
 .loading-div{
     position: relative;
     align-items: center;
+    left:20%;
 }
 .robotImage-div{
     display: flex;
-    flex-direction: row;
     align-items: center;
 }
 .robotImage-div h1{
@@ -79,7 +78,7 @@
 }
 .iconAndThankYou-div{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
     height: 70vh;
 }
@@ -90,6 +89,7 @@
     height: 26.5vh;
     word-wrap: break-word;
     font-family: "Roboto Slab", serif;
+    padding-left: 10px;
 }
 .Re-InterviewButton{
     background-color: #EDC215;
@@ -106,11 +106,23 @@
     transition: 0.5s ease-in-out;
     box-shadow: 0px 1px 10px #EDC215;
 }
+.MainModel-div{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 40vh;
+
+}
+.message-div{
+    width: 100%;
+    height: 30vh;
+    border: 3px solid purple;
+}
 .Content2-div,.Content1-div{
     display: flex;
     flex-direction: row;
     width: 50%;
-    height: 70vh;
+    height: 40vh;
     border: 3px solid rgb(128, 0, 0);
     font-family: "Roboto Slab", serif;
 }

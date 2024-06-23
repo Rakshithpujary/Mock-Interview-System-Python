@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { toastErrorStyle } from '../components/utils/toastStyle';
 import { GlobalContext } from '../components/utils/GlobalState';
 import Canvas3D from '../components/utils/Canvas3D';
+import { OrbitControls, useGLTF } from '@react-three/drei';
 
 function App() {
   // access global values and functions
@@ -91,10 +92,17 @@ function App() {
               {/* this is the main div to display thank you message and icon animation */}
               <div className='thankYouContent-div'>
                 <div className='iconAndThankYou-div'>
-                  {/* this div is will display Thank You header */}
-                  <div className='Content1-div'></div>
-                  {/* this div is will display the model animation */}
-                  <div className='Content2-div'></div>
+                  <div className='MainModel-div'>
+                    {/* this div is will display Thank You header */}
+                    <div className='Content1-div'></div>
+                    {/* this div is will display the model animation */}
+                    <div className='Content2-div'>
+                    <Canvas3D camera={{ position: [0, 100, 10] }} pos={[0,0,0]} scale={[1.5,1.5,1.5]} modelPath={'/free__rubiks_cube_3d.glb'} classname={'ComputerImage'} />
+                    </div>
+                  </div>
+                  <div className='message-div'>
+
+                  </div>
                 </div>
                 <div className='ReInterviewAndThankYouMessage-div'>
                     <p>Thank you for participating in our mock interview program! Your commitment to growth and learning is truly inspiring. We appreciate your dedication and hope the feedback you received will be invaluable on your journey to success. Remember, every mock interview is a step closer to achieving your dreams. Embrace each opportunity to learn and grow. Stay motivated, believe in yourself, and keep pushing forward. You've got this!</p>               
