@@ -79,7 +79,7 @@ function App() {
                   {/* <img className='robotloading' src={'/assets/robot3.png'} alt="robot Image"/> */}
                 <h1>Generating Review...</h1>
               </div>
-            </> :<>
+              </> :<>
                 <div className='robotImage-div'>
                   <Canvas3D pos={[0,-3,0]} scale={[6.7,6.7,6.7]} modelPath={'/robot1.glb'} classname={'robotImage'} />
                   {/* <img className='robotImage' src={'/assets/robot3.png'} alt="robot Image"/> */}
