@@ -22,25 +22,20 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-.videoDisplay-div,
+
 .questionDisplay-div {
   width: 100%;
-  max-width: 600px; /* Limit max width */
+  height: 25%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   padding: 10px;
+  margin-top: 10px;
 }
-
-.videoDisplay-div {
-  height: 35vh;
-}
-
-.questionDisplay-div {
-  height: 30vh;
-  margin-top: 20px;
-  /* font-family: "Roboto Slab", serif; */
+.videoDisplay-div{
+  width: 80%;
+  height: 35%;
 }
 
 .answerDisplay-div {
@@ -48,12 +43,11 @@
   justify-content: center;
   align-items: flex-start; /* Align to the start */
   flex-direction: column;
-  height: 19vh;
+  height: 25%;
   border: 2px solid green;
   border-radius: 10px;
   padding: 10px;
   width: 100%;
-  max-width: 600px; /* Limit max width */
   position: relative;
   overflow-y: scroll; /* Ensure content does not overflow */
   box-sizing: border-box;
@@ -71,7 +65,6 @@
 .questionNumber-div,
 .buttonDisplay-div {
   width: 100%;
-  max-width: 600px; /* Limit max width */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -83,7 +76,7 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  margin-top: 60px;
+  margin-top: 30px;
 }
 
 .question-div p,
@@ -93,7 +86,7 @@
 }
 
 .buttonDisplay-div {
-  height: 10vh;
+  height: 10%;
   padding-top: 5px;
 }
 
@@ -104,7 +97,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-height: 10vh;
+  min-height: 10%;
 }
 
 .answer-transcript {
@@ -165,25 +158,55 @@
 }
 
 .skipButton {
+  border:3px solid #edc215;
+  transition: background-color 0.3s ease-in-out;
+}
+.skipButton:hover{
   background-color: #edc215;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .SubmitButton {
-  background-color: brown;
+  border:3px solid #edc215;
+  transition: background-color 0.3s ease-in-out;
   display: none;
+}
+.SubmitButton:hover{
+  background-color: #edc215;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .Re-recordAnswerButton {
+  border:3px solid green;
+  transition: background-color 0.3s ease-in-out;
+}
+.Re-recordAnswerButton:hover{
   background-color: green;
+  color: white;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .nextButton {
+  border:3px solid rgb(59, 59, 239);
+  transition: background-color 0.3s ease-in-out;
+}
+.nextButton:hover{
   background-color: rgb(59, 59, 239);
+  color: white;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .stopButton {
-  background-color: rgb(231, 3, 3);
+  border:3px solid rgb(231, 3, 3);
+  background-color: white;
+  transition: background-color 0.3s ease-in-out;
 }
+.stopButton:hover{
+  background-color: rgb(231, 3, 3);
+  color: white;
+  transition: background-color 0.3s ease-in-out;
+}
+
 
 
 .iconContainer-div {
@@ -225,6 +248,7 @@
 
 .responsiveBtnTxt {
   font-size: calc(0.65vw + 0.65vh);
+  cursor: pointer;
 }
 
 /* Responsive adjustments */
