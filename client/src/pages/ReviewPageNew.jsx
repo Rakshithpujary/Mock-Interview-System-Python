@@ -127,7 +127,7 @@ function ReviewPage() {
             <p>
               Want to Test your skills again?
             </p>
-            <button onClick={gotoHomePage}>Re-Interview</button>
+            <button onClick={gotoHomePage}>Take Interview</button>
           </div>
         </div>
       </div>

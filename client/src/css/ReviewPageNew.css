@@ -56,6 +56,7 @@
 .review-text-wrapper {
     flex: 1;
     overflow-y: auto;
+    margin-bottom: 10px;
 }
 
 .review-text {
@@ -63,7 +64,7 @@
     word-wrap: break-word;
     padding: 10px 20px 10px 20px;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 450;
     font-size: calc(0.65vw + 0.65vh);
 }
 
@@ -150,8 +151,7 @@
     padding: 20px;
     font-size: calc(0.65vw + 0.65vh);
     word-break: break-word;
-    font-weight: 600;
-
+    font-weight: 450;
 }
 
 .right-content2-main {
@@ -182,9 +182,10 @@
     border: none;
     border-radius: 10px;
     transition: box-shadow 0.3s ease-in-out;
-    font-weight: 600;
+    font-weight: 450;
     font-size: calc(0.65vw + 0.65vh);
     cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .right-content2-main button:hover{
@@ -245,6 +246,7 @@
     }
     .right-content1-sub1-text p{
         font-size: calc(1.4vw + 1.2vh); 
+        margin-left: 10px;
     }
     .right-content1-sub2 {
         height: 100%;
