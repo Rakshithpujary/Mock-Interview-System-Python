@@ -5,6 +5,7 @@ html, body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    font-family: "Roboto Slab", serif;
 }
 
 /* Parent container must have a height set for children to use percentage heights */
@@ -253,6 +254,8 @@ html, body {
         width: 90%;
     }
     .img-div {
+        height:80%;
+        width:100%;
         order: -1;
         margin-bottom: 20px;
     }

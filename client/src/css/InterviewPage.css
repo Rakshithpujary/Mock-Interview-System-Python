@@ -12,18 +12,18 @@ html, body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 5px 5px 5px 5px;
+  padding: 5px;
 }
 
 .interview-div {
-  width: 600px;
   height: 100%;
+  width: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   padding: 5px 10px 5px 10px;
-  border:  3px solid #edc215;
+  border: 3px solid #edc215;
   border-radius: 10px;
   box-sizing: border-box; /* Ensure padding is included in height */
 }
@@ -47,7 +47,7 @@ html, body {
 .questionDisplay-div {
   height: 30vh;
   gap: 10px;
-  font-family: "Roboto Slab", serif;
+  /* font-family: "Roboto Slab", serif; */
 }
 
 .answerDisplay-div {
@@ -62,9 +62,17 @@ html, body {
   width: 100%;
   max-width: 600px; /* Limit max width */
   position: relative;
-  overflow: hidden; /* Ensure content does not overflow */
+  overflow-y: scroll; /* Ensure content does not overflow */
   box-sizing: border-box;
-  font-family: "Roboto Slab", serif; /* Ensure padding is included in height */
+  /* font-family: "Roboto Slab", serif; Ensure padding is included in height */
+}
+.answerDisplay-div::-webkit-scrollbar {
+  width: 8px;
+}
+
+.answerDisplay-div::-webkit-scrollbar-thumb {
+  background: green;
+  border-radius: 5px;
 }
 
 .questionNumber-div,
@@ -96,7 +104,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-height: 15vh;
+  min-height: 10vh;
 }
 
 .answer-transcript {
@@ -111,6 +119,7 @@ html, body {
 .numberIcon {
   color: gray;
   transition: color 0.5s ease-in-out;
+  font-size: 20px;
 }
 
 .numberIcon.skipped {
@@ -153,7 +162,7 @@ html, body {
   position: relative;
   margin-top: 10px; /* Reduce top margin */
   transition: opacity 0.5s ease, transform 0.5s ease;
-  font-family: "Roboto Slab", serif;
+  /* font-family: "Roboto Slab", serif; */
 }
 
 .skipButton {
@@ -188,7 +197,7 @@ html, body {
 
 .icon {
   font-size: 100px;
-  color: #e70909;
+  color: #000000;
   position: relative;
 }
 
@@ -214,44 +223,33 @@ html, body {
 .display {
   display: block;
 }
-/* For screens up to 748px */
-@media (max-width: 748px) {
-  .Main-interview-div,
-  .interview-div,
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .interview-div{
+    width:100%;
+  }
   .videoDisplay-div,
   .questionDisplay-div,
   .answerDisplay-div,
-  .placeholder-div,
   .questionNumber-div,
   .buttonDisplay-div {
-    width: 100%;
-    max-width: 600px; /* Adjust as needed */
-    padding: 5px;
-    justify-content: flex-start;
-  }
-
-  .interview-div {
-    border-width: 2px; /* Adjust border width */
-  }
-
-  .videoDisplay-div {
-    height: 25vh;
-  }
-
-  .questionDisplay-div {
-    height: 20vh;
+    width: 100%; /* Decrease width for smaller screens */
+    max-width: none; /* Remove max width constraint */
   }
 
   .answerDisplay-div {
-    height: 10vh;
+    height: auto;
+    overflow-y:visible; /* Allow height to adjust */
+    padding: 5px; /* Reduce padding */
   }
 
-  .placeholder-div {
-    min-height: 10vh;
-  }
-
-  .line-div {
-    margin: 0 2px; /* Adjust line margin */
+  .buttonDisplay-div {
+    flex-direction: row; /* Keep buttons in a row */
+    align-items: center;
+    height: 10vh; /* Allow height to adjust */
+    padding-top: 10px; /* Increase padding for space */
+    justify-content: space-around; /* Add space around buttons */
   }
 
   .SubmitButton,
@@ -259,23 +257,41 @@ html, body {
   .nextButton,
   .Re-recordAnswerButton,
   .stopButton {
-    width: 30%; /* Adjust button width */
+    width: 20%; /* Adjust button width */
+    height: 45px; /* Increase button height slightly */
+    margin-top: 10px; /* Reduce top margin */
+    font-size: 14px; /* Adjust font size */
+  }
+  .numberIcon{
+    font-size: 30px;
   }
 }
-/* For screens 400px and below */
-@media (max-width: 400px) {
-  .interview-div {
-    width: 100%;
-    max-width: none;
-  }
 
+@media (max-width: 480px) {
+  .interview-div{
+    width:100%;
+  }
   .videoDisplay-div,
   .questionDisplay-div,
   .answerDisplay-div,
-  .placeholder-div,
   .questionNumber-div,
   .buttonDisplay-div {
-    max-width: none;
+    width: 100%; /* Use full width */
+    padding: 5px; /* Reduce padding */
+  }
+
+  .answerDisplay-div {
+    min-height: 10vh;
+    max-height: auto; /* Allow height to adjust */
+    padding: 5px; /* Reduce padding */
+  }
+
+  .buttonDisplay-div {
+    flex-direction: row; /* Keep buttons in a row */
+    flex-wrap: wrap; /* Allow wrapping of buttons */
+    justify-content: space-around; /* Add space around buttons */
+    gap: 5px; /* Add space between buttons */
+    padding: 10px 0; /* Add padding for spacing */
   }
 
   .SubmitButton,
@@ -283,6 +299,13 @@ html, body {
   .nextButton,
   .Re-recordAnswerButton,
   .stopButton {
-    width: 30%; /* Adjust button width */
+    width: 25%; /* Reduce button width */
+    height: 50px; /* Increase button height */
+    font-size: 13px; /* Adjust font size */
   }
+  .numberIcon{
+    font-size: 20px;
+  }
+
 }
+

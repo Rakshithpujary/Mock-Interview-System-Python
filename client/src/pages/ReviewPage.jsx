@@ -73,11 +73,11 @@ function App() {
             <div className='MainReview-div'>
               <div className='review-div'>
               {
-            review.length <= 0? <>
+              review.length <= 0? <>
               <div className='loading-div'>
                 <Canvas3D pos={[0,-3,0]} scale={[6.5,6.5,6.5]} modelPath={'/robot1.glb'} classname={'robotloading'} />
                   {/* <img className='robotloading' src={'/assets/robot3.png'} alt="robot Image"/> */}
-                  <h1>Generating Review...</h1>
+                <h1>Generating Review...</h1>
               </div>
             </> :<>
                 <div className='robotImage-div'>
@@ -101,7 +101,6 @@ function App() {
                     </div>
                   </div>
                   <div className='message-div'>
-
                   </div>
                 </div>
                 <div className='ReInterviewAndThankYouMessage-div'>
