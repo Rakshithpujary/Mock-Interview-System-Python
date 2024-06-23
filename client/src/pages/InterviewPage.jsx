@@ -10,9 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import PageVisibility from "../components/utils/PageVisibility";
 import { useNavigate } from 'react-router-dom';
-import { IoIosTimer } from 'react-icons/io'; // Import from Ionicons
-import { BiTimeFive } from 'react-icons/bi'; // Import from BoxIcons
-import { MdTimer } from 'react-icons/md';
 import { BiStopwatch } from 'react-icons/bi';
 
 function InterviewPage() {
@@ -244,10 +241,11 @@ function InterviewPage() {
         </div>
         
         <div className='answerDisplay-div'>
-            {transcript.length >0 ? <div className='answer-transcript'>{transcript}</div> :<div className='placeholder-div'>answerr...</div>}
+            {transcript.length >0 ? <div className='answer-transcript'>{transcript}</div> :
+            <div className='placeholder-div'>Answer...</div>}
         </div>
         <div className='buttonDisplay-div'>
-            <button className='Re-recordAnswerButton'  onClick={handleStartListen} disabled={toastOn || listening}>
+            <button className='Re-recordAnswerButton responsiveBtnTxt'  onClick={handleStartListen} disabled={toastOn || listening}>
                 { listening ? <>Listening <FontAwesomeIcon icon={faSpinner} spin /></> : 
                 transcript.length !==0 ? 'Re-record' : 'Answer'}
             </button>
@@ -258,26 +256,26 @@ function InterviewPage() {
                     <p className='number'>{timer[0]}:{timer[1]}</p>
                 </div> : null
             }
-            { listening && <button className='stopButton' onClick={handleStopListen}>Stop</button> }
+            { listening && <button className='stopButton responsiveBtnTxt' onClick={handleStopListen}>Stop</button> }
             { !listening? !recordAttempted?
-                <button className={`skipButton ${questionNumber === 5 ? 'hidden1' : ''}`}
+                <button className={`skipButton responsiveBtnTxt ${questionNumber === 5 ? 'hidden1' : ''}`}
                  onClick={handleSkipQuestion} disabled={skipDisabled}>
                     {skipDisabled? `Skip in ${skipInTimer}s` : 'Skip'}
                 </button> :
                 <>
                     {transcript.length > 0?
                         <>
-                            <button className={`skipButton ${questionNumber === 5 ? 'hidden1' : ''}`}
+                            <button className={`skipButton responsiveBtnTxt ${questionNumber === 5 ? 'hidden1' : ''}`}
                             onClick={handleSkipQuestion} disabled={skipDisabled}>
                                 {skipDisabled? `Skip in ${skipInTimer}s` : 'Skip'}
                             </button>
-                            <button className={`nextButton ${questionNumber === 5 ? 'hidden1' : ''}`} onClick={() => handleNextQuestion(questionNumber)}>
+                            <button className={`nextButton responsiveBtnTxt ${questionNumber === 5 ? 'hidden1' : ''}`} onClick={() => handleNextQuestion(questionNumber)}>
                                 Next
                             </button>
                         
                         </>
                         :
-                        <button className={`skipButton ${questionNumber === 5 ? 'hidden1' : ''}`}
+                        <button className={`skipButton responsiveBtnTxt ${questionNumber === 5 ? 'hidden1' : ''}`}
                             onClick={handleSkipQuestion} disabled={skipDisabled}>
                             {skipDisabled? `Skip in ${skipInTimer}s` : 'Skip'}
                         </button>
@@ -286,7 +284,7 @@ function InterviewPage() {
                : null
             }
             { !listening &&
-                <button className={`SubmitButton ${questionNumber === 5 ? 'display' : ''}`}
+                <button className={`SubmitButton responsiveBtnTxt ${questionNumber === 5 ? 'display' : ''}`}
                 onClick={handleSubmit} disabled={skipDisabled}>{skipDisabled? `Submit in ${skipInTimer}s` : 'Submit'}</button> 
             }
         </div>

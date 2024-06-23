@@ -34,11 +34,11 @@ function ReviewPage() {
   },[review]);
 
   // check if valid entry to review page
-  // useEffect(()=>{
-  //   if(!gValidReview) {
-  //       window.location.replace('/'); // Re-direct to home page
-  //   }
-  // },[]);
+  useEffect(()=>{
+    if(!gValidReview) {
+        window.location.replace('/'); // Re-direct to home page
+    }
+  },[]);
 
   // call getReview
   useEffect(()=>{

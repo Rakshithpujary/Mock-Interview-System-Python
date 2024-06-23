@@ -211,6 +211,9 @@
     .right-content1-sub2 p{
         padding-top: 0;
     }
+    .right-content2-main p{
+        font-size: calc(1.5vw + 1.5vh);
+    }
 }
 
 @media (max-width: 768px) {
@@ -220,6 +223,7 @@
     .left-main-div {
         margin-right: 0;
         margin-bottom: 10px;
+        height: 70%;
     }
     .right-main-div,.left-main-div {
         width: 100%;

@@ -15,6 +15,9 @@ body {
   background-position: center center;
   background-attachment: fixed;
 }
+*{
+    font-family: "Roboto Slab", serif;
+}
   
 *::selection
 {
@@ -154,14 +157,12 @@ body {
     font-size: 15px;
     position: relative;
     margin-top: 10px;
-    font-family: "Roboto Slab", serif;
 }
 
 .joblabel {
     font-size: 30px;
     font-weight: bold;
     text-align: center;
-    font-family: "Roboto Slab", serif;
 }
 
 .jobinput {
@@ -173,7 +174,6 @@ body {
     border-radius: 5px;
     padding: 0.5%;
     padding-left: 10px !important;
-    font-family: "Roboto Slab", serif;
 }
 
 .jobinput:focus {
@@ -183,7 +183,7 @@ body {
 .Left-arrow {
     position: absolute;
     padding: 8px 10px 10px 10px;
-    font-size: 30px;
+    font-size: 50px;
     top: 0;
     left: 0;
 }
@@ -268,6 +268,8 @@ body {
         width: 90%;
     }
     .img-div {
+        height:80%;
+        width:100%;
         order: -1;
         margin-bottom: 20px;
     }

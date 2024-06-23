@@ -1,10 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import InterviewPage from './pages/InterviewPage'; // Import the InterviewPage component
+import InterviewPage from './pages/InterviewPage';
 import { GlobalProvider } from './components/utils/GlobalState';
 import Testing from './components/Testing';
-// import ReviewPage from './pages/ReviewPage';
 import ReviewPage from './pages/ReviewPageNew';
 
 function App() {
