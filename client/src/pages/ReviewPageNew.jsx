@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { toastErrorStyle } from '../components/utils/toastStyle';
 import { GlobalContext } from '../components/utils/GlobalState';
 import Canvas3D from '../components/utils/Canvas3D';
-
+import { useNavigate } from 'react-router-dom';
 
 function ReviewPage() {
   // access global values and functions
@@ -14,6 +14,7 @@ function ReviewPage() {
 
   const [ review, setReview] = useState('');
   const [ displayText, setDisplayText] = useState('');
+  const navigate = useNavigate();
 
   // typing effect--------------
   useEffect(()=>{
@@ -69,6 +70,10 @@ function ReviewPage() {
       // navigate('/', {replace : true});
     }
   }
+
+  const gotoHomePage = () =>{
+    navigate('/interview', {replace:true});
+  }
   
   return (
       <div className='review-main-div'>
@@ -122,7 +127,7 @@ function ReviewPage() {
             <p>
               Want to Test your skills again?
             </p>
-            <button>Re-Interview</button>
+            <button onClick={gotoHomePage}>Re-Interview</button>
           </div>
         </div>
       </div>

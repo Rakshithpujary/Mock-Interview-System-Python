@@ -30,7 +30,7 @@
   justify-content: center;
   flex-direction: column;
   padding: 10px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .videoDisplay-div{
   display: flex;
@@ -168,6 +168,7 @@
 .skipButton:hover{
   background-color: #edc215;
   transition: background-color 0.3s ease-in-out;
+  transition: box-shadow 0.3s ease-in-out;
 }
 
 .SubmitButton {
@@ -222,18 +223,18 @@
 }
 
 .icon {
-  font-size: 100px;
+  font-size: 70px;
   color: #000000;
   position: relative;
 }
 
 .number {
   position: absolute;
-  top: 31%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  font-size: 20px;
+  font-size: 13px;
   font-weight: bold;
   padding-top: 5px;
   color: #000;

@@ -5,6 +5,7 @@ import InterviewPage from './pages/InterviewPage';
 import { GlobalProvider } from './components/utils/GlobalState';
 import Testing from './components/Testing';
 import ReviewPage from './pages/ReviewPageNew';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
