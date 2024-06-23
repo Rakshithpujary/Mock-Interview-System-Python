@@ -9,7 +9,7 @@ html, body {
 }
 
 body {
-  background-image: url("../../public/assets/background3.jpg");
+  background-image: url("../../public/assets/background4.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -76,7 +76,7 @@ body {
     padding: 10px;
 }
 
-.image {
+.video-tag {
     position: relative;
     top: 0;
     right: 20px;
@@ -85,6 +85,7 @@ body {
     padding: 10px;
     z-index: -1; /* Place it behind the content */
     border: none;
+    border-radius: 50%;
 }
 
 .text-div {
@@ -97,7 +98,6 @@ body {
     position: relative; 
 }
 .Typing-effect{
-
     width: 80%;
     min-height: 20vh;
     max-height: auto;
@@ -113,8 +113,9 @@ body {
     width: 75%;
 }
 
-.img-div {
+.video-div {
     width: 40%;
+    border: none;
 }
 .getStartedButton {
     width: 25%;
@@ -124,11 +125,12 @@ body {
     background-color: #EDC215;
     color: black;
     font-size: 15px;
-    font-family: "Roboto Slab", serif;
     position: relative; /* Position it absolutely */
     bottom: -40px; /* Adjust position as needed */
     z-index: 2; /* Ensure this is above relevant elements */
     cursor: pointer;
+    transition: box-shadow 0.3s ease-in-out;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .jobTitle-div {
@@ -202,16 +204,16 @@ body {
     top: 0;
     left: 0;
     cursor: pointer;
+    transition:color 0.3s ease-in-out;
 }
 
-.getStartedButton,
-.context-div button:hover,
-.Left-arrow:hover {
-    transition:box-shadow 0.5s ease-in-out;
+.context-div button {
+    transition:box-shadow 0.3s ease-in-out;
 }
 
+.getStartedButton:hover,
 .context-div button:hover {
-    box-shadow: 0px 1px 10px #EDC215;
+    box-shadow: 0px 2px 10px #EDC215;
 }
 
 .Left-arrow:hover {
@@ -301,10 +303,10 @@ body {
         padding-top: 20px;
         padding-bottom: 20px;
     }
-    .text-div, .img-div {
+    .text-div, .video-div {
         width: 90%;
     }
-    .img-div {
+    .video-div {
         height:80%;
         width:100%;
         order: -1;

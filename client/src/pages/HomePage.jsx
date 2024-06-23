@@ -104,9 +104,9 @@ function HomePage() {
                         onClick={handleGetStartedClick}>Get Started</button>
                 </div>
 
-                <div className='img-div'>
+                <div className='video-div'>
                     {/* <img className='image' src={'/assets/homePagePic3.jpg'} alt="Background" /> */}
-                    <video className='image' src={'/assets/homePageVideo1.mp4'} autoPlay muted loop/>
+                    <video className='video-tag' src={'/assets/homePageVideo1.mp4'} autoPlay muted loop/>
                 </div>
 
                 <div className={`jobTitle-div ${isVisible ? 'hidden' : ''}`}>
