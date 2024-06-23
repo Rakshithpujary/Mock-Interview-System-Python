@@ -184,6 +184,7 @@
     transition: box-shadow 0.3s ease-in-out;
     font-weight: 600;
     font-size: calc(0.65vw + 0.65vh);
+    cursor: pointer;
 }
 
 .right-content2-main button:hover{
