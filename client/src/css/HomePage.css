@@ -7,6 +7,14 @@ html, body {
     overflow: hidden;
 }
 
+body {
+  background-image: url("../../public/assets/background3.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+}
+
 /* Parent container must have a height set for children to use percentage heights */
 .Home-div {
     width: 100%;
