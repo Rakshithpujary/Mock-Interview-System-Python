@@ -124,6 +124,20 @@ html, body {
 .numberIcon.next {
   color: green;
 }
+.line-div {
+  flex: 1;
+  height: 2px; /* Adjust line height as needed */
+  background-color: gray; /* Adjust line color as needed */
+  margin: 0 5px; /* Adjust margin between lines as needed */
+}
+
+.Number1-div,
+.Number2-div,
+.Number3-div,
+.Number4-div,
+.Number5-div {
+  position: relative;
+}
 
 .SubmitButton,
 .skipButton,
@@ -200,29 +214,44 @@ html, body {
 .display {
   display: block;
 }
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
+/* For screens up to 748px */
+@media (max-width: 748px) {
+  .Main-interview-div,
+  .interview-div,
   .videoDisplay-div,
   .questionDisplay-div,
   .answerDisplay-div,
+  .placeholder-div,
   .questionNumber-div,
   .buttonDisplay-div {
-    width: 90%; /* Decrease width for smaller screens */
-    max-width: none; /* Remove max width constraint */
+    width: 100%;
+    max-width: 600px; /* Adjust as needed */
+    padding: 5px;
+    justify-content: flex-start;
+  }
+
+  .interview-div {
+    border-width: 2px; /* Adjust border width */
+  }
+
+  .videoDisplay-div {
+    height: 25vh;
+  }
+
+  .questionDisplay-div {
+    height: 20vh;
   }
 
   .answerDisplay-div {
-    height: auto; /* Allow height to adjust */
-    padding: 5px; /* Reduce padding */
+    height: 10vh;
   }
 
-  .buttonDisplay-div {
-    flex-direction: row; /* Keep buttons in a row */
-    align-items: center;
-    height: 10vh; /* Allow height to adjust */
-    padding-top: 10px; /* Increase padding for space */
-    justify-content: space-around; /* Add space around buttons */
+  .placeholder-div {
+    min-height: 10vh;
+  }
+
+  .line-div {
+    margin: 0 2px; /* Adjust line margin */
   }
 
   .SubmitButton,
@@ -230,35 +259,23 @@ html, body {
   .nextButton,
   .Re-recordAnswerButton,
   .stopButton {
-    width: 20%; /* Adjust button width */
-    height: 45px; /* Increase button height slightly */
-    margin-top: 10px; /* Reduce top margin */
-    font-size: 14px; /* Adjust font size */
+    width: 30%; /* Adjust button width */
   }
 }
+/* For screens 400px and below */
+@media (max-width: 400px) {
+  .interview-div {
+    width: 100%;
+    max-width: none;
+  }
 
-@media (max-width: 480px) {
   .videoDisplay-div,
   .questionDisplay-div,
   .answerDisplay-div,
+  .placeholder-div,
   .questionNumber-div,
   .buttonDisplay-div {
-    width: 100%; /* Use full width */
-    padding: 5px; /* Reduce padding */
-  }
-
-  .answerDisplay-div {
-    min-height: 10vh;
-    max-height: auto; /* Allow height to adjust */
-    padding: 5px; /* Reduce padding */
-  }
-
-  .buttonDisplay-div {
-    flex-direction: row; /* Keep buttons in a row */
-    flex-wrap: wrap; /* Allow wrapping of buttons */
-    justify-content: space-around; /* Add space around buttons */
-    gap: 5px; /* Add space between buttons */
-    padding: 10px 0; /* Add padding for spacing */
+    max-width: none;
   }
 
   .SubmitButton,
@@ -266,8 +283,6 @@ html, body {
   .nextButton,
   .Re-recordAnswerButton,
   .stopButton {
-    width: 25%; /* Reduce button width */
-    height: 50px; /* Increase button height */
-    font-size: 13px; /* Adjust font size */
+    width: 30%; /* Adjust button width */
   }
 }

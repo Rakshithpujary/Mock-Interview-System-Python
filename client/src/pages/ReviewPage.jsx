@@ -97,7 +97,7 @@ function App() {
                     <div className='Content1-div'></div>
                     {/* this div is will display the model animation */}
                     <div className='Content2-div'>
-                    <Canvas3D camera={{ position: [0, 100, 10] }} pos={[0,0,0]} scale={[1.5,1.5,1.5]} modelPath={'/box_animation1.glb'} classname={'ComputerImage'} />
+                    <Canvas3D camera={{ position: [0, 100, 10] }} pos={[0,0,0]} scale={[1.5,1.5,1.5]} modelPath={'/free__rubiks_cube_3d.glb'} classname={'ComputerImage'} />
                     </div>
                   </div>
                   <div className='message-div'>
