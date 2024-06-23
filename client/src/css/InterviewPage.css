@@ -164,52 +164,57 @@
 .skipButton {
   border:3px solid #edc215;
   transition: background-color 0.3s ease-in-out;
+  transition: box-shadow 0.3s ease-in-out;
 }
 .skipButton:hover{
   background-color: #edc215;
-  transition: background-color 0.3s ease-in-out;
-  transition: box-shadow 0.3s ease-in-out;
+  box-shadow: 0px 1px 10px #EDC215;
+  
 }
 
 .SubmitButton {
   border:3px solid #edc215;
   transition: background-color 0.3s ease-in-out;
+  transition: box-shadow 0.3s ease-in-out;
   display: none;
 }
 .SubmitButton:hover{
   background-color: #edc215;
-  transition: background-color 0.3s ease-in-out;
+  box-shadow: 0px 1px 10px #EDC215;
 }
 
 .Re-recordAnswerButton {
   border:3px solid green;
   transition: background-color 0.3s ease-in-out;
+  transition: box-shadow 0.3s ease-in-out;
 }
 .Re-recordAnswerButton:hover{
   background-color: green;
   color: white;
-  transition: background-color 0.3s ease-in-out;
+  box-shadow: 0px 1px 10px green;
 }
 
 .nextButton {
   border:3px solid rgb(59, 59, 239);
   transition: background-color 0.3s ease-in-out;
+  transition: box-shadow 0.3s ease-in-out;
 }
 .nextButton:hover{
   background-color: rgb(59, 59, 239);
   color: white;
-  transition: background-color 0.3s ease-in-out;
+  box-shadow: 0px 1px 10px rgb(59, 59, 239);
 }
 
 .stopButton {
   border:3px solid rgb(231, 3, 3);
   background-color: white;
   transition: background-color 0.3s ease-in-out;
+  transition: box-shadow 0.3s ease-in-out;
 }
 .stopButton:hover{
   background-color: rgb(231, 3, 3);
   color: white;
-  transition: background-color 0.3s ease-in-out;
+  box-shadow: 0px 1px 10px rgb(231, 3, 3);
 }
 
 
