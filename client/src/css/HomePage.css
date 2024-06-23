@@ -24,6 +24,12 @@ body {
   background-color: #EDC215;
   color: #ffffff;
 }
+:root {
+    --accent-fresher: green;
+    --accent-intermediate: orange;
+    --accent-experienced: red;
+    --disabled-accent: black;
+}
 
 /* Parent container must have a height set for children to use percentage heights */
 .Home-div {
@@ -78,6 +84,7 @@ body {
     height: 100%;
     padding: 10px;
     z-index: -1; /* Place it behind the content */
+    border: none;
 }
 
 .text-div {
@@ -181,11 +188,17 @@ body {
 .jobinput:focus {
     outline: none;
 }
+.jobinput:disabled {
+    background-color: white;
+    color: #000;
+    cursor: not-allowed;
+    opacity: 1;
+}
 
 .Left-arrow {
     position: absolute;
     padding: 8px 10px 10px 10px;
-    font-size: 35px;
+    font-size: 50px;
     top: 0;
     left: 0;
     cursor: pointer;
@@ -194,7 +207,7 @@ body {
 .getStartedButton,
 .context-div button:hover,
 .Left-arrow:hover {
-    transition: 0.5s ease-in-out;
+    transition:box-shadow 0.5s ease-in-out;
 }
 
 .context-div button:hover {
@@ -215,6 +228,9 @@ body {
     margin-right: 10px; /* Space between radio and label text */
     cursor: pointer;
 }
+.radio-div input{
+    margin-right: 7px;
+}
 .radio-div input[type="radio"][value="fresher"]:checked {
     accent-color: green; /* Green color for 'fresher' */
   }
@@ -229,6 +245,24 @@ body {
     accent-color: red; /* Red color for 'experienced' */
 
   }
+  /* Disabled state */
+.radio-div input[type='radio']:disabled {
+    background-color: white;
+    border: 2px solid #ccc;
+    cursor: not-allowed;
+}
+
+.radio-div input[type='radio']:disabled + label {
+    color: #999;
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+/* Checked and disabled state */
+.radio-div input[type='radio']:checked:disabled {
+    accent-color: black; /* Black color when disabled */
+}
+
  /* Add hidden class transition */
 .hidden {
     opacity: 0;
@@ -238,9 +272,9 @@ body {
 }
 
 /* Responsive styles */
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
     .jobTitle-div {
-        width: 50%;
+        width: 52%;
         height: 280px;
     }
 }

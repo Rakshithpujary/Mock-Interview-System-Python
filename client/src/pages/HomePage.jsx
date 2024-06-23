@@ -105,19 +105,20 @@ function HomePage() {
                 </div>
 
                 <div className='img-div'>
-                    <img className='image' src={'/assets/homePagePic3.jpg'} alt="Background" />
+                    {/* <img className='image' src={'/assets/homePagePic3.jpg'} alt="Background" /> */}
+                    <video className='image' src={'/assets/homePageVideo1.mp4'} autoPlay muted loop/>
                 </div>
 
                 <div className={`jobTitle-div ${isVisible ? 'hidden' : ''}`}>
-                    <FaArrowLeftLong className='Left-arrow' onClick={handleBackClick} />
+                    <FaArrowLeftLong className='Left-arrow' onClick={!isLoading ? handleBackClick : null} />
                     <label className='joblabel'>Enter job role</label>
                     <input className='jobinput' type='text' value={jobInput} onChange={handleInputChange}
-                        maxLength={35} placeholder='Eg: Java Developer' disabled={isLoading} />
+                        maxLength={35} placeholder='Eg: Java Developer' disabled={isLoading}/>
                     {/* Radio buttons for experience level */}
                     <div className='radio-div'>
                         <label>
                             <input type='radio' name='experienceLevel' value='fresher' checked={experienceLevel === 'fresher'}
-                                onChange={handleExperienceChange} disabled={isLoading} />
+                                onChange={handleExperienceChange} disabled={isLoading}/>
                             Fresher
                         </label>
                         <label>

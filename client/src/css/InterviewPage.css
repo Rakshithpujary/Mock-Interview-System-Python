@@ -30,7 +30,7 @@
   justify-content: center;
   flex-direction: column;
   padding: 10px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .videoDisplay-div{
   display: flex;
@@ -85,6 +85,7 @@
 .answer-transcript,
 .placeholder-div {
   font-size: calc(0.65vw + 0.65vh); 
+  font-weight: 420;
 }
 
 .buttonDisplay-div {
@@ -156,6 +157,7 @@
   position: relative;
   margin-top: 10px; /* Reduce top margin */
   transition: opacity 0.5s ease, transform 0.5s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   /* font-family: "Roboto Slab", serif; */
 }
 
@@ -166,6 +168,7 @@
 .skipButton:hover{
   background-color: #edc215;
   transition: background-color 0.3s ease-in-out;
+  transition: box-shadow 0.3s ease-in-out;
 }
 
 .SubmitButton {
@@ -220,18 +223,18 @@
 }
 
 .icon {
-  font-size: 100px;
+  font-size: 70px;
   color: #000000;
   position: relative;
 }
 
 .number {
   position: absolute;
-  top: 31%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  font-size: 20px;
+  font-size: 13px;
   font-weight: bold;
   padding-top: 5px;
   color: #000;
