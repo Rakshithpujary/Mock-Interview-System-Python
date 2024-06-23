@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState, useContext } from 'react';
-// import * as faceapi from 'face-api.js';
 import { detectAllFaces, SsdMobilenetv1Options, nets } from 'face-api.js';
 import { toast } from 'react-toastify';
 import { toastErrorStyle } from './utils/toastStyle';
@@ -171,21 +170,24 @@ const FaceRecognition = () => {
   }
 
   return (
-    <div>
+    <div className='face-recognition-main'>
       { isLoading ?
           <FontAwesomeIcon icon={faSpinner} spin size="5x" />
         :
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            width="350"
-            height="350"
-            style={{
-              position: 'relative',
-            }}
-            onPlay={handleVideoPlay}
-          />
+          <div className='video-container'>
+            <video
+              ref={videoRef}
+              autoPlay
+              muted
+              style={{
+                position: 'relative',
+                objectFit: 'cover',
+                width: '100%',
+                height: '100%',
+              }}
+              onPlay={handleVideoPlay}
+            />
+          </div>
       }
       <div className={`border_box ${showBorderAnimation ? 'show' : ''}`}>
           <span className="line line01"></span>
