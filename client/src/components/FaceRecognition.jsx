@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, useContext } from 'react';
-import { detectAllFaces, SsdMobilenetv1Options, nets } from 'face-api.js';
+import { detectAllFaces, SsdMobilenetv1Options, TinyFaceDetectorOptions, nets } from 'face-api.js';
 import { toast } from 'react-toastify';
 import { toastErrorStyle } from './utils/toastStyle';
 import '../css/FaceRecognition.css';

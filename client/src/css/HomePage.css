@@ -49,7 +49,6 @@ body {
     align-items: center;
     background: black;
     border-bottom: 3px solid #EDC215;
-    /* box-shadow: 0 2px 100px -17px #EDC215; */
 }
 
 .header-text {
@@ -60,7 +59,6 @@ body {
     text-fill-color: transparent;
     font-size: 53px;
     text-align: center;
-    font-family: "Roboto Slab", serif;
 }
 
 .context-div {
@@ -143,14 +141,13 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: "Roboto Slab", serif;
     gap: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.699);
     z-index: 9; /* Ensure this is higher than other absolute elements */
 }
-/* Transition-related styles */
 
+/* Transition-related styles */
 .getStartedButton, .jobTitle-div {
     opacity: 1; /* Ensure visible state starts with full opacity */
     transform: translateY(0); /* Ensure visible state starts with no offset */

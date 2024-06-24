@@ -4,7 +4,6 @@
     display: flex;
     flex-direction: row;
     padding:10px;
-    /* background-color: rgb(255, 145, 0); */
 }
 
 .left-main-div{
@@ -15,7 +14,6 @@
     width: 40%;
     height: 100%;
     margin-right: 10px;
-    /* background-color: rgb(255, 0, 0); */
     background-color: rgba(255,255,255,0.8);
     border-radius: 5px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
@@ -29,7 +27,6 @@
     align-items: center;
     width: 60%;
     height: 100%;
-    /* background-color: rgb(0, 38, 255); */
 }
 
 .loading-div{
@@ -80,7 +77,6 @@
 .robotImage-div{
     display: flex;
     align-items: center;
-    /* justify-content: center; */
 }
 .robotImage-div h1{
     position: relative;
@@ -99,7 +95,6 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    /* background-color: aquamarine; */
     margin-bottom: 10px;
     border-radius: 5px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
@@ -111,7 +106,6 @@
     width: 100%;
     height: 65%;
     margin-bottom: 10px;
-    /* background-color: rgb(30, 141, 39); */
 }
 
 .right-content1-sub1-text {

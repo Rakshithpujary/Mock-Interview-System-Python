@@ -18,7 +18,7 @@ def gen_review(job_role, qns, ans, emotion_analysis, suspiciousCount):
     data += "\nEmotion Analysis:\n" + str(emotion_analysis)
     data += "\nSuspicious Activity detected " + str(suspiciousCount) + " times while giving online mock interview."
 
-    print("\nData = ",data)
+    # print("\nData = ",data)
 
     msg = (
         f"Context = {data} \n"

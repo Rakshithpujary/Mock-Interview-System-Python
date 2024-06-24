@@ -44,8 +44,6 @@ function HomePage() {
         
     };
 
-
-
     const handleBackClick = () => {
        
         setIsVisible(true); // Show the jobTitle-div

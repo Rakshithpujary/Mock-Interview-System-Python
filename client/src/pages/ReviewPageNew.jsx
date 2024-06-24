@@ -65,9 +65,6 @@ function ReviewPage() {
           { ...toastErrorStyle(), autoClose: 2000 }
       );
       console.log("Something went wrong!", error.response ? error.response.data.errorMsg : error.message || error);
-
-      // re-direct to homepage if error occured
-      // navigate('/', {replace : true});
     }
   }
 

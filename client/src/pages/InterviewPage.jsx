@@ -73,7 +73,6 @@ function InterviewPage() {
         setGAns(AnswerArray.current);
 
         navigate('/review', {replace : true});
-        // console.log(AnswerArray.current);
     }
 
     // handle skip question timer

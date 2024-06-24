@@ -10,7 +10,7 @@ export const toastSuccessStyle = () => {
     draggable: true,
     progress: undefined,
     style: {
-      background: '#F5F5F5',
+      background: '#FFFF',
       color: '#000',
       fontWeight: 'bold',
       fontSize: '18px',
@@ -39,7 +39,7 @@ export const toastErrorStyle = () => {
     draggable: true,
     progress: undefined,
     style: {
-      background: '#F5F5F5',
+      background: '#FFFF',
       color: '#000',
       fontWeight: 'bold',
       fontSize: '18px',

@@ -18,10 +18,6 @@ export const GlobalProvider = ({ children }) => {
     setGQtns(questions);
   };
 
-  // useEffect(()=>{
-  //   console.log("EMotion global data = ", gEmotionData);
-  // },[gEmotionData])
-
   return (
     <GlobalContext.Provider value={{ gJobRole, gJobExp, gQtns, gValidInterview,
      updateGQtnGenerationData, setGValidInterview,

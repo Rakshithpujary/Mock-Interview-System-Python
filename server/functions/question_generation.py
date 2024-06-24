@@ -23,8 +23,8 @@ def get_questions(job_title, experience_lvl, call_count):
   try:
     # print("get_questions Instance started = "+ str(call_count))
 
-    print("\nJob Title = ", job_title)
-    print("\nJob experience_lvl = ", experience_lvl)
+    # print("\nJob Title = ", job_title)
+    # print("\nJob experience_lvl = ", experience_lvl)
     # Check if passed job title is an valid job title
     check_valid_msg = (f"Job Title : {job_title}\n\n"
                     "Please check if this is an valid or appropriate job title given for an interview or not,"
@@ -37,7 +37,7 @@ def get_questions(job_title, experience_lvl, call_count):
 
     check_valid_response = g.model.generate_content([check_valid_msg])
     checkValid = check_valid_response.text.lower()
-    print("\nCheck valid = ", checkValid)
+    # print("\nCheck valid = ", checkValid)
 
     keywords = ["invalid", "no", "not", "not valid", "inappropriate"]
     
@@ -69,7 +69,7 @@ def get_questions(job_title, experience_lvl, call_count):
 
     response = g.model.generate_content([msg])
     raw_text=response.text
-    print("Raw Text = \n",raw_text)
+    # print("Raw Text = \n",raw_text)
 
     lines=raw_text.split("\n")
 
