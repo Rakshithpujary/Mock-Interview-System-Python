@@ -8,7 +8,7 @@
 * Emotion analysis.
 * Speech recognition for answering questions.
 * AI ( gemini ) generated review based on interview performance including emotion and cheat analysis.
-* Responsive Design
+* Responsive Design.
 
 ## Preview
 ### Desktop version
