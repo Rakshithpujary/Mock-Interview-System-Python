@@ -4,12 +4,16 @@ from functions.question_generation import generate_questions
 from functions.emotion_analysis import analyze_fun
 from functions.review_generation import gen_review
 from flask_cors import CORS, cross_origin
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
 CORS(app)
 
+load_dotenv()  # Loads the variables from the .env file
+gemini_api_key = os.getenv('GEMINI_API_KEY3')
+
 # Initialize the Generative AI model and chat session globally
-gemini_api_key = 'AIzaSyDNzleXUCODSzS9X6OnGomEeOtJxn6nMnA'
 genai.configure(api_key=gemini_api_key)
 
 model = genai.GenerativeModel(model_name="gemini-1.5-flash")
