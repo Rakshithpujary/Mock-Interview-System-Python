@@ -2,13 +2,9 @@ Flask==2.2.3
 Flask-Cors==3.0.10
 google-generativeai==0.1.0
 python-dotenv==0.20.0
-
-# Additional packages used in your functions (assuming)
-# You should replace these with the actual versions you're using
 nltk==3.7
 textblob==0.17.1
 requests==2.27.1
-
-# For any potential usage
 pandas==1.4.2
 numpy==1.22.3
+setuptools
