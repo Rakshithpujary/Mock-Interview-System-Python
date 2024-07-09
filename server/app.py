@@ -21,9 +21,13 @@ model = genai.GenerativeModel(model_name="gemini-1.5-flash")
 def before_request():
     g.model = model
 
-@app.route('/', methods=['GET'])
-def hello():
-    return "Weclome to Mock-Interview-System/Server"
+@app.route("/")
+def home():
+    return "Weclome to Mock-Interview-System/Server", 200
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return jsonify({"status": 404, "message": "Not Found"}), 404
 
 @app.route('/api/get-questions', methods=['POST'])
 def ask_questions():
