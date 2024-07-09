@@ -21,6 +21,10 @@ model = genai.GenerativeModel(model_name="gemini-1.5-flash")
 def before_request():
     g.model = model
 
+@app.route('/api/', methods=['GET'])
+def hello():
+    return "Weclome to Mock-Interview-System/Server"
+
 @app.route('/api/get-questions', methods=['POST'])
 def ask_questions():
     try:
