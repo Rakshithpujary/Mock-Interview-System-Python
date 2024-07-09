@@ -46,6 +46,7 @@ client/*.pyc
 
 # Python (server)
 server/venv/
+server/.venv/
 server/__pycache__/
 server/functions/__pycache__/
 
