@@ -2,8 +2,8 @@
 
 ## Visit at https://mock-interview-system-python.vercel.app/
 
-### Note: Due to API limitations, this application only functions properly on the latest browsers such as Google Chrome, Microsoft Edge, etc.
-### Recomended: Google Chrome, Desktop Environment.
+### Note : Due to API limitations, this application only functions properly on the latest browsers such as Google Chrome, Microsoft Edge, etc.
+### Recomended : Google Chrome, Desktop Environment.
 
 ## Software Features
 * Front End : React
