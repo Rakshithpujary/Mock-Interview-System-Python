@@ -21,6 +21,7 @@ function ReviewPage() {
   const [ review, setReview] = useState('');
   const [ displayText, setDisplayText] = useState('');
   const navigate = useNavigate();
+  const serverURL = process.env.REACT_APP_SERVER_URL;
 
   // typing effect--------------
   useEffect(()=>{
@@ -57,7 +58,7 @@ function ReviewPage() {
     if(review !== '') return; // extra validation
 
     try {
-      const response = await axios.post('http://localhost:5000/api/get-review', {
+      const response = await axios.post(`${serverURL}/api/get-review`, {
           job_role: gJobRole,
           qns: gQtns,
           ans: gAns,
