@@ -76,7 +76,7 @@ function ReviewPage() {
   }
 
   const gotoHomePage = () =>{
-    navigate('/interview', {replace:true});
+    navigate('/', {replace:true});
   }
   
   return (

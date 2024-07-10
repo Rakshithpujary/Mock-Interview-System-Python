@@ -65,7 +65,6 @@ function InterviewPage() {
         if(transcript.length>0)
         {
             AnswerArray.current[questionNumber-1]=transcript;
-
         }else{
             AnswerArray.current[questionNumber-1]='Skipped';
         }
