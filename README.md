@@ -1,5 +1,8 @@
 ## <img src="https://github.com/MeghanathShetty/Mock-Interview-System-Python/assets/127648939/afd19053-6bfd-4100-b859-55cd25bbd66f" alt="Image Alt Text" style="width:27px;" /> Mock Interview System
 
+## Note:
+#### Due to API limitations, this application only functions properly on the latest browsers such as Google Chrome, Microsoft Edge, etc.
+
 ## Software Features
 * Front End : React
 * Back End : Python - Flask
