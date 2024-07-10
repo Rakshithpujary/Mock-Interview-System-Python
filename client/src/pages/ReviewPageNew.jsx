@@ -7,6 +7,12 @@ import { toastErrorStyle } from '../components/utils/toastStyle';
 import { GlobalContext } from '../components/utils/GlobalState';
 import Canvas3D from '../components/utils/Canvas3D';
 import { useNavigate } from 'react-router-dom';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 
 function ReviewPage() {
   // access global values and functions
@@ -90,7 +96,30 @@ function ReviewPage() {
                 <h1>FeedBack</h1>
               </div>
               <div className='review-text-wrapper'>
-                <Markdown className='review-text'>{displayText}</Markdown>
+                <Markdown
+                  className='review-text'
+                  remarkPlugins={[remarkGfm, remarkMath]}
+                  rehypePlugins={[rehypeKatex]}
+                  components={{
+                    code({ node, inline, className, children, ...props }) {
+                      const match = /language-(\w+)/.exec(className || '');
+                      return !inline && match ? (
+                        <SyntaxHighlighter
+                          style={dark}
+                          language={match[1]}
+                          PreTag="div"
+                          {...props}
+                        >
+                          {String(children).replace(/\n$/, '')}
+                        </SyntaxHighlighter>
+                      ) : (
+                        <code className={className} {...props}>
+                          {children}
+                        </code>
+                      );
+                    },
+                  }}
+                >{displayText}</Markdown>
               </div>
           </div>
           }

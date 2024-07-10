@@ -12,13 +12,6 @@ import PageVisibility from "../components/utils/PageVisibility";
 import { useNavigate } from 'react-router-dom';
 import { BiStopwatch } from 'react-icons/bi';
 import Markdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { InView } from 'react-intersection-observer';
-import remarkGfm from 'remark-gfm';
-import remarkMath from 'remark-math';
-import rehypeKatex from 'rehype-katex';
-import 'katex/dist/katex.min.css';
 
 function InterviewPage() {
     // access global values and functions
@@ -249,29 +242,7 @@ function InterviewPage() {
         
         <div className='answerDisplay-div'>
             {transcript.length >0 ? <div className='answer-transcript'>
-            <Markdown
-            remarkPlugins={[remarkGfm, remarkMath]}
-            rehypePlugins={[rehypeKatex]}
-            components={{
-              code({ node, inline, className, children, ...props }) {
-                const match = /language-(\w+)/.exec(className || '');
-                return !inline && match ? (
-                  <SyntaxHighlighter
-                    style={dark}
-                    language={match[1]}
-                    PreTag="div"
-                    {...props}
-                  >
-                    {String(children).replace(/\n$/, '')}
-                  </SyntaxHighlighter>
-                ) : (
-                  <code className={className} {...props}>
-                    {children}
-                  </code>
-                );
-              },
-            }}
-          >{transcript}</Markdown></div> :
+            <Markdown>{transcript}</Markdown></div> :
             <div className='placeholder-div'>Answer...</div>}
         </div>
         <div className='buttonDisplay-div'>

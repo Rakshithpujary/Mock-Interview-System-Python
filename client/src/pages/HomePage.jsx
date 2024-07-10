@@ -17,6 +17,7 @@ function HomePage() {
     const [experienceLevel, setExperienceLevel] = useState('fresher');
     const navigate = useNavigate();
     const [displayText, setDisplayText] = useState('');
+    const serverURL = process.env.REACT_APP_SERVER_URL;
 
     useEffect(()=>{
         const text = "From Practice to Perfection - Your Interview Journey Starts Here!";
@@ -56,7 +57,7 @@ function HomePage() {
         if (sendingInput.length > 0) {
             try {
                 setIsLoading(true);
-                const response = await axios.post('http://localhost:5000/api/get-questions', {
+                const response = await axios.post(`${serverURL}/api/get-questions`, {
                     job_role: sendingInput,
                     experience_lvl: experienceLevel
                 });
