@@ -54,7 +54,7 @@ function HomePage() {
 
     const handleStartInterviewClick = async () => {
         const sendingInput = jobInput.trim();
-        console.log("Over here = " + serverURL);
+        console.log("Over heren = " + serverURL);
         if (sendingInput.length > 0) {
             try {
                 setIsLoading(true);
