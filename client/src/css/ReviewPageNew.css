@@ -132,6 +132,7 @@
     align-items: center;
     width: 50%;
     height: 100%;
+    cursor: pointer;
 }
 
 .right-content1-sub2 {
