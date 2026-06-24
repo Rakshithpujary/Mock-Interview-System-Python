@@ -16,7 +16,14 @@ import 'katex/dist/katex.min.css';
 
 function ReviewPage() {
   // access global values and functions
-  const { gJobRole, gQtns, gAns, gEmotionData, gValidReview, gSuspiciousCount } = useContext(GlobalContext);
+  const {
+    gJobRole,
+    gQtns,
+    gAns,
+    gEmotionData,
+    gValidReview,
+    gSuspiciousCount,
+  } = useContext(GlobalContext);
 
   const [ review, setReview] = useState('');
   const [ displayText, setDisplayText] = useState('');
@@ -66,7 +73,10 @@ function ReviewPage() {
           suspiciousCount: gSuspiciousCount 
       });
 
-      setReview(response.data.review);
+      const generatedReview = response.data.review;
+      setReview(generatedReview);
+      await saveInterview(generatedReview);
+      
     } catch(error) {
       toast.error(error.response ? error.response.data.errorMsg : error.message || error,
           { ...toastErrorStyle(), autoClose: 2000 }
@@ -74,6 +84,26 @@ function ReviewPage() {
       console.log("Something went wrong!", error.response ? error.response.data.errorMsg : error.message || error);
     }
   }
+
+  const saveInterview = async (reviewText) => {
+    try {
+      const userId = localStorage.getItem("user_id");
+
+      if (!userId) return;
+
+      await axios.post(`${serverURL}/api/save-interview`, {
+        user_id: userId,
+        job_role: gJobRole,
+        questions: gQtns,
+        answers: gAns,
+        review: reviewText,
+        emotion: gEmotionData,
+        suspicious_count: gSuspiciousCount,
+      });
+    } catch (err) {
+      console.log("Save failed", err);
+    }
+  };
 
   const gotoHomePage = () =>{
     navigate('/', {replace:true});

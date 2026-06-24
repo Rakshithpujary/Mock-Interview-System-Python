@@ -11,6 +11,7 @@ export const GlobalProvider = ({ children }) => {
   const [gValidReview, setGValidReview] = useState(false);
   const [gSuspiciousCount, setGSuspiciousCount] = useState(0);
   const [gEmotionData, setGEmotionData] = useState("User did not turn on camera, hence no emotion analysis data is available");
+  const [gUserId, setGUserId] = useState(null);
 
   const updateGQtnGenerationData = (jobRole, jobExp, questions) => {
     setGJobRole(jobRole);
@@ -19,12 +20,27 @@ export const GlobalProvider = ({ children }) => {
   };
 
   return (
-    <GlobalContext.Provider value={{ gJobRole, gJobExp, gQtns, gValidInterview,
-     updateGQtnGenerationData, setGValidInterview,
-     gSuspiciousCount, setGSuspiciousCount,
-     gAns, setGAns,
-     gEmotionData, setGEmotionData,
-     gValidReview, setGValidReview }}
+    <GlobalContext.Provider
+      value={{
+        gJobRole,
+        gJobExp,
+        gQtns,
+        gValidInterview,
+        updateGQtnGenerationData,
+        setGValidInterview,
+        gSuspiciousCount,
+        setGSuspiciousCount,
+        gAns,
+        setGAns,
+        gEmotionData,
+        setGEmotionData,
+        gValidReview,
+        setGValidReview,
+        gUserId,
+        setGUserId,
+        gUserId,
+        setGUserId,
+      }}
     >
       {children}
     </GlobalContext.Provider>
